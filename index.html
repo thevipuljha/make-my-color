@@ -4,13 +4,14 @@
 <head>
     <meta charset="utf-8">
     <title>CSS colors</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="styles/index.css">
+    <script src="scripts/main.js"></script>
 </head>
 
 <body>
     <header>
         <div class="gradient">
-            there goes the gradient.
         </div>
         <div class="gradient-buttons">
             <button>Colour 1</button>
@@ -27,7 +28,26 @@
         </div>
 
         <div class="range-buttons">
-
+            <div class="color-value-div">
+                <input type="range" min="0" max="255" value="255" class="color-slider" id="redValueSlider">
+                <input type="number" class="color-input" id="redValueInput" name="redValue" min="0" max="255">
+                <label for="redValueInput">Red</label>
+            </div>
+            <div class="color-value-div">
+                <input type="range" min="0" max="255" value="255" class="color-slider" id="greenValueSlider">
+                <input type="number" class="color-input" id="greenValueInput" name="greenValue" min="0" max="255">
+                <label for="greenValueInput">Green</label>
+            </div>
+            <div class="color-value-div">
+                <input type="range" min="0" max="255" value="255" class="color-slider" id="blueValueSlider">
+                <input type="number" class="color-input" id="blueValueInput" name="blueValue" min="0" max="255">
+                <label for="blueValueInput">Blue</label>
+            </div>
+            <div class="color-value-div">
+                <input type="range" min="0" max="100" value="100" class="color-slider" id="alphaValueSlider">
+                <input type="number" class="color-input" id="alphaValueInput" name="alphaValue" min="0" max="100">
+                <label for="alphaValueInput">Alpha</label>
+            </div>
         </div>
         <div class="color-codes">
 

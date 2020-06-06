@@ -10,23 +10,28 @@ header {
     display: inline-block;
     width: 100%;
     height: 40vh;
-    /* border-bottom: 1px solid red; */
 }
 
+/* gradient color box */
 .gradient {
     display: inline-block;
     width: 100%;
-    height: 60%;
+    height: 75%;
     background-color: aqua;
 }
 
+/* gradient buttons div*/
 .gradient-buttons {
     margin-top: 5px;
     display: inline-flex;
     width: 100%;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap;
     justify-content: space-between;
 }
 
+/* gradient buttons*/
 .gradient-buttons button {
     height: 40px;
     width: 100px;
@@ -34,4 +39,53 @@ header {
 
 .gradient-buttons button:hover {
     background-color: brown;
+}
+
+.color-window,
+.range-buttons,
+.color-codes {
+    display: block;
+    border: 2px solid black;
+    margin: 10px 0px;
+}
+
+.color-window {
+    height: 20vh;
+    background-color: orchid;
+}
+
+.range-buttons {
+    height: 20vh;
+}
+
+.color-codes {
+    height: 20vh;
+}
+
+.color-slider {
+    display: block;
+}
+
+.color-value-div {
+    display: flex;
+    height: 25%;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap;
+    justify-content: start;
+    padding-left: 0%;
+}
+
+.color-slider {
+    margin-right: 2%;
+    width: 60%;
+}
+
+.color-input {
+    width: 1%;
+}
+
+.color-value-div label {
+    margin-left: 2%;
+    width: 10%;
 }
