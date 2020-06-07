@@ -76,13 +76,47 @@ header {
     display: block;
     margin-right: 4%;
     width: 70%;
+    -webkit-appearance: none;
+    height: 10px;
+    border-radius: 5px;
+    background-color: tomato;
+    opacity: 0.8;
+    outline: none;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.color-slider:hover {
+    opacity: 1;
+}
+
+.color-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: firebrick;
+    cursor: pointer;
+}
+
+.color-slider::-moz-range-thumb {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: firebrick;
+    cursor: pointer;
 }
 
 .color-input {
     width: 10%;
+    border: 2px solid black;
+    border-radius: 5px;
+    text-align: center;
 }
 
 .color-value-div label {
-    margin-left: 3%;
+    margin-left: 2%;
+    margin-right: 5px;
     width: 10%;
 }
