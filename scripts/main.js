@@ -11,24 +11,84 @@ const changeBoxColor = (colorSliders) => {
     elementById("alphaSlider").style.backgroundImage = `linear-gradient(90deg, #FFFFFF00,rgb(${red},${green},${blue})),${transparentImage}`;
     elementById("colorWindow").style.backgroundImage = `linear-gradient(90deg, ${currentColor}, ${currentColor}),${transparentImage}`;
     elementById("gradient").style.backgroundImage = `linear-gradient(90deg, #FF0000, ${currentColor}),${transparentImage}`;
+    return {
+        red, green, blue
+    }
 }
+
+const colorCodeRgb = (red,green,blue) => {
+    elementById("rgb-code").value = `RGB: ${red}, ${green}, ${blue}`;
+};
+
+
+const rgbToCmyk = (red,green,blue) =>{
+   var redC= red/255;
+    var blueC = blue/255;
+    var greenC = green/255;
+    var k = 1-Math.max(redC, blueC, greenC);
+    var c = ((1-redC-k) / (1-k));
+    var m = (1-greenC-k) / (1-k);
+    var y = ((1-blueC-k) / (1-k));
+    return {
+        k,c,m,y
+    }
+}
+
+const colorCodeCmyk = (c,m,y,k) => {
+    elementById("cmyk-code").value = ` CMYK : ${Math.round(c)}, ${Math.round(m)}, ${Math.round(y)}, ${Math.round(k)}`;
+};
+
 
 const addEventListeners = (colorSliders, colorInputs) => {
     for (let index = 0; index < 4; index++) {
         colorSliders[index].addEventListener('input', () => {
             colorInputs[index].value = colorSliders[index].value;
             changeBoxColor(colorSliders);
+            const {
+                red,green,blue
+            } = changeBoxColor(colorSliders);
+             colorCodeRgb(red,green,blue);
+             const {
+                c,m,y,k
+            } = rgbToCmyk(red,green,blue);
+             colorCodeCmyk(c,m,y,k);
         });
+
+
         colorInputs[index].addEventListener('change', () => {
             colorSliders[index].value = colorInputs[index].value;
-            changeBoxColor(colorSliders);
-        });
+            colorInputLimit(colorInputs);
+            const {
+                red,green,blue
+            } = changeBoxColor(colorSliders);
+             colorCodeRgb(red,green,blue);
+             const {
+                c,m,y,k
+            } = rgbToCmyk(red,green,blue);
+             colorCodeCmyk(c,m,y,k);       
+        }); 
     }
 }
+    
+const colorInputLimit = (colorInputs) => {
+        for (let index = 0; index < 3; index++) {
+            if(colorInputs[index].value > 255){
+                colorInputs[index].value = 255;
+            }
+        }
+        for (let index = 3; index<=3; index++) {
+            if(colorInputs[index].value > 100){
+                colorInputs[index].value = 100;
+            }
+        }
+    }
+
 
 const initiate = () => {
     const colorSliders = elementsByclass("color-slider");
     const colorInputs = elementsByclass("color-input");
     addEventListeners(colorSliders, colorInputs);
+    return colorInputs;
 };
+
 window.onload = initiate;
