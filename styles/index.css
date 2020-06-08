@@ -8,9 +8,6 @@ body {
 header {
     display: inline-block;
     width: 100%;
-    /* position: fixed;
-    background-color: lightcyan;
-    z-index: 1; */
 }
 
 .title-header {
@@ -49,8 +46,8 @@ header {
     height: 140px;
     background-image:
         linear-gradient(90deg, rgba(255, 0, 0), rgba(255, 0, 254)),
-        url(/images/transaprent-image.png);
-    background-size: 100%;
+        url(../images/transparentImage.png);
+    background-size: unset;
 }
 
 /* header end */
@@ -59,7 +56,6 @@ main {
     display: inline-block;
     width: 90%;
     margin-left: 5%;
-    /* margin-top: 200px; */
 }
 
 
@@ -98,7 +94,7 @@ main {
     height: 120px;
     background-image:
         linear-gradient(90deg, rgba(255, 0, 254, 1), rgba(255, 0, 254, 1)),
-        url(/images/transaprent-image.png);
+        url(../images/transparentImage.png);
     border: none;
     border-radius: 10px;
     border: 2px solid black;
@@ -155,8 +151,8 @@ main {
     opacity: 1;
     background-image:
         linear-gradient(90deg, #FFFFFF00, white),
-        url(/images/transaprent-image.png);
-    background-size: cover;
+        url(../images/transparentImage.png);
+    background-size: contain;
 }
 
 .color-slider::-webkit-slider-thumb {

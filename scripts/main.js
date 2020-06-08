@@ -1,6 +1,6 @@
 const elementById = (id) => document.getElementById(id);
 const elementsByclass = (className) => document.getElementsByClassName(className);
-const transaprentImage = "url(/images/transaprent-image.png)";
+const transparentImage = "url(../images/transparentImage.png)";
 
 const changeBoxColor = (colorSliders) => {
     const red = colorSliders[0].value;
@@ -8,9 +8,9 @@ const changeBoxColor = (colorSliders) => {
     const blue = colorSliders[2].value;
     const alpha = colorSliders[3].value;
     const currentColor = `rgba(${red},${green},${blue},${alpha/100})`;
-    elementById("alphaSlider").style.backgroundImage = `linear-gradient(90deg, #FFFFFF00,rgb(${red},${green},${blue})),${transaprentImage}`;
-    elementById("colorWindow").style.backgroundImage = `linear-gradient(90deg, ${currentColor}, ${currentColor}),${transaprentImage}`;
-    elementById("gradient").style.backgroundImage = `linear-gradient(90deg, #FF0000, ${currentColor}),${transaprentImage}`;
+    elementById("alphaSlider").style.backgroundImage = `linear-gradient(90deg, #FFFFFF00,rgb(${red},${green},${blue})),${transparentImage}`;
+    elementById("colorWindow").style.backgroundImage = `linear-gradient(90deg, ${currentColor}, ${currentColor}),${transparentImage}`;
+    elementById("gradient").style.backgroundImage = `linear-gradient(90deg, #FF0000, ${currentColor}),${transparentImage}`;
 }
 
 const addEventListeners = (colorSliders, colorInputs) => {
