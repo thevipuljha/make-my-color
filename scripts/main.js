@@ -1,6 +1,6 @@
 const elementById = (id) => document.getElementById(id);
 const elementsByclass = (className) => document.getElementsByClassName(className);
-const transparentImage = "url(../images/transparentImage.png)";
+const transparentImage = "url(https://vipul1142.github.io/make-my-color/images/transparentImage.png)";
 
 const changeBoxColor = (colorSliders) => {
     const red = colorSliders[0].value;
