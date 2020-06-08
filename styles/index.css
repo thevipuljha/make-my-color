@@ -1,6 +1,5 @@
 body {
-    width: 90%;
-    padding-top: 2%;
+    width: 100%;
     height: 100%;
     margin: 0 auto;
     overflow: hidden auto;
@@ -9,114 +8,197 @@ body {
 header {
     display: inline-block;
     width: 100%;
-    height: 40vh;
+    /* position: fixed;
+    background-color: lightcyan;
+    z-index: 1; */
+}
+
+.title-header {
+    display: flex;
+    width: 100%;
+    height: 56px;
+    align-items: center;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+.page-logo {
+    width: 48px;
+    height: 48px;
+    margin: 10px;
+    border-radius: 50%;
+    background-color: brown;
+}
+
+.title-header span {
+    font-size: large;
+}
+
+.page-nav {
+    width: 36px;
+    height: 36px;
+    margin: 10px;
+    border-radius: 30%;
+    background-color: brown;
 }
 
 /* gradient color box */
 .gradient {
     display: inline-block;
     width: 100%;
-    height: 75%;
-    background-color: cyan;
+    height: 140px;
+    background-image:
+        linear-gradient(90deg, rgba(255, 0, 0), rgba(255, 0, 254)),
+        url(/images/transaprent-image.png);
+    background-size: 100%;
 }
+
+/* header end */
+
+main {
+    display: inline-block;
+    width: 90%;
+    margin-left: 5%;
+    /* margin-top: 200px; */
+}
+
 
 /* gradient buttons div*/
 .gradient-buttons {
     margin-top: 5px;
-    display: inline-flex;
+    display: flex;
     width: 100%;
-    flex-direction: row;
+    height: 56px;
+    flex-flow: row nowrap;
     align-items: center;
-    flex-wrap: nowrap;
     justify-content: space-between;
 }
 
 /* gradient buttons*/
 .gradient-buttons button {
-    height: 40px;
-    width: 100px;
+    height: 48px;
+    width: 48px;
+    border-radius: 25%;
+    border: 2px solid black;
+    outline: none;
 }
 
 .gradient-buttons button:hover {
-    background-color: brown;
+    background-color: lightseagreen;
 }
 
 .color-window,
 .range-buttons,
 .color-codes {
     display: block;
-    border: 2px solid black;
     margin: 10px 0px;
 }
 
 .color-window {
-    height: 20vh;
-    background-color: orchid;
+    height: 120px;
+    background-image:
+        linear-gradient(90deg, rgba(255, 0, 254, 1), rgba(255, 0, 254, 1)),
+        url(/images/transaprent-image.png);
+    border: none;
+    border-radius: 10px;
+    border: 2px solid black;
+    background-size: contain;
 }
 
 .range-buttons {
-    height: 20vh;
+    height: 160px;
 }
 
 .color-codes {
     height: 20vh;
+    border: 2px solid black;
 }
 
 .color-value-div {
     display: flex;
-    height: 25%;
+    height: 24%;
     flex-direction: row;
     align-items: center;
     flex-wrap: nowrap;
-    justify-content: start;
-    padding-left: 0%;
+    justify-content: space-around;
 }
 
 .color-slider {
-    display: block;
-    margin-right: 4%;
     width: 70%;
     -webkit-appearance: none;
-    height: 10px;
-    border-radius: 5px;
-    background-color: tomato;
+    height: 20px;
+    border-radius: 20px;
     opacity: 0.8;
     outline: none;
     -webkit-transition: .2s;
     transition: opacity .2s;
+    border: 2px solid black;
 }
 
 .color-slider:hover {
     opacity: 1;
 }
 
+#redSlider {
+    background: linear-gradient(90deg, black, #FF0000);
+}
+
+#greenSlider {
+    background: linear-gradient(90deg, black, #00FF00);
+}
+
+#blueSlider {
+    background: linear-gradient(90deg, black, #0000FF);
+}
+
+#alphaSlider {
+    opacity: 1;
+    background-image:
+        linear-gradient(90deg, #FFFFFF00, white),
+        url(/images/transaprent-image.png);
+    background-size: cover;
+}
+
 .color-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 15px;
-    height: 15px;
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
-    background-color: firebrick;
-    cursor: pointer;
+    background-color: whitesmoke;
+    cursor: move;
 }
 
 .color-slider::-moz-range-thumb {
-    width: 15px;
-    height: 15px;
+    appearance: none;
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
-    background-color: firebrick;
-    cursor: pointer;
+    background-color: whitesmoke;
+    cursor: move;
+}
+
+#alphaSlider::-webkit-slider-thumb {
+    background-color: black;
+}
+
+#alphaSlider::-moz-range-thumb {
+    background-color: black;
+}
+
+input[type='range']::-moz-focus-outer {
+    border: 0;
 }
 
 .color-input {
-    width: 10%;
+    width: 40px;
+    height: 25px;
     border: 2px solid black;
-    border-radius: 5px;
+    border-radius: 10px;
     text-align: center;
+    outline: none;
 }
 
 .color-value-div label {
-    margin-left: 2%;
     margin-right: 5px;
-    width: 10%;
 }
