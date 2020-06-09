@@ -16,8 +16,9 @@ const changeBoxColor = (colorSliders) => {
     }
 }
 
+// color code conversions
 const colorCodeRgb = (red,green,blue) => {
-    elementById("rgb-code").value = `RGB: ${red}, ${green}, ${blue}`;
+    elementById("rgb-code").value = `RGB: (${red}, ${green}, ${blue})`;
 };
 
 
@@ -35,9 +36,26 @@ const rgbToCmyk = (red,green,blue) =>{
 }
 
 const colorCodeCmyk = (c,m,y,k) => {
-    elementById("cmyk-code").value = ` CMYK : ${Math.round(c)}, ${Math.round(m)}, ${Math.round(y)}, ${Math.round(k)}`;
+    elementById("cmyk-code").value = ` CMYK: (${Math.round(c)}, ${Math.round(m)}, ${Math.round(y)}, ${Math.round(k)})`;
 };
 
+
+var rgbToHex = function (rgb) { 
+    var hex = Number(rgb).toString(16);
+    if (hex.length < 2) {
+    hex = "0" + hex;
+   }
+     return hex;
+   };
+
+   var fullColorHex = function(red,green,blue) {   
+         var red = rgbToHex(red);
+         var green = rgbToHex(green);
+         var blue = rgbToHex(blue);
+         elementById("hex-code").value = `HEX: (#${red}${green}${blue})`;
+      };
+  
+// color code conversions end
 
 const addEventListeners = (colorSliders, colorInputs) => {
     for (let index = 0; index < 4; index++) {
@@ -52,6 +70,7 @@ const addEventListeners = (colorSliders, colorInputs) => {
                 c,m,y,k
             } = rgbToCmyk(red,green,blue);
              colorCodeCmyk(c,m,y,k);
+             fullColorHex(red,green,blue);
         });
 
 
