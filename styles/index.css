@@ -10,6 +10,11 @@ header {
     width: 100%;
 }
 
+button {
+    user-select: none;
+    border-radius: 10px;
+}
+
 .title-header {
     display: flex;
     width: 100%;
@@ -43,7 +48,7 @@ header {
 .gradient {
     display: inline-block;
     width: 100%;
-    height: 140px;
+    height: 200px;
     background-image:
         linear-gradient(90deg, rgba(255, 0, 0), rgba(255, 0, 254));
     background-size: unset;
@@ -73,9 +78,7 @@ main {
 .gradient-buttons button {
     height: 48px;
     width: 48px;
-    border-radius: 25%;
     border: 2px solid black;
-    outline: none;
 }
 
 .gradient-buttons button:hover {
@@ -86,7 +89,7 @@ main {
 .color-window {
     height: 120px;
     background-image:
-    linear-gradient(90deg, rgba(255, 0, 254, 1), rgba(255, 0, 254, 1));
+        linear-gradient(90deg, rgba(255, 0, 254, 1), rgba(255, 0, 254, 1));
     border: none;
     border-radius: 10px;
     border: 2px solid black;
@@ -95,45 +98,48 @@ main {
 
 /* color-code Box */
 .colorCode-box {
-        display: inline-flex;
-        margin: 100px 33px;
-        justify-content: space-evenly;
-        align-items: center;
- }
-    
+    display: inline-flex;
+    margin: 100px 33px;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
 
 .color-window,
 .range-buttons,
-.color-codes {
+.gradient-settings,
+.extra-div {
+    width: 100%;
     display: block;
     margin: 10px 0px;
+    border-radius: 10px;
+    border: 2px solid black;
 }
 
-.rgb , .cmyk , .hex{
+.rgb,
+.cmyk,
+.hex {
     font-size: medium;
     border: 2px solid black;
     width: 200px;
     text-align: center;
 }
 
-
-
-
-
-
-
-
+.color-window {
+    height: 140px;
+    background-image:
+        linear-gradient(90deg, rgba(255, 0, 254, 1), rgba(255, 0, 254, 1));
+    background-size: contain;
+}
 
 .range-buttons {
     height: 160px;
+    border: none;
 }
 
-.color-codes {
-    height: 20vh;
-    border: 2px solid black;
-}
-
-.color-value-div {
+.color-value-div,
+.linear-settings div {
+    width: 100%;
     display: flex;
     height: 24%;
     flex-direction: row;
@@ -142,16 +148,13 @@ main {
     justify-content: space-around;
 }
 
-.color-slider {
+input[type='range'] {
     width: 70%;
     -webkit-appearance: none;
     height: 20px;
     border-radius: 20px;
-    opacity: 0.8;
-    outline: none;
-    -webkit-transition: .2s;
-    transition: opacity .2s;
-    border: 2px solid black;
+    opacity: 0.9;
+    border: 2px solid #000000;
 }
 
 .color-slider:hover {
@@ -178,7 +181,7 @@ main {
     background-size: contain;
 }
 
-.color-slider::-webkit-slider-thumb {
+input[type='range']::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
     width: 18px;
@@ -188,7 +191,7 @@ main {
     cursor: move;
 }
 
-.color-slider::-moz-range-thumb {
+input[type='range']::-moz-range-thumb {
     appearance: none;
     width: 18px;
     height: 18px;
@@ -197,30 +200,143 @@ main {
     cursor: move;
 }
 
-#alphaSlider::-webkit-slider-thumb {
-    background-color: black;
-}
-
-#alphaSlider::-moz-range-thumb {
-    background-color: black;
-}
-
 input[type='range']::-moz-focus-outer {
     border: 0;
 }
 
-.color-input {
+input[type='range'].notWhiteThumb::-webkit-slider-thumb {
+    background-color: black;
+}
+
+input[type='range'].notWhiteThumb::-moz-range-thumbs {
+    background-color: black;
+}
+
+input[type='number'] {
     width: 40px;
     height: 25px;
     border: 2px solid black;
     border-radius: 10px;
     text-align: center;
-    outline: none;
+    font-size: small;
 }
 
 .color-value-div label {
     margin-right: 5px;
 }
 
+.gradient-settings {
+    height: 120px;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    border: none;
+}
 
- 
+.gradient-type-buttons,
+.linear-settings,
+.radial-shape-buttons {
+    width: 15%;
+    height: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.gradient-type-buttons button,
+.radial-shape-buttons button {
+    height: 40px;
+    width: 90%;
+    border: 2px ridge black;
+    font-weight: bold;
+    font-size: medium;
+}
+
+.linear-settings,
+.radial-settings {
+    height: 100%;
+    width: 85%;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+.linear-settings div {
+    height: 45%;
+    border-radius: 10px;
+}
+
+.linear-value-div div {
+    width: 20%;
+    display: flex;
+    justify-content: center;
+}
+
+.linear-value-div label {
+    font-size: xx-large;
+}
+
+.linear-direction-div button,
+.radial-direction-div button {
+    height: 35px;
+    width: 35px;
+    font-size: 20px;
+    font-weight: bolder;
+    border: 2px solid darkmagenta;
+}
+
+.rotate-text span {
+    display: inline-block;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+}
+
+.radial-settings {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-flow: row nowrap;
+}
+
+.radial-shape-buttons {
+    width: 30%;
+}
+
+.radial-direction-div {
+    display: flex;
+    flex-flow: row wrap;
+    width: 50%;
+    justify-content: space-evenly;
+    align-content: space-between;
+}
+
+.radial-direction-div button {
+    margin-top: 1px;
+    width: 50px;
+    height: 38px;
+}
+
+.radial-settings {
+    display: none;
+}
+
+.linear-settings {
+    /* display: none; */
+}
+
+#linearButton {
+    background-color: steelblue;
+}
+
+.extra-div {
+    height: 20vh;
+    background: linear-gradient(0deg, red, green);
+}
+
+input,
+button {
+    outline: none;
+}

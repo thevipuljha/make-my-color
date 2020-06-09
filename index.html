@@ -32,26 +32,26 @@
         <div class="color-window" id="colorWindow">
             <div class="colorCode-box">
                 <input type="text" class="rgb" id="rgb-code">
-               </div>
+            </div>
 
-               <div class="colorCode-box">
+            <div class="colorCode-box">
                 <input type="text" class="cmyk" id="cmyk-code">
-               </div>
+            </div>
 
-               <div class="colorCode-box">
+            <div class="colorCode-box">
                 <input type="text" class="hex" id="hex-code">
-               </div>
+            </div>
 
-               <div class="colorCode-box">
-                <input type="text" class="" id="">
-               </div>
-                 </div>
+            <div class="colorCode-box">
+                <input type="text" class="">
+            </div>
+        </div>
 
         <div class="range-buttons">
             <div class="color-value-div">
                 <input type="range" min="0" max="255" value="255" class="color-slider" id="redSlider">
                 <input type="number" min="0" max="255" value="255" class="color-input" id="redInput">
-                <label for="RedInput">R</label>
+                <label for="redInput">R</label>
 
             </div>
             <div class="color-value-div">
@@ -65,18 +65,61 @@
                 <label for="blueInput">B</label>
             </div>
             <div class="color-value-div">
-                <input type="range" min="0" max="100" value="100" class="color-slider" id="alphaSlider">
+                <input type="range" min="0" max="100" value="100" class="color-slider notWhiteThumb" id="alphaSlider">
                 <input type="number" min="0" max="100" value="100" class="color-input" id="alphaInput">
                 <label for="alphaInput">A</label>
             </div>
         </div>
-        <div class="color-codes">
+        <div class="gradient-settings">
+            <div class="gradient-type-buttons">
+                <button onclick="gradientTypeSwitch(this,radialButton,linearDiv,radialDiv)"
+                    id="linearButton">linear</button>
+                <button onclick="gradientTypeSwitch(this,linearButton,radialDiv,linearDiv)"
+                    id="radialButton">radial</button>
+            </div>
+            <div class="linear-settings" id="linearDiv">
+                <div class="linear-value-div">
+                    <input type="range" oninput="changeLinearInput(this,linearInput)" min="1" max="360" value="90"
+                        class="linear-slider notWhiteThumb" id="linearSlider">
+                    <div>
+                        <input type="number" onchange="changeLinearSlider(this,linearSlider)" min="1" max="360"
+                            value="90" class="linear-input" id="linearInput">
+                        <label for="linearInput">&deg;</label>
+                    </div>
+                </div>
+                <div class="linear-direction-div">
+                    <button class="rotate-text"><span>&nearrow;</span></button>
+                    <button><span>&nearrow;</span></button>
+                    <button class="rotate-text"><span>&searrow;</span></button>
+                    <button><span>&searrow;</span></button>
+                    <button class="rotate-text"><span>&swarrow;</span></button>
+                    <button><span>&swarrow;</span></button>
+                    <button class="rotate-text"><span>&nwarrow;</span></button>
+                    <button><span>&nwarrow;</span></button>
+                </div>
+            </div>
+            <div class="radial-settings" id="radialDiv">
+                <div class="radial-shape-buttons">
+                    <button>circle</button>
+                    <button>ellipse</button>
+                </div>
+                <div class="radial-direction-div">
+                    <button><span>&nwarrow;</span></button>
+                    <button class="rotate-text"><span>&nearrow;</span></button>
+                    <button><span>&nearrow;</span></button>
+                    <button class="rotate-text"><span>&nwarrow;</span></button>
+                    <button><span>&ofcir;</span></button>
+                    <button class="rotate-text"><span>&searrow;</span></button>
+                    <button><span>&swarrow;</span></button>
+                    <button class="rotate-text"><span>&swarrow;</span></button>
+                    <button><span>&searrow;</span></button>
+                </div>
+            </div>
+        </div>
+        <div class="extra-div">
 
         </div>
-        <div class="color-codes">
-
-        </div>
-        <div class="color-codes">
+        <div class="extra-div">
 
         </div>
     </main>
