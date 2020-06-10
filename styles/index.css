@@ -118,7 +118,7 @@ main {
 
 .rgb,
 .cmyk,
-.hex {
+.hex , .hsl {
     font-size: medium;
     border: 2px solid black;
     width: 200px;
@@ -324,7 +324,7 @@ input[type='number'] {
 }
 
 .linear-settings {
-    /* display: none; */
+     /* display: none;  */
 }
 
 #linearButton {

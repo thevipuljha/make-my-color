@@ -69,6 +69,37 @@ var fullColorHex = function (red, green, blue) {
     elementById("hex-code").value = `HEX: (#${red}${green}${blue})`;
 };
 
+
+function rgbtohsl(red, green, blue) {
+    red /= 255, green /= 255, blue /= 255;
+  
+    var max = Math.max(red, green, blue), min = Math.min(red, green, blue);
+    var h, s, l = (max + min) / 2;
+  
+    if (max == min) {
+      h = s = 0; 
+    } else {
+      var d = max - min;
+      s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+  
+      switch (max) {
+        case red: h = (green - blue) / d + (green < blue ? 6 : 0); break;
+        case green : h = (blue - red) / d + 2; break;
+        case blue: h = (red - green) / d + 4; break;
+      }
+  
+    }
+h = Math.round(h * 60); 
+s = Math.round(s * 100); 
+l = Math.round(l * 100);
+    
+    return { h, s, l };
+  }
+
+const colorCodeHsl = (h,s,l) => {
+    elementById("hsl-code").value = ` HSL: (${Math.round(h)}, ${Math.round(s)}, ${Math.round(l)})`;
+
+};
 // color code conversions end
 
 const addEventListeners = (colorSliders, colorInputs) => {
@@ -90,6 +121,9 @@ const addEventListeners = (colorSliders, colorInputs) => {
             } = rgbToCmyk(red, green, blue);
             colorCodeCmyk(c, m, y, k);
             fullColorHex(red, green, blue);
+            const {h,s,l
+            } =rgbtohsl(red,green,blue);
+            colorCodeHsl(h,s,l);
         });
 
 
