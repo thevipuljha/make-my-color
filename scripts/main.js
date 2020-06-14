@@ -4,6 +4,15 @@ const changeLinearInput = (slider, input) => input.value = slider.value;
 const changeLinearSlider = (input, slider) => slider.value = input.value;
 const transparentImage = "url(https://vipul1142.github.io/make-my-color/images/transparentImage.png)";
 
+const getRgbaValue = () => {
+    return {
+        red: elementById("redSlider").value,
+        green: elementById("greenSlider").value,
+        blue: elementById("blueSlider").value,
+        alpha: elementById("alphaSlider").value
+    }
+}
+
 const gradientTypeSwitch = (wakeButton, sleepButton, wakeDiv, sleepDiv) => {
     wakeButton.style.backgroundColor = "steelblue";
     sleepButton.style.backgroundColor = "white";
@@ -12,19 +21,15 @@ const gradientTypeSwitch = (wakeButton, sleepButton, wakeDiv, sleepDiv) => {
 };
 
 const changeBoxColor = (colorSliders) => {
-    const red = colorSliders[0].value;
-    const green = colorSliders[1].value;
-    const blue = colorSliders[2].value;
-    const alpha = colorSliders[3].value;
+    const rgba = getRgbaValue();
+    const red = rgba.red;
+    const green = rgba.green;
+    const blue = rgba.blue;
+    const alpha = rgba.alpha;
     const currentColor = `rgba(${red},${green},${blue},${alpha/100})`;
     elementById("alphaSlider").style.backgroundImage = `linear-gradient(90deg, #FFFFFF00,rgb(${red},${green},${blue})),${transparentImage}`;
     elementById("colorWindow").style.backgroundImage = `linear-gradient(90deg, ${currentColor}, ${currentColor}),${transparentImage}`;
     elementById("gradient").style.backgroundImage = `linear-gradient(90deg, #FF0000, ${currentColor}),${transparentImage}`;
-    return {
-        red,
-        green,
-        blue
-    }
 }
 
 // color code conversions
@@ -32,6 +37,18 @@ const colorCodeRgb = (red, green, blue) => {
     elementById("rgb-code").value = `RGB: (${red}, ${green}, ${blue})`;
 };
 
+// rgbtohsl
+// rgbToHex
+// rgbToCmyk
+
+// cmyktorgb
+// hextorgb
+// hsltorgb
+
+// colorcodes {
+//     rgb = value
+
+// }
 
 const rgbToCmyk = (red, green, blue) => {
     var redC = red / 255;
@@ -72,31 +89,42 @@ var fullColorHex = function (red, green, blue) {
 
 function rgbtohsl(red, green, blue) {
     red /= 255, green /= 255, blue /= 255;
-  
-    var max = Math.max(red, green, blue), min = Math.min(red, green, blue);
-    var h, s, l = (max + min) / 2;
-  
-    if (max == min) {
-      h = s = 0; 
-    } else {
-      var d = max - min;
-      s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-  
-      switch (max) {
-        case red: h = (green - blue) / d + (green < blue ? 6 : 0); break;
-        case green : h = (blue - red) / d + 2; break;
-        case blue: h = (red - green) / d + 4; break;
-      }
-  
-    }
-h = Math.round(h * 60); 
-s = Math.round(s * 100); 
-l = Math.round(l * 100);
-    
-    return { h, s, l };
-  }
 
-const colorCodeHsl = (h,s,l) => {
+    var max = Math.max(red, green, blue),
+        min = Math.min(red, green, blue);
+    var h, s, l = (max + min) / 2;
+
+    if (max == min) {
+        h = s = 0;
+    } else {
+        var d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+
+        switch (max) {
+            case red:
+                h = (green - blue) / d + (green < blue ? 6 : 0);
+                break;
+            case green:
+                h = (blue - red) / d + 2;
+                break;
+            case blue:
+                h = (red - green) / d + 4;
+                break;
+        }
+
+    }
+    h = Math.round(h * 60);
+    s = Math.round(s * 100);
+    l = Math.round(l * 100);
+
+    return {
+        h,
+        s,
+        l
+    };
+}
+
+const colorCodeHsl = (h, s, l) => {
     elementById("hsl-code").value = ` HSL: (${Math.round(h)}, ${Math.round(s)}, ${Math.round(l)})`;
 
 };
@@ -107,6 +135,7 @@ const addEventListeners = (colorSliders, colorInputs) => {
         colorSliders[index].addEventListener('input', () => {
             colorInputs[index].value = colorSliders[index].value;
             changeBoxColor(colorSliders);
+
             const {
                 red,
                 green,
@@ -121,9 +150,12 @@ const addEventListeners = (colorSliders, colorInputs) => {
             } = rgbToCmyk(red, green, blue);
             colorCodeCmyk(c, m, y, k);
             fullColorHex(red, green, blue);
-            const {h,s,l
-            } =rgbtohsl(red,green,blue);
-            colorCodeHsl(h,s,l);
+            const {
+                h,
+                s,
+                l
+            } = rgbtohsl(red, green, blue);
+            colorCodeHsl(h, s, l);
         });
 
 
