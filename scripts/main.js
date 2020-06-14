@@ -5,74 +5,15 @@ const changeLinearSlider = (input, slider) => slider.value = input.value;
 const transparentImage = "url(https://vipul1142.github.io/make-my-color/images/transparentImage.png)";
 
 const getRgbaValue = () => {
-    return {
-        red: elementById("redSlider").value,
-        green: elementById("greenSlider").value,
-        blue: elementById("blueSlider").value,
-        alpha: elementById("alphaSlider").value
+        var red =  elementById("redSlider").value;
+        var green =elementById("greenSlider").value;
+        var blue =elementById("blueSlider").value;
+        var alpha =elementById("alphaSlider").value;
+        return { red, green, blue, alpha}
     }
-}
 
-const gradientTypeSwitch = (wakeButton, sleepButton, wakeDiv, sleepDiv) => {
-    wakeButton.style.backgroundColor = "steelblue";
-    sleepButton.style.backgroundColor = "white";
-    wakeDiv.style.display = "flex";
-    sleepDiv.style.display = "none";
-};
-
-const changeBoxColor = (colorSliders) => {
-    const rgba = getRgbaValue();
-    const red = rgba.red;
-    const green = rgba.green;
-    const blue = rgba.blue;
-    const alpha = rgba.alpha;
-    const currentColor = `rgba(${red},${green},${blue},${alpha/100})`;
-    elementById("alphaSlider").style.backgroundImage = `linear-gradient(90deg, #FFFFFF00,rgb(${red},${green},${blue})),${transparentImage}`;
-    elementById("colorWindow").style.backgroundImage = `linear-gradient(90deg, ${currentColor}, ${currentColor}),${transparentImage}`;
-    elementById("gradient").style.backgroundImage = `linear-gradient(90deg, #FF0000, ${currentColor}),${transparentImage}`;
-}
-
-// color code conversions
-const colorCodeRgb = (red, green, blue) => {
-    elementById("rgb-code").value = `RGB: (${red}, ${green}, ${blue})`;
-};
-
-// rgbtohsl
-// rgbToHex
-// rgbToCmyk
-
-// cmyktorgb
-// hextorgb
-// hsltorgb
-
-// colorcodes {
-//     rgb = value
-
-// }
-
-const rgbToCmyk = (red, green, blue) => {
-    var redC = red / 255;
-    var blueC = blue / 255;
-    var greenC = green / 255;
-    var k = 1 - Math.max(redC, blueC, greenC);
-    var c = ((1 - redC - k) / (1 - k));
-    var m = (1 - greenC - k) / (1 - k);
-    var y = ((1 - blueC - k) / (1 - k));
-    return {
-        k,
-        c,
-        m,
-        y
-    }
-};
-
-const colorCodeCmyk = (c, m, y, k) => {
-    elementById("cmyk-code").value = ` CMYK: (${Math.round(c)}, ${Math.round(m)}, ${Math.round(y)}, ${Math.round(k)})`;
-};
-
-
-var rgbToHex = function (rgb) {
-    var hex = Number(rgb).toString(16);
+var rgbToHex = function (red, green, blue) {
+    var hex = Number(red, green, blue).toString(16);
     if (hex.length < 2) {
         hex = "0" + hex;
     }
@@ -83,8 +24,61 @@ var fullColorHex = function (red, green, blue) {
     var red = rgbToHex(red);
     var green = rgbToHex(green);
     var blue = rgbToHex(blue);
-    elementById("hex-code").value = `HEX: (#${red}${green}${blue})`;
+    elementById("hex-code").value = `hex(#${red}${green}${blue})`;
 };
+
+
+
+
+var rgbToCmyk = function(red,green, blue, normalized){
+    var c = 1 - (red / 255);
+    var m = 1 - (green / 255);
+    var y = 1 - (blue / 255);
+    var k = Math.min(c, Math.min(m, y));
+    
+    c = (c - k) / (1 - k);
+    m = (m - k) / (1 - k);
+    y = (y - k) / (1 - k);
+    
+    if(!normalized){
+        c = Math.round(c * 10000) / 100;
+        m = Math.round(m * 10000) / 100;
+        y = Math.round(y * 10000) / 100;
+        k = Math.round(k * 10000) / 100;
+    }
+    
+    c = isNaN(c) ? 0 : c;
+    m = isNaN(m) ? 0 : m;
+    y = isNaN(y) ? 0 : y;
+    k = isNaN(k) ? 0 : k;
+    
+    return {
+        c: c,
+        m: m,
+        y: y,
+        k: k
+    }
+}
+
+// interconversion
+const cmyk2rgb = (c,m,y,k) => {
+    c = (c / 100);
+    m = (m / 100);
+    y = (y / 100);
+    k = (k / 100);
+    
+    c = c * (1 - k) + k;
+    m = m * (1 - k) + k;
+    y = y * (1 - k) + k;
+    
+    var red = 1 - c;
+    var green = 1 - m;
+    var blue = 1 - y;
+    return {
+        red, green, blue
+    }
+}
+//    interconversion // 
 
 
 function rgbtohsl(red, green, blue) {
@@ -124,60 +118,64 @@ function rgbtohsl(red, green, blue) {
     };
 }
 
-const colorCodeHsl = (h, s, l) => {
-    elementById("hsl-code").value = ` HSL: (${Math.round(h)}, ${Math.round(s)}, ${Math.round(l)})`;
+function colorcodes(){
+        const {red, green, blue, alpha} = getRgbaValue();
+        elementById("rgb-code").value = `rgb(${red}, ${green}, ${blue} , ${alpha})`;
+        const {c,y,m,k} = rgbToCmyk(red, green, blue);
+        elementById("cmyk-code").value = `cmyk(${Math.round(c)}, ${Math.round(m)}, ${Math.round(y)}, ${Math.round(k)})`;
+        const {h,s,l} = rgbtohsl(red, green, blue);
+        elementById("hsl-code").value = `hsl(${Math.round(h)}, ${Math.round(s)}, ${Math.round(l)})`;
+        const hex = fullColorHex(red, green, blue);
+        
 
+    }
+
+const gradientTypeSwitch = (wakeButton, sleepButton, wakeDiv, sleepDiv) => {
+    wakeButton.style.backgroundColor = "steelblue";
+    sleepButton.style.backgroundColor = "white";
+    wakeDiv.style.display = "flex";
+    sleepDiv.style.display = "none";
 };
-// color code conversions end
+
+const changeBoxColor = (colorSliders) => {
+    const rgba = getRgbaValue();
+    const red = rgba.red;
+    const green = rgba.green;
+    const blue = rgba.blue;
+    const alpha = rgba.alpha;
+    const currentColor = `rgba(${red},${green},${blue},${alpha/100})`;
+    elementById("alphaSlider").style.backgroundImage = `linear-gradient(90deg, #FFFFFF00,rgb(${red},${green},${blue})),${transparentImage}`;
+    elementById("colorWindow").style.backgroundImage = `linear-gradient(90deg, ${currentColor}, ${currentColor}),${transparentImage}`;
+    elementById("gradient").style.backgroundImage = `linear-gradient(90deg, #FF0000, ${currentColor}),${transparentImage}`;
+}
+
+// rgbtohsl
+// rgbToHex
+// rgbToCmyk
+
+// cmyktorgb
+// hextorgb
+// hsltorgb
 
 const addEventListeners = (colorSliders, colorInputs) => {
     for (let index = 0; index < 4; index++) {
+        colorInputs[index].addEventListener('input', () => {
+            colorSliders[index].value = colorInputs[index].value;
+            changeBoxColor(colorSliders);
+            colorInputLimit(colorInputs);
+            colorcodes();
+        });
+    
         colorSliders[index].addEventListener('input', () => {
             colorInputs[index].value = colorSliders[index].value;
             changeBoxColor(colorSliders);
-
-            const {
-                red,
-                green,
-                blue
-            } = changeBoxColor(colorSliders);
-            colorCodeRgb(red, green, blue);
-            const {
-                c,
-                m,
-                y,
-                k
-            } = rgbToCmyk(red, green, blue);
-            colorCodeCmyk(c, m, y, k);
-            fullColorHex(red, green, blue);
-            const {
-                h,
-                s,
-                l
-            } = rgbtohsl(red, green, blue);
-            colorCodeHsl(h, s, l);
+            colorcodes();
+        
         });
-
-
-        colorInputs[index].addEventListener('change', () => {
-            colorSliders[index].value = colorInputs[index].value;
-            colorInputLimit(colorInputs);
-            const {
-                red,
-                green,
-                blue
-            } = changeBoxColor(colorSliders);
-            colorCodeRgb(red, green, blue);
-            const {
-                c,
-                m,
-                y,
-                k
-            } = rgbToCmyk(red, green, blue);
-            colorCodeCmyk(c, m, y, k);
-        });
-    }
 }
+}
+
+
 
 const colorInputLimit = (colorInputs) => {
     for (let index = 0; index < 3; index++) {
