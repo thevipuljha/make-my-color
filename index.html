@@ -11,17 +11,20 @@
 
 <body>
     <header>
+        <!-- title header starts -->
         <div class="title-header">
             <div class="page-logo"></div>
             <span>This is title</span>
             <div class="page-nav"></div>
         </div>
+        <!-- title header ends -->
+        <!-- gradient box -->
         <div class="gradient" id="gradient">
         </div>
-
     </header>
-
+    <!-- main starts -->
     <main>
+        <!-- the color storing blocks -->
         <div class="gradient-buttons">
             <button id="color1">Colour 1</button>
             <button id="color2">Colour 2</button>
@@ -29,55 +32,56 @@
             <button id="color4">Colour 4</button>
             <button id="color5">Colour 5</button>
         </div>
+        <!-- current color box -->
         <div class="color-window" id="colorWindow">
-            <div class="colorCode-box">
-                <input type="text" class="rgb" id="rgb-code">
-            </div>
-
-            <div class="colorCode-box">
-                <input type="text" class="cmyk" id="cmyk-code">
-            </div>
-
-            <div class="colorCode-box">
-                <input type="text" class="hex" id="hex-code">
-            </div>
-
-            <div class="colorCode-box">
-                <input type="text" class="hsl" id="hsl-code">
+            <!-- current color codes blocks starts-->
+            <div class="color-codes-block">
+                <input type="text" id="rgb-code">
+                <input type="text" id="hex-code">
+                <input type="text" id="hsl-code">
+                <input type="text" id="cmyk-code">
             </div>
         </div>
-
+        <!-- rgba slider starts -->
         <div class="range-buttons">
+            <!-- red slider -->
             <div class="color-value-div">
                 <input type="range" min="0" max="255" value="255" class="color-slider" id="redSlider">
                 <input type="number" min="0" max="255" value="255" class="color-input" id="redInput">
                 <label for="redInput">R</label>
-
             </div>
+            <!-- green slider -->
             <div class="color-value-div">
                 <input type="range" min="0" max="255" value="0" class="color-slider" id="greenSlider">
                 <input type="number" min="0" max="255" value="0" class="color-input" id="greenInput">
                 <label for="greenInput">G</label>
             </div>
+            <!-- blue slider -->
             <div class="color-value-div">
                 <input type="range" min="0" max="255" value="254" class="color-slider" id="blueSlider">
                 <input type="number" min="0" max="255" value="254" class="color-input" id="blueInput">
                 <label for="blueInput">B</label>
             </div>
+            <!-- alpha slider -->
             <div class="color-value-div">
                 <input type="range" min="0" max="100" value="100" class="color-slider notWhiteThumb" id="alphaSlider">
                 <input type="number" min="0" max="100" value="100" class="color-input" id="alphaInput">
                 <label for="alphaInput">A</label>
             </div>
         </div>
+        <!-- rgba slider ends -->
+        <!-- gradient settings box starts -->
         <div class="gradient-settings">
+            <!-- type selection buttons -->
             <div class="gradient-type-buttons">
                 <button onclick="gradientTypeSwitch(this,radialButton,linearDiv,radialDiv)"
                     id="linearButton">linear</button>
                 <button onclick="gradientTypeSwitch(this,linearButton,radialDiv,linearDiv)"
                     id="radialButton">radial</button>
             </div>
+            <!-- linear gradient settings box starts-->
             <div class="linear-settings" id="linearDiv">
+                <!-- linear gradient degree slider box-->
                 <div class="linear-value-div">
                     <input type="range" oninput="changeLinearInput(this,linearInput)" min="1" max="360" value="90"
                         class="linear-slider notWhiteThumb" id="linearSlider">
@@ -87,6 +91,7 @@
                         <label for="linearInput">&deg;</label>
                     </div>
                 </div>
+                <!-- linear gradient direction block -->
                 <div class="linear-direction-div">
                     <button class="rotate-text"><span>&nearrow;</span></button>
                     <button><span>&nearrow;</span></button>
@@ -98,11 +103,15 @@
                     <button><span>&nwarrow;</span></button>
                 </div>
             </div>
+            <!-- linear gradient settings box ends -->
+            <!-- radial gradient settings box starts -->
             <div class="radial-settings" id="radialDiv">
+                <!-- radial gradient shape selector box -->
                 <div class="radial-shape-buttons">
                     <button>circle</button>
                     <button>ellipse</button>
                 </div>
+                <!-- radial gradient direction block -->
                 <div class="radial-direction-div">
                     <button><span>&nwarrow;</span></button>
                     <button class="rotate-text"><span>&nearrow;</span></button>
@@ -115,7 +124,10 @@
                     <button><span>&searrow;</span></button>
                 </div>
             </div>
+            <!-- radial gradient settings box ends -->
         </div>
+        <!-- gradient settings box ends -->
+        <!-- just extra blocks for making page more scrollable -->
         <div class="extra-div">
 
         </div>
@@ -123,6 +135,7 @@
 
         </div>
     </main>
+    <!-- main ends -->
     <footer>
 
     </footer>

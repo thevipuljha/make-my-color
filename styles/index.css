@@ -94,16 +94,8 @@ main {
     border-radius: 10px;
     border: 2px solid black;
     background-size: contain;
+    position: relative;
 }
-
-/* color-code Box */
-.colorCode-box {
-    display: inline-flex;
-    margin: 100px 33px;
-    justify-content: space-evenly;
-    align-items: center;
-}
-
 
 .color-window,
 .range-buttons,
@@ -116,12 +108,21 @@ main {
     border: 2px solid black;
 }
 
-.rgb,
-.cmyk,
-.hex , .hsl {
-    font-size: medium;
+/* color-code Box */
+.color-codes-block {
+    display: flex;
+    width: 99%;
+    justify-content: space-around;
+    align-items: center;
+    flex-flow: row nowrap;
+    position: absolute;
+    bottom: 5%;
+    left: 0.25%;
+}
+
+.color-codes-block input[type="text"] {
+    width: 20%;
     border: 2px solid black;
-    width: 200px;
     text-align: center;
 }
 
@@ -324,7 +325,7 @@ input[type='number'] {
 }
 
 .linear-settings {
-     /* display: none;  */
+    /* display: none;  */
 }
 
 #linearButton {
