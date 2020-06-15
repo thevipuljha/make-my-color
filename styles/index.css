@@ -10,9 +10,14 @@ header {
     width: 100%;
 }
 
-button {
+button,
+input {
     user-select: none;
+    border: 2px solid black;
     border-radius: 10px;
+    background-color: white;
+    text-align: center;
+    outline: none;
 }
 
 .title-header {
@@ -46,12 +51,17 @@ button {
 
 /* gradient color box */
 .gradient {
+    border-top: 5px solid white;
+    border-bottom: 8px solid white;
     display: inline-block;
     width: 100%;
     height: 200px;
-    background-image:
-        linear-gradient(90deg, rgba(255, 0, 0), rgba(255, 0, 254));
-    background-size: unset;
+    background-image: linear-gradient(90deg, rgba(255, 0, 0), rgba(255, 0, 254));
+    background-size: contain;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0px;
+    z-index: 1;
 }
 
 /* header end */
@@ -62,39 +72,45 @@ main {
     margin-left: 5%;
 }
 
+.gradient-buttons-block {
+    display: flex;
+    height: 56px;
+    align-items: center;
+    flex-flow: row nowrap;
+}
 
 /* gradient buttons div*/
-.gradient-buttons {
+.gradient-color-buttons {
     margin-top: 5px;
     display: flex;
-    width: 100%;
+    width: 90%;
     height: 56px;
     flex-flow: row nowrap;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 /* gradient buttons*/
-.gradient-buttons button {
+.gradient-color-buttons button {
     height: 48px;
     width: 48px;
-    border: 2px solid black;
 }
 
-.gradient-buttons button:hover {
+.gradient-color-buttons button:hover {
     background-color: lightseagreen;
 }
 
-/* .color-window div */
-.color-window {
-    height: 120px;
-    background-image:
-        linear-gradient(90deg, rgba(255, 0, 254, 1), rgba(255, 0, 254, 1));
-    border: none;
-    border-radius: 10px;
+#addColorButton {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
     border: 2px solid black;
-    background-size: contain;
-    position: relative;
+    background-color: dodgerblue;
+    color: antiquewhite;
+    font-size: x-large;
+    font-weight: bold;
+    text-align: center;
+    margin-left: 5px;
 }
 
 .color-window,
@@ -108,23 +124,71 @@ main {
     border: 2px solid black;
 }
 
+/* .color-window div */
+.color-window {
+    height: 120px;
+    background-image: inear-gradient(90deg, rgba(255, 0, 254, 1), rgba(255, 0, 254, 1));
+    background-size: contain;
+    position: relative;
+}
+
+
 /* color-code Box */
-.color-codes-block {
-    border: 2px solid red;
+.color-codes-block,
+.color-codes-copy-div {
     display: flex;
-    width: 99%;
-    height: 100%;
+    height: 99%;
     justify-content: space-around;
-    align-items: center;
     flex-flow: column nowrap;
     position: absolute;
-    right: -38%;
+    right: 30px;
 }
 
 .color-codes-block input[type="text"] {
-    width: 20%;
-    border: 2px solid black;
+    width: 160px;
+    height: 16px;
+    color: black;
+}
+
+.color-codes-copy-div {
+    right: 0px;
+}
+
+.colorCodesCopy {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip {
+    visibility: hidden;
+    width: max-content;
+    background-color: #555;
+    color: white;
     text-align: center;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    padding: 1px 10px;
+    left: -60%;
+    bottom: 150%;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+.colorCodesCopy:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
 }
 
 .color-window {
@@ -152,7 +216,6 @@ input[type='range'] {
     height: 20px;
     border-radius: 20px;
     opacity: 0.9;
-    border: 2px solid #000000;
 }
 
 .color-slider:hover {
@@ -218,9 +281,6 @@ input[type='range'].notWhiteThumb::-moz-range-thumbs {
 input[type='number'] {
     width: 40px;
     height: 25px;
-    border: 2px solid black;
-    border-radius: 10px;
-    text-align: center;
     font-size: small;
 }
 
@@ -251,7 +311,6 @@ input[type='number'] {
 .radial-shape-buttons button {
     height: 40px;
     width: 90%;
-    border: 2px ridge black;
     font-weight: bold;
 }
 
@@ -283,7 +342,7 @@ input[type='number'] {
     width: 35px;
     font-size: 20px;
     font-weight: bolder;
-    border: 2px solid slateblue;
+    border-color: slateblue;
 }
 
 .rotate-text span {
@@ -332,9 +391,4 @@ input[type='number'] {
 .extra-div {
     height: 20vh;
     background: linear-gradient(80deg, red, green);
-}
-
-input,
-button {
-    outline: none;
 }
