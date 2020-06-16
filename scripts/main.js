@@ -216,6 +216,7 @@ function setLineargradient(directioninput) {
 }
 const addEventListeners = (colorSliders, colorInputs, colorCodes) => {
     const colorCodeCopy = elementsByclass("colorCodesCopy");
+    const colorButtons = elementsByclass("colorButton");
     for (let index = 0; index < 4; index++) {
         colorInputs[index].addEventListener('input', () => {
             setRgbInputLimit(colorInputs);
@@ -236,8 +237,16 @@ const addEventListeners = (colorSliders, colorInputs, colorCodes) => {
             colorCodes[index].setSelectionRange(0, 99999);
             document.execCommand("copy");
         });
-
     }
+    elementById("addColorButton").addEventListener("click", () => {
+        let newColorButton = document.createElement("button");
+        newColorButton.className = "colorButton";
+        newColorButton.innerText = "Color " + +(colorButtons.length + 1);
+        elementById("gradientColorButtons").appendChild(newColorButton);
+        if (colorButtons.length > 4) {
+            elementById("gradientColorButtons").style.justifyContent = "space-between";
+        }
+    });
     const linearDirection = elementById("linearDirections").children;
     const radialDirection = elementById("radialDirections").children;
 }

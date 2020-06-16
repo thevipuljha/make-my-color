@@ -74,26 +74,52 @@ main {
 
 .gradient-buttons-block {
     display: flex;
-    height: 56px;
-    align-items: center;
     flex-flow: row nowrap;
+    align-items: center;
+    height: 56px;
 }
 
 /* gradient buttons div*/
 .gradient-color-buttons {
     margin-top: 5px;
     display: flex;
-    width: 90%;
-    height: 56px;
     flex-flow: row nowrap;
     align-items: center;
+    width: 90%;
+    height: 56px;
+    overflow: auto hidden;
     justify-content: space-around;
+    border-right: 2px solid black;
 }
+
+.gradient-color-buttons::-webkit-scrollbar {
+    display: none;
+    /* width: 2px;
+    background-color: #f5f5f5; */
+}
+
+/* .gradient-color-buttons::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    background-color: #F5F5F5;
+    border-radius: 10px;
+}
+
+.gradient-color-buttons::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #FFF;
+    background-image: -webkit-gradient(linear,
+            40% 0%,
+            75% 84%,
+            from(#4D9C41),
+            to(#19911D),
+            color-stop(.6, #54DE5D))
+} */
 
 /* gradient buttons*/
 .gradient-color-buttons button {
+    margin-right: 2px;
     height: 48px;
-    width: 48px;
 }
 
 .gradient-color-buttons button:hover {
@@ -141,12 +167,12 @@ main {
     justify-content: space-around;
     flex-flow: column nowrap;
     position: absolute;
-    right: 30px;
+    right: 32px;
 }
 
 .color-codes-block input[type="text"] {
     width: 160px;
-    height: 16px;
+    height: 18px;
     color: black;
 }
 
@@ -157,19 +183,23 @@ main {
 .colorCodesCopy {
     position: relative;
     display: inline-block;
+    width: 30px;
+    margin: 0 auto;
+    font-size: larger;
 }
 
 .tooltip {
+    font-size: small;
     visibility: hidden;
     width: max-content;
-    background-color: #555;
+    background-color: #555555;
     color: white;
     text-align: center;
     border-radius: 6px;
     position: absolute;
     z-index: 1;
     padding: 1px 10px;
-    left: -60%;
+    left: -50%;
     bottom: 150%;
     opacity: 0;
     transition: opacity 0.3s;
