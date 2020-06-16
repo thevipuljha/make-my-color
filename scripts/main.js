@@ -209,6 +209,21 @@ const changeBoxColor = () => {
     elementById("colorWindow").style.backgroundImage = `linear-gradient(90deg, ${currentColor}, ${currentColor}),${transparentImage}`;
 }
 
+function colorButtonCicked(button) {
+    let color = button.style.backgroundColor;
+    color = String(color).split(",");
+    let red = Number(color[0].split("(")[1]);
+    let green = Number(color[1]);
+    let blue = color[2];
+    let alpha = 100;
+    if (color.length == 4)
+        alpha = Number(color[3].split(")")[0]) * 100;
+    else
+        blue = Number(color[2].split(")")[0]);
+    const hex = rgbaToHex(red, green, blue, alpha);
+    console.log(`hex color : #${hex}`);
+}
+
 function setLineargradient(directioninput) {
     const rgba = getRgbaValue();
     const currentColor = `rgba(${rgba.red},${rgba.green},${rgba.blue},${(rgba.alpha)/100})`;
@@ -242,6 +257,8 @@ const addEventListeners = (colorSliders, colorInputs, colorCodes) => {
         let newColorButton = document.createElement("button");
         newColorButton.className = "colorButton";
         newColorButton.innerText = "Color " + +(colorButtons.length + 1);
+        newColorButton.style.backgroundColor = "#FFFFFFFF";
+        newColorButton.setAttribute("onclick", "colorButtonCicked(this)");
         elementById("gradientColorButtons").appendChild(newColorButton);
         if (colorButtons.length > 4) {
             elementById("gradientColorButtons").style.justifyContent = "space-between";
@@ -268,6 +285,10 @@ const initiate = () => {
     const colorSliders = elementsByclass("color-slider");
     const colorInputs = elementsByclass("color-input");
     const colorCodes = elementsByclass("colorCodes");
+    for (let index = 0; index < 2; index++) {
+        elementsByclass("colorButton")[index].style.backgroundColor = "#FFFFFFFF";
+        elementsByclass("colorButton")[index].setAttribute("onclick", "colorButtonCicked(this)");
+    }
     setColorCodes(colorCodes);
     addEventListeners(colorSliders, colorInputs, colorCodes);
 };
