@@ -1,3 +1,11 @@
+:focus {
+    outline: none;
+}
+
+::-moz-focus-inner {
+    border: 0;
+}
+
 body {
     width: 100%;
     height: 100%;
@@ -114,6 +122,11 @@ main {
 
 .gradient-color-buttons button:hover {
     background-color: lightseagreen;
+}
+
+#activeColor {
+    border-width: 3px;
+    border-style: dotted;
 }
 
 #addColorButton {

@@ -3,8 +3,32 @@ const elementsByclass = (className) => document.getElementsByClassName(className
 const changeLinearInput = (slider, input) => input.value = slider.value;
 const changeLinearSlider = (input, slider) => slider.value = input.value;
 const transparentImage = "url(https://vipul1142.github.io/make-my-color/images/transparentImage.png)";
+const getColorSliders = () => elementsByclass("color-slider");
+const getColorInputs = () => elementsByclass("color-input");
+const getColorCodes = () => elementsByclass("colorCodes");
+const getColorCodeCopy = () => elementsByclass("colorCodesCopy");
+const getColorButtons = () => elementsByclass("colorButton");
+const getActiveColorButton = () => elementById("activeColor");
+const getRandomColor = () => {
+    const red = Math.round(Math.random() * 255);
+    const green = Math.round(Math.random() * 255);
+    const blue = Math.round(Math.random() * 255);
+    return {
+        red,
+        green,
+        blue
+    }
+};
+const setRandomColor = (element) => {
+    const {
+        red,
+        green,
+        blue
+    } = getRandomColor();
+    element.style.backgroundColor = getRgbaString(red, green, blue, 100);
+}
 
-const getRgbaValue = () => {
+const getSliderRgbaValue = () => {
     let red = elementById("redSlider").value;
     let green = elementById("greenSlider").value;
     let blue = elementById("blueSlider").value;
@@ -164,13 +188,14 @@ const cmykToRgb = function (cyan, magenta, yellow, konsant) {
     }
 };
 //color code conversion ends
-const setColorCodes = (colorCodes) => {
+const setColorCodes = () => {
+    const colorCodes = getColorCodes();
     const {
         red,
         green,
         blue,
         alpha
-    } = getRgbaValue();
+    } = getSliderRgbaValue();
     const hex = rgbaToHex(red, green, blue, alpha);
     const {
         hue,
@@ -189,8 +214,22 @@ const setColorCodes = (colorCodes) => {
     colorCodes[3].value = getCmykString(cyan, magenta, yellow, konsant);
 }
 
+function getBackgroundColor(domElelment) {
+    let color = domElelment.style.backgroundColor;
+    color = String(color).split(",");
+    let red = +(color[0].split("(")[1]);
+    let green = +color[1];
+    let blue = +color[2];
+    let alpha = 100;
+    if (color.length == 4)
+        alpha = +(color[3].split(")")[0] * 100);
+    else
+        blue = +(color[2].split(")")[0]);
+    return [red, green, blue, alpha];
+};
+
 const changeMainGradient = (type = "linear-gradient", position) => {
-    const rgba = getRgbaValue();
+    const rgba = getSliderRgbaValue();
     const currentColor = `rgba(${rgba.red},${rgba.green},${rgba.blue},${(rgba.alpha)/100})`;
     elementById("gradient").style.backgroundImage = `linear-gradient(90deg, #FF0000, ${currentColor}),${transparentImage}`;
 }
@@ -203,49 +242,69 @@ const gradientTypeSwitch = (activeButton, idleButton, activeDiv, idleDiv) => {
 };
 
 const changeBoxColor = () => {
-    const rgba = getRgbaValue();
+    const rgba = getSliderRgbaValue();
     const currentColor = `rgba(${rgba.red},${rgba.green},${rgba.blue},${(rgba.alpha)/100})`;
     elementById("alphaSlider").style.backgroundImage = `linear-gradient(90deg, #FFFFFF00,rgb(${rgba.red},${rgba.green},${rgba.blue})),${transparentImage}`;
     elementById("colorWindow").style.backgroundImage = `linear-gradient(90deg, ${currentColor}, ${currentColor}),${transparentImage}`;
 }
 
-function colorButtonCicked(button) {
-    let color = button.style.backgroundColor;
-    color = String(color).split(",");
-    let red = Number(color[0].split("(")[1]);
-    let green = Number(color[1]);
-    let blue = color[2];
-    let alpha = 100;
-    if (color.length == 4)
-        alpha = Number(color[3].split(")")[0]) * 100;
-    else
-        blue = Number(color[2].split(")")[0]);
-    const hex = rgbaToHex(red, green, blue, alpha);
-    console.log(`hex color : #${hex}`);
+function switchActiveColorButton(currentButton) {
+    getActiveColorButton().removeAttribute("id");
+    currentButton.id = "activeColor";
 }
 
-function setLineargradient(directioninput) {
-    const rgba = getRgbaValue();
-    const currentColor = `rgba(${rgba.red},${rgba.green},${rgba.blue},${(rgba.alpha)/100})`;
-    elementById("gradient").style.backgroundImage = `linear-gradient(${directioninput.value}deg, #FF0000, ${currentColor}),${transparentImage}`;
+const changeActiveButtonColor = () => {
+    const colorSliders = getColorSliders();
+    const activeButton = getActiveColorButton();
+    const rgba = [0, 0, 0, 0].map(func = (value, index) => colorSliders[index].value);
+    activeButton.style.backgroundColor = getRgbaString(rgba[0], rgba[1], rgba[2], rgba[3]);
+};
+
+function updatesToActiveColor() {
+    const colorSliders = getColorSliders();
+    const colorInputs = getColorInputs();
+    const rgba = getBackgroundColor(getActiveColorButton());
+    for (let index = 0; index < 4; index++) {
+        colorSliders[index].value = rgba[index];
+        colorInputs[index].value = rgba[index];
+    }
+    const currentColor = getRgbaString(rgba[0], rgba[1], rgba[2], rgba[3]);
+    elementById("colorWindow").style.backgroundImage = `linear-gradient(90deg, ${currentColor}, ${currentColor}),${transparentImage}`;
+    setColorCodes();
 }
-const addEventListeners = (colorSliders, colorInputs, colorCodes) => {
-    const colorCodeCopy = elementsByclass("colorCodesCopy");
-    const colorButtons = elementsByclass("colorButton");
+
+function colorButtonCicked(colorButton) {
+    switchActiveColorButton(colorButton);
+    updatesToActiveColor();
+}
+
+// function setLineargradient(directioninput) {
+//     const rgba = getSliderRgbaValue();
+//     const currentColor = `rgba(${rgba.red},${rgba.green},${rgba.blue},${(rgba.alpha)/100})`;
+//     elementById("gradient").style.backgroundImage = `linear-gradient(${directioninput.value}deg, #FF0000, ${currentColor}),${transparentImage}`;
+// }
+const addEventListeners = () => {
+    const colorSliders = getColorSliders();
+    const colorInputs = getColorInputs();
+    const colorCodes = getColorCodes();
+    const colorCodeCopy = getColorCodeCopy();
+    const colorButtons = getColorButtons();
     for (let index = 0; index < 4; index++) {
         colorInputs[index].addEventListener('input', () => {
             setRgbInputLimit(colorInputs);
             colorSliders[index].value = colorInputs[index].value;
-            changeBoxColor(colorSliders);
+            changeBoxColor();
             changeMainGradient();
-            setColorCodes(colorCodes);
+            setColorCodes();
+            changeActiveButtonColor();
         });
 
         colorSliders[index].addEventListener('input', () => {
             colorInputs[index].value = colorSliders[index].value;
-            changeBoxColor(colorSliders);
+            changeBoxColor();
             changeMainGradient();
-            setColorCodes(colorCodes);
+            setColorCodes();
+            changeActiveButtonColor();
         });
         colorCodeCopy[index].addEventListener("click", () => {
             colorCodes[index].select();
@@ -254,20 +313,23 @@ const addEventListeners = (colorSliders, colorInputs, colorCodes) => {
         });
     }
     elementById("addColorButton").addEventListener("click", () => {
+
         let newColorButton = document.createElement("button");
         newColorButton.className = "colorButton";
         newColorButton.innerText = "Color " + +(colorButtons.length + 1);
-        newColorButton.style.backgroundColor = "#FFFFFFFF";
+        newColorButton.id = "activeColor";
+        setRandomColor(newColorButton);
         newColorButton.setAttribute("onclick", "colorButtonCicked(this)");
         elementById("gradientColorButtons").appendChild(newColorButton);
         if (colorButtons.length > 4) {
             elementById("gradientColorButtons").style.justifyContent = "space-between";
         }
+        switchActiveColorButton(newColorButton);
+        updatesToActiveColor();
     });
     const linearDirection = elementById("linearDirections").children;
     const radialDirection = elementById("radialDirections").children;
 }
-
 const setRgbInputLimit = (colorInputs) => {
     for (let index = 0; index < 3; index++) {
         if (colorInputs[index].value > 255)
@@ -281,16 +343,20 @@ const setRgbInputLimit = (colorInputs) => {
         colorInputs[3].value = 0;
 };
 
-const initiate = () => {
-    const colorSliders = elementsByclass("color-slider");
-    const colorInputs = elementsByclass("color-input");
-    const colorCodes = elementsByclass("colorCodes");
+const setInitialColorButtons = () => {
+    const buttons = elementsByclass("colorButton");
     for (let index = 0; index < 2; index++) {
-        elementsByclass("colorButton")[index].style.backgroundColor = "#FFFFFFFF";
-        elementsByclass("colorButton")[index].setAttribute("onclick", "colorButtonCicked(this)");
+        setRandomColor(buttons[index]);
+        buttons[index].setAttribute("onclick", "colorButtonCicked(this)");
     }
-    setColorCodes(colorCodes);
-    addEventListeners(colorSliders, colorInputs, colorCodes);
+    elementsByclass("colorButton")[0].id = "activeColor";
+};
+
+const initiate = () => {
+    setInitialColorButtons();
+    setColorCodes();
+    addEventListeners();
+    updatesToActiveColor();
 };
 
 window.onload = initiate;
