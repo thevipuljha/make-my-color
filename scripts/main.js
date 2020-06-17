@@ -18,7 +18,7 @@ const getGradientPrefix = () => {
     const type = getActiveType().value;
     let gradientString = type + "-gradient(";
     if (type == "linear") {
-        gradientString += `${getLinearDegree().value}deg`;
+        gradientString += `${getLinearDegree()}deg`;
     }
     if (type == "radial") {
         gradientString += `${getRadialShape().value} at ${getRadialDirection().value}`;
@@ -315,7 +315,7 @@ const addEventListeners = () => {
     const colorCodes = getColorCodes();
     const colorCodeCopy = getColorCodeCopy();
     const colorButtons = getColorButtons();
-    const linearDirection = elementById("linearDirections").children;
+    const linearDegrees = elementById("linearDirections").children;
     const radialDirection = elementById("radialDirections").children;
     for (let index = 0; index < 4; index++) {
         colorInputs[index].addEventListener('input', () => {
@@ -357,6 +357,17 @@ const addEventListeners = () => {
     });
     for (let index = 0; index < radialDirection.length; index++) {
         radialDirection[index].setAttribute("onclick", "radialDirectionSwitch(this);setMainGradient()")
+    }
+    for (let index = 0; index < linearDegrees.length; index++) {
+        const currentButton = linearDegrees[index];
+        currentButton.value = index * 45;
+        currentButton.addEventListener("click", () => {
+            elementById("linearSlider").value = currentButton.value;
+            elementById("linearInput").value = currentButton.value;
+            elementById("currentDegree").removeAttribute("id");
+            currentButton.id = "currentDegree";
+            setMainGradient();
+        });
     }
 }
 const setRgbInputLimit = (colorInputs) => {

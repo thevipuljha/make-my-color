@@ -88,11 +88,11 @@
             <div class="linear-settings" id="linearDiv">
                 <!-- linear gradient degree slider box-->
                 <div class="linear-value-div">
-                    <input type="range" oninput="changeLinearInput()" min="0" max="359" value="90" class="notWhiteThumb"
-                        id="linearSlider">
+                    <input type="range" oninput="changeLinearInput();  setMainGradient()" min="0" max="359" value="90"
+                        class="notWhiteThumb" id="linearSlider">
                     <div>
-                        <input type="number" oninput="changeLinearSlider()" min="0" max="359" value="90"
-                            id="linearInput">
+                        <input type="number" oninput="changeLinearSlider(); setMainGradient()" min="0" max="359"
+                            value="90" id="linearInput">
                         <label for="linearInput">&deg;</label>
                     </div>
                 </div>
