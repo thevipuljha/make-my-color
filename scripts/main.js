@@ -3,6 +3,7 @@ const elementsByclass = (className) => document.getElementsByClassName(className
 const changeLinearInput = (slider, input) => input.value = slider.value;
 const changeLinearSlider = (input, slider) => slider.value = input.value;
 const transparentImage = "url(https://vipul1142.github.io/make-my-color/images/transparentImage.png)";
+// const transparentImage = "url(../images/transparentImage.png)";
 const getColorSliders = () => elementsByclass("color-slider");
 const getColorInputs = () => elementsByclass("color-input");
 const getColorCodes = () => elementsByclass("colorCodes");
@@ -18,6 +19,33 @@ const getRandomColor = () => {
         green,
         blue
     }
+};
+
+function getBackgroundColor(domElelment) {
+    let color = domElelment.style.backgroundColor;
+    color = String(color).split(",");
+    let red = +(color[0].split("(")[1]);
+    let green = +color[1];
+    let blue = +color[2];
+    let alpha = 100;
+    if (color.length == 4)
+        alpha = +(color[3].split(")")[0] * 100);
+    else
+        blue = +(color[2].split(")")[0]);
+    return [red, green, blue, alpha];
+};
+
+const setMainGradient = () => {
+    const colorButtons = getColorButtons();
+    let gradientString = "linear-gradient(90deg";
+    for (let index = 0; index < colorButtons.length; index++) {
+        const rgba = getBackgroundColor(colorButtons[index]);
+        gradientString += `,${getRgbaString(rgba[0],rgba[1],rgba[2],rgba[3])}`;
+    }
+    gradientString += `),${transparentImage}`;
+    elementById("gradient").style.backgroundImage = gradientString;
+    console.log(gradientString);
+
 };
 const setRandomColor = (element) => {
     const {
@@ -214,26 +242,6 @@ const setColorCodes = () => {
     colorCodes[3].value = getCmykString(cyan, magenta, yellow, konsant);
 }
 
-function getBackgroundColor(domElelment) {
-    let color = domElelment.style.backgroundColor;
-    color = String(color).split(",");
-    let red = +(color[0].split("(")[1]);
-    let green = +color[1];
-    let blue = +color[2];
-    let alpha = 100;
-    if (color.length == 4)
-        alpha = +(color[3].split(")")[0] * 100);
-    else
-        blue = +(color[2].split(")")[0]);
-    return [red, green, blue, alpha];
-};
-
-const changeMainGradient = (type = "linear-gradient", position) => {
-    const rgba = getSliderRgbaValue();
-    const currentColor = `rgba(${rgba.red},${rgba.green},${rgba.blue},${(rgba.alpha)/100})`;
-    elementById("gradient").style.backgroundImage = `linear-gradient(90deg, #FF0000, ${currentColor}),${transparentImage}`;
-}
-
 const gradientTypeSwitch = (activeButton, idleButton, activeDiv, idleDiv) => {
     activeButton.style.backgroundColor = "steelblue";
     idleButton.style.backgroundColor = "white";
@@ -278,11 +286,6 @@ function colorButtonCicked(colorButton) {
     updatesToActiveColor();
 }
 
-// function setLineargradient(directioninput) {
-//     const rgba = getSliderRgbaValue();
-//     const currentColor = `rgba(${rgba.red},${rgba.green},${rgba.blue},${(rgba.alpha)/100})`;
-//     elementById("gradient").style.backgroundImage = `linear-gradient(${directioninput.value}deg, #FF0000, ${currentColor}),${transparentImage}`;
-// }
 const addEventListeners = () => {
     const colorSliders = getColorSliders();
     const colorInputs = getColorInputs();
@@ -294,17 +297,17 @@ const addEventListeners = () => {
             setRgbInputLimit(colorInputs);
             colorSliders[index].value = colorInputs[index].value;
             changeBoxColor();
-            changeMainGradient();
             setColorCodes();
             changeActiveButtonColor();
+            setMainGradient();
         });
 
         colorSliders[index].addEventListener('input', () => {
             colorInputs[index].value = colorSliders[index].value;
             changeBoxColor();
-            changeMainGradient();
             setColorCodes();
             changeActiveButtonColor();
+            setMainGradient();
         });
         colorCodeCopy[index].addEventListener("click", () => {
             colorCodes[index].select();
@@ -316,7 +319,7 @@ const addEventListeners = () => {
 
         let newColorButton = document.createElement("button");
         newColorButton.className = "colorButton";
-        newColorButton.innerText = "Color " + +(colorButtons.length + 1);
+        newColorButton.innerText = "gradient";
         newColorButton.id = "activeColor";
         setRandomColor(newColorButton);
         newColorButton.setAttribute("onclick", "colorButtonCicked(this)");
@@ -325,6 +328,7 @@ const addEventListeners = () => {
             elementById("gradientColorButtons").style.justifyContent = "space-between";
         }
         switchActiveColorButton(newColorButton);
+        setMainGradient();
         updatesToActiveColor();
     });
     const linearDirection = elementById("linearDirections").children;
@@ -355,8 +359,9 @@ const setInitialColorButtons = () => {
 const initiate = () => {
     setInitialColorButtons();
     setColorCodes();
-    addEventListeners();
     updatesToActiveColor();
+    setMainGradient();
+    addEventListeners();
 };
 
 window.onload = initiate;
