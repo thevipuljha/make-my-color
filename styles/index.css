@@ -339,6 +339,11 @@ input[type='number'] {
     justify-content: space-around;
 }
 
+#activeType,
+#activeShape {
+    background-color: steelblue;
+}
+
 .gradient-type-buttons button,
 .radial-shape-buttons button {
     height: 40px;
@@ -414,10 +419,6 @@ input[type='number'] {
 .radial-direction-div button {
     width: 100%;
     height: 100%;
-}
-
-#linearButton {
-    background-color: steelblue;
 }
 
 .extra-div {
