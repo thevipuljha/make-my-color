@@ -81,8 +81,9 @@
         <div class="gradient-settings">
             <!-- type selection buttons -->
             <div class="gradient-type-buttons">
-                <button onclick="gradientTypeSwitch(this)" id="activeType" value="linear">linear</button>
-                <button onclick="gradientTypeSwitch(this)" value="radial">radial</button>
+                <button class="gradientStyle" onclick="gradientTypeSwitch(this)" id="activeType"
+                    value="linear">linear</button>
+                <button class="gradientStyle" onclick="gradientTypeSwitch(this)" value="radial">radial</button>
             </div>
             <!-- linear gradient settings box starts-->
             <div class="linear-settings" id="linearDiv">
@@ -98,14 +99,14 @@
                 </div>
                 <!-- linear gradient direction block -->
                 <div class="linear-direction-div" id="linearDirections">
-                    <button class="rotate-text"><span>&nearrow;</span></button>
-                    <button><span>&nearrow;</span></button>
-                    <button class="rotate-text"><span>&searrow;</span></button>
-                    <button><span>&searrow;</span></button>
-                    <button class="rotate-text"><span>&swarrow;</span></button>
-                    <button><span>&swarrow;</span></button>
-                    <button class="rotate-text"><span>&nwarrow;</span></button>
-                    <button><span>&nwarrow;</span></button>
+                    <button class="gradientStyle rotate-text"><span>&nearrow;</span></button>
+                    <button class="gradientStyle"><span>&nearrow;</span></button>
+                    <button class="gradientStyle rotate-text"><span>&searrow;</span></button>
+                    <button class="gradientStyle"><span>&searrow;</span></button>
+                    <button class="gradientStyle rotate-text"><span>&swarrow;</span></button>
+                    <button class="gradientStyle"><span>&swarrow;</span></button>
+                    <button class="gradientStyle rotate-text"><span>&nwarrow;</span></button>
+                    <button class="gradientStyle"><span>&nwarrow;</span></button>
                 </div>
             </div>
             <!-- linear gradient settings box ends -->
@@ -113,20 +114,21 @@
             <div class="radial-settings" id="radialDiv">
                 <!-- radial gradient shape selector box -->
                 <div class="radial-shape-buttons">
-                    <button onclick="radialShapeSwitch(this)" id="activeShape" value="circle">circle</button>
-                    <button onclick="radialShapeSwitch(this)" value="ellipse">ellipse</button>
+                    <button class="gradientStyle" onclick="radialShapeSwitch(this)" id="activeShape"
+                        value="circle">circle</button>
+                    <button class="gradientStyle" onclick="radialShapeSwitch(this)" value="ellipse">ellipse</button>
                 </div>
                 <!-- radial gradient direction block -->
                 <div class="radial-direction-div" id="radialDirections">
-                    <button value="top left"><span>&nwarrow;</span></button>
-                    <button value="top" class="rotate-text"><span>&nearrow;</span></button>
-                    <button value="top right"><span>&nearrow;</span></button>
-                    <button value="left" class="rotate-text"><span>&nwarrow;</span></button>
-                    <button value="center"><span>&CircleDot;</span></button>
-                    <button value="right" class="rotate-text"><span>&searrow;</span></button>
-                    <button value="bottom left"><span>&swarrow;</span></button>
-                    <button value="bottom" class="rotate-text"><span>&swarrow;</span></button>
-                    <button value="bottom right"><span>&searrow;</span></button>
+                    <button class="gradientStyle" value="bottom right"><span>&nwarrow;</span></button>
+                    <button class="gradientStyle rotate-text" value="bottom"><span>&nearrow;</span></button>
+                    <button class="gradientStyle" value="bottom left"><span>&nearrow;</span></button>
+                    <button class="gradientStyle rotate-text" value="right"><span>&nwarrow;</span></button>
+                    <button class="gradientStyle" value="center"><span>&CircleDot;</span></button>
+                    <button class="gradientStyle rotate-text" value="left"><span>&searrow;</span></button>
+                    <button class="gradientStyle" value="top right"><span>&swarrow;</span></button>
+                    <button class="gradientStyle rotate-text" value="top"><span>&swarrow;</span></button>
+                    <button class="gradientStyle" value="top left"><span>&searrow;</span></button>
                 </div>
             </div>
             <!-- radial gradient settings box ends -->
