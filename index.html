@@ -81,33 +81,31 @@
         <div class="gradient-settings">
             <!-- type selection buttons -->
             <div class="gradient-type-buttons">
-                <button onclick="gradientTypeSwitch(this,radialButton,linearDiv,radialDiv)"
-                    id="linearButton">linear</button>
-                <button onclick="gradientTypeSwitch(this,linearButton,radialDiv,linearDiv)"
-                    id="radialButton">radial</button>
+                <button onclick="gradientTypeSwitch(this)" id="activeType" value="linear">linear</button>
+                <button onclick="gradientTypeSwitch(this)" value="radial">radial</button>
             </div>
             <!-- linear gradient settings box starts-->
             <div class="linear-settings" id="linearDiv">
                 <!-- linear gradient degree slider box-->
                 <div class="linear-value-div">
-                    <input type="range" oninput="changeLinearInput(this,linearInput)" min="1" max="360" value="90"
-                        class="linear-slider notWhiteThumb" id="linearSlider">
+                    <input type="range" oninput="changeLinearInput()" min="0" max="359" value="90" class="notWhiteThumb"
+                        id="linearSlider">
                     <div>
-                        <input type="number" onchange="changeLinearSlider(this,linearSlider)" min="1" max="360"
-                            value="90" class="linear-input" id="linearInput">
+                        <input type="number" oninput="changeLinearSlider()" min="0" max="359" value="90"
+                            id="linearInput">
                         <label for="linearInput">&deg;</label>
                     </div>
                 </div>
                 <!-- linear gradient direction block -->
                 <div class="linear-direction-div" id="linearDirections">
-                    <button value="1" class="rotate-text"><span>&nearrow;</span></button>
-                    <button value="45"><span>&nearrow;</span></button>
-                    <button value="90" class="rotate-text"><span>&searrow;</span></button>
-                    <button value="135"><span>&searrow;</span></button>
-                    <button value="180" class="rotate-text"><span>&swarrow;</span></button>
-                    <button value="225"><span>&swarrow;</span></button>
-                    <button value="270" class="rotate-text"><span>&nwarrow;</span></button>
-                    <button value="315"><span>&nwarrow;</span></button>
+                    <button class="rotate-text"><span>&nearrow;</span></button>
+                    <button><span>&nearrow;</span></button>
+                    <button class="rotate-text"><span>&searrow;</span></button>
+                    <button><span>&searrow;</span></button>
+                    <button class="rotate-text"><span>&swarrow;</span></button>
+                    <button><span>&swarrow;</span></button>
+                    <button class="rotate-text"><span>&nwarrow;</span></button>
+                    <button><span>&nwarrow;</span></button>
                 </div>
             </div>
             <!-- linear gradient settings box ends -->
@@ -115,8 +113,8 @@
             <div class="radial-settings" id="radialDiv">
                 <!-- radial gradient shape selector box -->
                 <div class="radial-shape-buttons">
-                    <button value="circle">circle</button>
-                    <button value="ellipse">ellipse</button>
+                    <button onclick="radialShapeSwitch(this)" id="activeShape" value="circle">circle</button>
+                    <button onclick="radialShapeSwitch(this)" value="ellipse">ellipse</button>
                 </div>
                 <!-- radial gradient direction block -->
                 <div class="radial-direction-div" id="radialDirections">
