@@ -340,7 +340,9 @@ input[type='number'] {
 }
 
 #activeType,
-#activeShape {
+#activeShape,
+#currentDirection,
+#currentDegree {
     background-color: steelblue;
 }
 
@@ -379,7 +381,6 @@ input[type='number'] {
     width: 35px;
     font-size: 20px;
     font-weight: bolder;
-    border-color: slateblue;
 }
 
 .rotate-text span {
