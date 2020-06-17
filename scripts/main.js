@@ -1,7 +1,7 @@
 const elementById = (id) => document.getElementById(id);
 const elementsByclass = (className) => document.getElementsByClassName(className);
-const changeLinearInput = (slider, input) => input.value = slider.value;
-const changeLinearSlider = (input, slider) => slider.value = input.value;
+const changeLinearInput = () => elementById("linearInput").value = elementById("linearSlider").value;
+const changeLinearSlider = () => elementById("linearSlider").value = elementById("linearInput").value;
 const transparentImage = "url(https://vipul1142.github.io/make-my-color/images/transparentImage.png)";
 // const transparentImage = "url(../images/transparentImage.png)";
 const getColorSliders = () => elementsByclass("color-slider");
@@ -10,6 +10,18 @@ const getColorCodes = () => elementsByclass("colorCodes");
 const getColorCodeCopy = () => elementsByclass("colorCodesCopy");
 const getColorButtons = () => elementsByclass("colorButton");
 const getActiveColorButton = () => elementById("activeColor");
+const getActiveType = () => elementById("activeType");
+const getRadialShape = () => elementById("activeShape");
+const getGradientPrefix = () => {
+    const type = getActiveType().value;
+    let gradientString = type + "-gradient(";
+    if (type == "linear") {
+        gradientString += elementById("linearSlider").value + "deg";
+    }
+    if (type == "radial") {
+        gradientString += getRadialShape().value;
+    }
+};
 const getRandomColor = () => {
     const red = Math.round(Math.random() * 255);
     const green = Math.round(Math.random() * 255);
@@ -37,7 +49,7 @@ function getBackgroundColor(domElelment) {
 
 const setMainGradient = () => {
     const colorButtons = getColorButtons();
-    let gradientString = "linear-gradient(90deg";
+    let gradientString = getGradientPrefix() + "(circle at center";
     for (let index = 0; index < colorButtons.length; index++) {
         const rgba = getBackgroundColor(colorButtons[index]);
         gradientString += `,${getRgbaString(rgba[0],rgba[1],rgba[2],rgba[3])}`;
@@ -45,7 +57,6 @@ const setMainGradient = () => {
     gradientString += `),${transparentImage}`;
     elementById("gradient").style.backgroundImage = gradientString;
     console.log(gradientString);
-
 };
 const setRandomColor = (element) => {
     const {
@@ -71,7 +82,7 @@ const getSliderRgbaValue = () => {
 
 //color codes conversions
 const getRgbaString = (red, green, blue, alpha) => `rgba(${red},${green},${blue},${alpha/100})`;
-const getHexString = (hexValue) => "#" + hexValue;
+const getHexString = (hexValue) => `#${hexValue}`;
 const getHslaString = (hue, sat, light, alpha) => `hsla(${hue},${sat}%,${light}%,${alpha}%)`;
 const getCmykString = (cyan, magenta, yellow, konsant) => `cmyk(${cyan}%,${magenta}%,${yellow}%,${konsant}%)`;
 const hexToDec = (hex) => parseInt(hex, 16);
@@ -242,11 +253,15 @@ const setColorCodes = () => {
     colorCodes[3].value = getCmykString(cyan, magenta, yellow, konsant);
 }
 
-const gradientTypeSwitch = (activeButton, idleButton, activeDiv, idleDiv) => {
-    activeButton.style.backgroundColor = "steelblue";
-    idleButton.style.backgroundColor = "white";
-    activeDiv.style.display = "flex";
-    idleDiv.style.display = "none";
+const gradientTypeSwitch = (activeButton) => {
+    elementById(getActiveType().value + "Div").style.display = "none";
+    elementById(activeButton.value + "Div").style.display = "flex";
+    getActiveType().removeAttribute("id");
+    activeButton.id = "activeType";
+};
+const radialShapeSwitch = (activeButton) => {
+    getRadialShape().removeAttribute("id");
+    activeButton.id = "activeShape";
 };
 
 const changeBoxColor = () => {
@@ -348,12 +363,12 @@ const setRgbInputLimit = (colorInputs) => {
 };
 
 const setInitialColorButtons = () => {
-    const buttons = elementsByclass("colorButton");
+    const colorButtons = elementsByclass("colorButton");
     for (let index = 0; index < 2; index++) {
-        setRandomColor(buttons[index]);
-        buttons[index].setAttribute("onclick", "colorButtonCicked(this)");
+        setRandomColor(colorButtons[index]);
+        colorButtons[index].setAttribute("onclick", "colorButtonCicked(this)");
     }
-    elementsByclass("colorButton")[0].id = "activeColor";
+    colorButtons[0].id = "activeColor";
 };
 
 const initiate = () => {
