@@ -59,7 +59,6 @@ const setMainGradient = () => {
     }
     gradientString += `),${transparentImage}`;
     elementById("gradient").style.backgroundImage = gradientString;
-    console.log(gradientString);
 };
 const setRandomColor = (element) => {
     const {
@@ -338,6 +337,7 @@ const addEventListeners = () => {
             colorCodes[index].select();
             colorCodes[index].setSelectionRange(0, 99999);
             document.execCommand("copy");
+            colorCodes[index].blur;
         });
     }
     elementById("addColorButton").addEventListener("click", () => {

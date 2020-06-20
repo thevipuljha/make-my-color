@@ -146,7 +146,8 @@ main {
 .color-window,
 .range-buttons,
 .gradient-settings,
-.extra-div {
+.extra-div,
+.gradient-code {
     width: 100%;
     display: block;
     margin: 10px 0px;
@@ -420,6 +421,22 @@ input[type='number'] {
 .radial-direction-div button {
     width: 100%;
     height: 100%;
+}
+
+.gradient-code {
+    height: auto;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+}
+
+#gradientCode {
+    border-bottom: 2px solid black;
+}
+
+#gradientCopyButton {
+    border: none;
+    height: 30px;
 }
 
 .extra-div {

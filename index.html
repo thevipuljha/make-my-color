@@ -37,10 +37,10 @@
         <div class="color-window" id="colorWindow">
             <!-- current color codes blocks starts-->
             <div class="color-codes-block">
-                <input class="colorCodes" type="text" disabled id="rgb-code">
-                <input class="colorCodes" type="text" disabled id="hex-code">
-                <input class="colorCodes" type="text" disabled id="hsl-code">
-                <input class="colorCodes" type="text" disabled id="cmyk-code">
+                <input class="colorCodes" type="text" readonly id="rgb-code">
+                <input class="colorCodes" type="text" readonly id="hex-code">
+                <input class="colorCodes" type="text" readonly id="hsl-code">
+                <input class="colorCodes" type="text" readonly id="cmyk-code">
             </div>
             <div class="color-codes-copy-div">
                 <button class="colorCodesCopy"><span class="tooltip">Copy</span> &#10697;</button>
@@ -132,6 +132,10 @@
             <!-- radial gradient settings box ends -->
         </div>
         <!-- gradient settings box ends -->
+        <div class="gradient-code">
+            <span id="gradientCode">GRADIENT CODE <br>start<br>.<br>.<br>.<br>.<br>end</span>
+            <button id="gradientCopyButton"><span>Copy CSS Code</span></button>
+        </div>
         <!-- just extra blocks for making page more scrollable -->
         <div class="extra-div">
 
