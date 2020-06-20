@@ -15,6 +15,7 @@ const getLinearDegree = () => elementById("linearSlider").value;
 const getRadialShape = () => elementById("activeShape");
 const getRadialDirection = () => elementById("currentDirection");
 const getGradientPrefix = () => {
+    const colorButtons = getColorButtons();
     const type = getActiveType().value;
     let gradientString = type + "-gradient(";
     if (type == "linear") {
@@ -23,8 +24,13 @@ const getGradientPrefix = () => {
     if (type == "radial") {
         gradientString += `${getRadialShape().value} at ${getRadialDirection().value}`;
     }
-    return gradientString;
+    for (let index = 0; index < colorButtons.length; index++) {
+        const rgba = getBackgroundColor(colorButtons[index]);
+        gradientString += `, ${getRgbaString(rgba[0],rgba[1],rgba[2],rgba[3])}`;
+    }
+    return gradientString + ')';
 };
+
 const getRandomColor = () => {
     const red = Math.round(Math.random() * 255);
     const green = Math.round(Math.random() * 255);
@@ -50,15 +56,9 @@ function getBackgroundColor(domElelment) {
     return [red, green, blue, alpha];
 };
 
-const setMainGradient = () => {
-    const colorButtons = getColorButtons();
-    let gradientString = getGradientPrefix();
-    for (let index = 0; index < colorButtons.length; index++) {
-        const rgba = getBackgroundColor(colorButtons[index]);
-        gradientString += `,${getRgbaString(rgba[0],rgba[1],rgba[2],rgba[3])}`;
-    }
-    gradientString += `),${transparentImage}`;
-    elementById("gradient").style.backgroundImage = gradientString;
+const setGradient = () => {
+    elementById("gradient").style.backgroundImage = `${getGradientPrefix()}, ${transparentImage}`;
+    elementById("gradientCode").innerText = `background: ${getGradientPrefix()};`;
 };
 const setRandomColor = (element) => {
     const {
@@ -260,12 +260,12 @@ const gradientTypeSwitch = (activeButton) => {
     elementById(activeButton.value + "Div").style.display = "flex";
     getActiveType().removeAttribute("id");
     activeButton.id = "activeType";
-    setMainGradient();
+    setGradient();
 };
 const radialShapeSwitch = (activeButton) => {
     getRadialShape().removeAttribute("id");
     activeButton.id = "activeShape";
-    setMainGradient();
+    setGradient();
 };
 const radialDirectionSwitch = (activeButton) => {
     getRadialDirection().removeAttribute("id");
@@ -323,7 +323,7 @@ const addEventListeners = () => {
             changeBoxColor();
             setColorCodes();
             changeActiveButtonColor();
-            setMainGradient();
+            setGradient();
         });
 
         colorSliders[index].addEventListener('input', () => {
@@ -331,7 +331,7 @@ const addEventListeners = () => {
             changeBoxColor();
             setColorCodes();
             changeActiveButtonColor();
-            setMainGradient();
+            setGradient();
         });
         colorCodeCopy[index].addEventListener("click", () => {
             colorCodes[index].select();
@@ -352,11 +352,11 @@ const addEventListeners = () => {
             elementById("gradientColorButtons").style.justifyContent = "space-between";
         }
         switchActiveColorButton(newColorButton);
-        setMainGradient();
+        setGradient();
         updatesToActiveColor();
     });
     for (let index = 0; index < radialDirection.length; index++) {
-        radialDirection[index].setAttribute("onclick", "radialDirectionSwitch(this);setMainGradient()")
+        radialDirection[index].setAttribute("onclick", "radialDirectionSwitch(this);setGradient()")
     }
     for (let index = 0; index < linearDegrees.length; index++) {
         const currentButton = linearDegrees[index];
@@ -366,9 +366,20 @@ const addEventListeners = () => {
             elementById("linearInput").value = currentButton.value;
             elementById("currentDegree").removeAttribute("id");
             currentButton.id = "currentDegree";
-            setMainGradient();
+            setGradient();
         });
     }
+    elementById("gradientCopyButton").addEventListener('click', () => {
+        const code = elementById('gradientCode').innerText;
+
+        function listener(e) {
+            e.clipboardData.setData("text/plain", code);
+            e.preventDefault();
+        }
+        document.addEventListener("copy", listener);
+        document.execCommand("copy");
+        document.removeEventListener("copy", listener);
+    });
 }
 const setRgbInputLimit = (colorInputs) => {
     for (let index = 0; index < 3; index++) {
@@ -396,7 +407,7 @@ const initiate = () => {
     setInitialColorButtons();
     setColorCodes();
     updatesToActiveColor();
-    setMainGradient();
+    setGradient();
     addEventListeners();
 };
 

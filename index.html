@@ -88,11 +88,11 @@
             <div class="linear-settings" id="linearDiv">
                 <!-- linear gradient degree slider box-->
                 <div class="linear-value-div">
-                    <input type="range" oninput="changeLinearInput();  setMainGradient()" min="0" max="359" value="90"
+                    <input type="range" oninput="changeLinearInput();  setGradient()" min="0" max="359" value="90"
                         class="notWhiteThumb" id="linearSlider">
                     <div>
-                        <input type="number" oninput="changeLinearSlider(); setMainGradient()" min="0" max="359"
-                            value="90" id="linearInput">
+                        <input type="number" oninput="changeLinearSlider(); setGradient()" min="0" max="359" value="90"
+                            id="linearInput">
                         <label for="linearInput">&deg;</label>
                     </div>
                 </div>
@@ -133,16 +133,11 @@
         </div>
         <!-- gradient settings box ends -->
         <div class="gradient-code">
-            <span id="gradientCode">GRADIENT CODE <br>start<br>.<br>.<br>.<br>.<br>end</span>
+            <span id="gradientCodeHeader">GRADIENT CODE</span>
+            <code id="gradientCode"></code>
             <button id="gradientCopyButton"><span>Copy CSS Code</span></button>
         </div>
         <!-- just extra blocks for making page more scrollable -->
-        <div class="extra-div">
-
-        </div>
-        <div class="extra-div">
-
-        </div>
         <div class="extra-div">
 
         </div>

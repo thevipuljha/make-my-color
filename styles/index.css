@@ -430,8 +430,16 @@ input[type='number'] {
     justify-content: space-between;
 }
 
+#gradientCodeHeader {
+    width: 100%;
+    text-align: center;
+    margin: 8px auto;
+}
+
 #gradientCode {
     border-bottom: 2px solid black;
+    border-top: 2px solid black;
+    padding: 10px 0px 10px 5px;
 }
 
 #gradientCopyButton {
