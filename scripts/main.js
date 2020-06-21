@@ -56,9 +56,25 @@ function getBackgroundColor(domElelment) {
     return [red, green, blue, alpha];
 };
 
+const saveGradientData = () => {
+    const gradientColors = elementById('gradientColorButtons').innerHTML;
+    const gradientData = {
+        activeType: getActiveType().value,
+        linearDegree: getLinearDegree(),
+        radialShape: getRadialShape().value,
+        radialDirection: getRadialDirection().value
+    }
+    localStorage.setItem('colours', gradientColors);
+    localStorage.setItem('settings', JSON.stringify(gradientData));
+    localStorage.setItem('autosave', elementById('autosave').checked)
+};
+
 const setMainGradient = () => {
     elementById("gradient").style.backgroundImage = `${getGradientPrefix()}, ${transparentImage}`;
     elementById("gradientCode").innerText = `background: ${getGradientPrefix()};`;
+    if (elementById('autosave').checked) {
+        saveGradientData();
+    }
 };
 const setRandomColor = (element) => {
     const {
@@ -414,9 +430,44 @@ const setInitialColorButtons = () => {
     }
     colorButtons[0].id = "activeColor";
 };
-
+const setGradientData = () => {
+    const gradientData = JSON.parse(localStorage.getItem('settings'));
+    const gradientColors = localStorage.getItem('colours');
+    if (gradientData != null) {
+        if (localStorage.getItem('autosave')) {
+            elementById('autosave').checked = true;
+            elementById('gradientColorButtons').innerHTML = gradientColors;
+            const gradientType = elementsByclass('gradientType');
+            const radialType = elementsByclass('radialType');
+            const radialDirections = elementById("radialDirections").children;
+            for (let index = 0; index < 2; index++) {
+                if (gradientType[index].value == gradientData.activeType)
+                    gradientType[index].id = "activeType";
+                else
+                    gradientType[index].removeAttribute('id');
+                if (radialType[index].value == gradientData.radialShape)
+                    radialType[index].id = "activeShape";
+                else
+                    radialType[index].removeAttribute('id');
+            }
+            elementById('linearSlider').value = gradientData.linearDegree;
+            elementById('linearInput').value = gradientData.linearDegree;
+            for (let index = 0; index < radialDirections.length; index++) {
+                if (radialDirections[index].value == gradientData.radialDirection)
+                    radialDirections[index].id = "currentDirection";
+                else
+                    radialDirections[index].removeAttribute('id');
+            }
+            if (getActiveType().value == 'radial') {
+                elementById('linearDiv').style.display = "none"
+                elementById('radialDiv').style.display = "flex"
+            }
+        }
+    }
+};
 const initiate = () => {
     setInitialColorButtons();
+    setGradientData();
     setColorCodes();
     updatesToActiveColor();
     addEventListeners();

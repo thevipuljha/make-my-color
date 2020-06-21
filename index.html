@@ -21,6 +21,13 @@
         <!-- gradient box -->
     </header>
     <div class="gradient" id="gradient">
+        <div class="autosave-div">
+            <label for="autosave">AUTOSAVE</label>
+            <label class="switch">
+                <input type="checkbox" id="autosave">
+                <span class="toggle"></span>
+            </label>
+        </div>
     </div>
     <!-- main starts -->
     <main>
@@ -99,8 +106,9 @@
         <div class="gradient-settings">
             <!-- type selection buttons -->
             <div class="gradient-type-buttons">
-                <button onclick="gradientTypeSwitch(this)" id="activeType" value="linear">linear</button>
-                <button onclick="gradientTypeSwitch(this)" value="radial">radial</button>
+                <button class="gradientType" onclick="gradientTypeSwitch(this)" id="activeType"
+                    value="linear">linear</button>
+                <button class="gradientType" onclick="gradientTypeSwitch(this)" value="radial">radial</button>
             </div>
             <!-- linear gradient settings box starts-->
             <div class="linear-settings" id="linearDiv">
@@ -131,8 +139,9 @@
             <div class="radial-settings" id="radialDiv">
                 <!-- radial gradient shape selector box -->
                 <div class="radial-shape-buttons">
-                    <button onclick="radialShapeSwitch(this)" id="activeShape" value="circle">circle</button>
-                    <button onclick="radialShapeSwitch(this)" value="ellipse">ellipse</button>
+                    <button class="radialType" onclick="radialShapeSwitch(this)" id="activeShape"
+                        value="circle">circle</button>
+                    <button class="radialType" onclick="radialShapeSwitch(this)" value="ellipse">ellipse</button>
                 </div>
                 <!-- radial gradient direction block -->
                 <div class="radial-direction-div" id="radialDirections">
