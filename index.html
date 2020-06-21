@@ -28,30 +28,28 @@
         <div class="gradient-buttons-block">
             <div class="gradient-color-buttons" id="gradientColorButtons">
                 <button class="colorButton">gradient</button>
-                <details>
-                    <summary>
-                    </summary>
-                    <div class="preset-ColorBox">
-                        <input type="button" class="color" onclick="changeActiveButtonColor()" style="background-color: red;">    
-                        <input type="button"  class="color" style="background-color: green;">    
-                        <input type="button"  class="color" style="background-color: blue;">    
-                        <input type="button"  class="color" style="background-color: pink;">    
-                        <input type="button"  class="color" style="background-color: lightsalmon;">    
-                        <input type="button" class="color" style="background-color: lightslategray;">   
-                        <input type="button"  class="color" style="background-color: black;">    
-                        <input type="button"  class="color" style="background-color: lightskyblue;">    
-                        <input type="button"  class="color" style="background-color: brown;">    
-                        <input type="button"  class="color"style="background-color:darkturquoise;">    
-                        <input type="button"  class="color" style="background-color: magenta;">    
-                        <input type="button"  class="color" style="background-color:darkgoldenrod;">    
- 
-                       </div>
-                    </details>
-               
                 <button class="colorButton">gradient</button>
             </div>
             <button id="addColorButton">&plus;</button>
         </div>
+        <details>
+            <summary>Choose a preset Colour from pallete
+            </summary>
+            <div class="preset-Color-Box">
+                <button class="preset-color" style="background-color:#FF05FF"></button>
+                <button class="preset-color" style="background-color:#FF05FF"></button>
+                <button class="preset-color" style="background-color:#FF05FF"></button>
+                <button class="preset-color" style="background-color:#FF05FF"></button>
+                <button class="preset-color" style="background-color:#FF05FF"></button>
+                <button class="preset-color" style="background-color:#FF05FF"></button>
+                <button class="preset-color" style="background-color:#FF05FF"></button>
+                <button class="preset-color" style="background-color:#FF05FF"></button>
+                <button class="preset-color" style="background-color:#FF05FF"></button>
+                <button class="preset-color" style="background-color:#FF05FF"></button>
+                <button class="preset-color" style="background-color:#FF05FF"></button>
+                <button class="preset-color"></button>
+            </div>
+        </details>
 
         <!-- current color box -->
         <div class="color-window" id="colorWindow">
@@ -108,11 +106,11 @@
             <div class="linear-settings" id="linearDiv">
                 <!-- linear gradient degree slider box-->
                 <div class="linear-value-div">
-                    <input type="range" oninput="changeLinearInput();  setGradient()" min="0" max="359" value="90"
+                    <input type="range" oninput="changeLinearInput();  setMainGradient()" min="0" max="359" value="90"
                         class="notWhiteThumb" id="linearSlider">
                     <div>
-                        <input type="number" oninput="changeLinearSlider(); setGradient()" min="0" max="359" value="90"
-                            id="linearInput">
+                        <input type="number" oninput="changeLinearSlider(); setMainGradient()" min="0" max="359"
+                            value="90" id="linearInput">
                         <label for="linearInput">&deg;</label>
                     </div>
                 </div>
@@ -138,15 +136,15 @@
                 </div>
                 <!-- radial gradient direction block -->
                 <div class="radial-direction-div" id="radialDirections">
-                    <button value="bottom right"><span>&nwarrow;</span></button>
-                    <button value="bottom" class="rotate-text"><span>&nearrow;</span></button>
-                    <button value="bottom left"><span>&nearrow;</span></button>
-                    <button value="right" class="rotate-text"><span>&nwarrow;</span></button>
-                    <button value="center" id="currentDirection"><span>&CircleDot;</span></button>
-                    <button value="left" class="rotate-text"><span>&searrow;</span></button>
-                    <button value="top right"><span>&swarrow;</span></button>
-                    <button value="top" class="rotate-text"><span>&swarrow;</span></button>
                     <button value="top left"><span>&searrow;</span></button>
+                    <button value="top" class="rotate-text"><span>&swarrow;</span></button>
+                    <button value="top right"><span>&swarrow;</span></button>
+                    <button value="left" class="rotate-text"><span>&searrow;</span></button>
+                    <button value="center" id="currentDirection"><span>&CircleDot;</span></button>
+                    <button value="right" class="rotate-text"><span>&nwarrow;</span></button>
+                    <button value="bottom left"><span>&nearrow;</span></button>
+                    <button value="bottom" class="rotate-text"><span>&nearrow;</span></button>
+                    <button value="bottom right"><span>&nwarrow;</span></button>
                 </div>
             </div>
             <!-- radial gradient settings box ends -->

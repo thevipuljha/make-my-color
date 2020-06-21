@@ -147,7 +147,8 @@ main {
 .range-buttons,
 .gradient-settings,
 .extra-div,
-.gradient-code {
+.gradient-code,
+.preset-Color-Box {
     width: 100%;
     display: block;
     margin: 10px 0px;
@@ -447,23 +448,25 @@ input[type='number'] {
     height: 30px;
 }
 
+details {
+    user-select: none;
+    margin: 20px 0px;
+}
+
+.preset-Color-Box {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    width: auto;
+}
+
+.preset-color {
+    margin: 12px 8px;
+    width: 20%;
+    height: 40px;
+}
+
 .extra-div {
     height: 20vh;
     background: linear-gradient(90deg, rgba(204, 7, 184, 1), rgba(105, 92, 255, 1), rgba(52, 135, 87, 1));
-}
-.preset-ColorBox {
-    position: absolute;
-    background-color: white;
-    width: 460px;
-    height: 250px; 
-    border: 2px solid black; 
-    text-align: center; 
-    margin-left: -180px; 
-    margin-top: 25px;
-    z-index: 1;    
-}
-.color {
-    width: 80px;
-    height: 40px; 
-    margin: 20px 10px
 }
