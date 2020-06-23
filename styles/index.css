@@ -23,7 +23,7 @@ header {
 button,
 input {
     user-select: none;
-    border: 2px solid black;
+    border: 1px solid #0000004D;
     border-radius: 10px;
     background-color: white;
     text-align: center;
@@ -61,15 +61,16 @@ input {
 
 /* gradient color box */
 .gradient {
+    margin: 10px auto;
+    width: 98%;
     border-bottom: 5px solid white;
-    display: inline-block;
-    width: 100%;
     height: 240px;
     background-size: contain;
     position: -webkit-sticky;
     position: sticky;
     top: -120px;
     z-index: 1;
+    border-radius: 10px;
 }
 
 /* autosave toogle styling starts */
@@ -227,6 +228,9 @@ main {
 }
 
 /* button row below gradient ends */
+input:focus {
+    border: 2px solid red;
+}
 
 .preset-Color-Box,
 .color-window,
@@ -237,7 +241,6 @@ main {
     width: 100%;
     margin: 10px 0px;
     border-radius: 10px;
-    border: 2px solid black;
 }
 
 details {
@@ -248,14 +251,19 @@ details {
 .preset-Color-Box {
     display: flex;
     flex-flow: row wrap;
-    justify-content: center;
+    justify-content: space-evenly;
     width: auto;
 }
 
 .preset-color {
-    margin: 10px 2%;
-    width: 20%;
-    height: 40px;
+    border: none;
+    margin-top: 10px;
+    width: 24%;
+    height: 48px;
+}
+
+.preset-color:nth-child(9) {
+    margin-bottom: 10px;
 }
 
 /* .color-window div */
@@ -278,8 +286,9 @@ details {
 }
 
 .color-codes-block input[type="text"] {
+    border-radius: 14px;
     width: 180px;
-    height: 20px;
+    height: 24px;
     color: black;
     font-size: small;
 }
@@ -289,10 +298,11 @@ details {
 }
 
 .colorCodesCopy {
+    border-radius: 50%;
     position: relative;
     display: inline-block;
-    width: 30px;
-    height: 30px;
+    width: 26px;
+    height: 26px;
     font-weight: 600;
     font-size: 1em;
 }
@@ -308,12 +318,19 @@ details {
     justify-content: space-around;
 }
 
-input[type='range'] {
+.color-slider,
+#linearSlider {
+    border: none;
     width: 70%;
     -webkit-appearance: none;
-    height: 20px;
+    height: 22px;
     border-radius: 20px;
     opacity: 0.9;
+}
+
+.color-value-div:last-child .color-slider,
+#linearSlider {
+    border: 1px solid #0000004D;
 }
 
 .color-slider:hover {
@@ -523,13 +540,15 @@ input[type='number'] {
         margin: 10px 1%;
     }
 
+    .color-window,
     .range-buttons,
     .gradient-settings {
-        width: 48.6%;
+        width: 32.5%;
         float: left;
     }
 
+    .range-buttons,
     .gradient-settings {
-        margin-left: 2%;
+        margin-left: 1%;
     }
 }
