@@ -1,7 +1,5 @@
 const elementById = (id) => document.getElementById(id);
 const elementsByclass = (className) => document.getElementsByClassName(className);
-const changeLinearInput = () => elementById("linearInput").value = elementById("linearSlider").value;
-const changeLinearSlider = () => elementById("linearSlider").value = elementById("linearInput").value;
 const transparentImage = "url(https://vipul1142.github.io/make-my-color/images/transparentImage.png)";
 // const transparentImage = "url(../images/transparentImage.png)";
 const getColorSliders = () => elementsByclass("color-slider");
@@ -341,7 +339,11 @@ const addEventListeners = () => {
     const radialDirection = elementById("radialDirections").children;
     for (let index = 0; index < 4; index++) {
         colorInputs[index].addEventListener('input', () => {
-            setRgbInputLimit(colorInputs);
+            if (index != 3) {
+                setInputLimit(colorInputs[index], 0, 255);
+            } else {
+                setInputLimit(colorInputs[index], 0, 100);
+            }
             colorSliders[index].value = colorInputs[index].value;
             changeBoxColor();
             setColorCodes();
@@ -376,6 +378,17 @@ const addEventListeners = () => {
         switchActiveColorButton(newColorButton);
         updatesToActiveColor();
     });
+    const linearSlider = elementById("linearSlider");
+    const linearInput = elementById("linearInput");
+    linearSlider.addEventListener('input', () => {
+        linearInput.value = linearSlider.value;
+        setMainGradient();
+    });
+    linearInput.addEventListener('input', () => {
+        setInputLimit(linearInput, 0, 359)
+        linearSlider.value = linearInput.value;
+        setMainGradient();
+    });
     for (let index = 0; index < radialDirection.length; index++) {
         radialDirection[index].setAttribute("onclick", "radialDirectionSwitch(this);setMainGradient()")
     }
@@ -408,18 +421,14 @@ const addEventListeners = () => {
         setRandomColor(getActiveColorButton());
         updatesToActiveColor();
     });
-}
-const setRgbInputLimit = (colorInputs) => {
-    for (let index = 0; index < 3; index++) {
-        if (colorInputs[index].value > 255)
-            colorInputs[index].value = 255;
-        if (colorInputs[index].value < 0)
-            colorInputs[index].value = 0;
+};
+const setInputLimit = (element, lowerLimit, upperLimit) => {
+    if (element.value > upperLimit) {
+        element.value = upperLimit;
     }
-    if (colorInputs[3].value > 100)
-        colorInputs[3].value = 100;
-    if (colorInputs[3].value < 0)
-        colorInputs[3].value = 0;
+    if (element.value < lowerLimit) {
+        element.value = lowerLimit;
+    }
 };
 
 const setInitialColorButtons = () => {
