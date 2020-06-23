@@ -22,11 +22,12 @@
     </header>
     <div class="gradient" id="gradient">
         <div class="autosave-div">
-            <label for="autosave">AUTOSAVE</label>
+            <label for="autosave">AutoSave</label>
             <label class="switch">
-                <input type="checkbox" id="autosave">
+                <input type="checkbox" id="autosave" onclick="saveGradientData()">
                 <span class="toggle"></span>
             </label>
+            <button id="retrieveData" onclick="retrieveData()">Retrieve</button>
         </div>
     </div>
     <!-- main starts -->
@@ -66,7 +67,7 @@
                 <button class="preset-color" style="background-color:#AF3C44E8"></button>
                 <button class="preset-color" style="background-color:#80bfff"></button>
                 <button class="preset-color" style="background-color:#ff99bb"></button>
-                <button class="preset-color" style="background-color:#17918AFF"></button>        
+                <button class="preset-color" style="background-color:#17918AFF"></button>
                 <button class="preset-color" style="background-color:#31F26EFF"></button>
                 <button class="preset-color" style="background-color:#E0C145FF"></button>
                 <button class="preset-color" style="background-color:#CC397B"></button>

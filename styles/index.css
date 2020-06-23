@@ -72,14 +72,21 @@ input {
 }
 
 .autosave-div {
-    width: 45px;
-    position: relative;
-    top: 150px;
-    left: 20px;
+    background-color: white;
+    border-radius: 10px;
+    opacity: 0.3;
+    width: max-content;
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
     justify-content: center;
+}
+
+.autosave-div:hover {
+    opacity: 1;
 }
 
 .autosave-div label {
