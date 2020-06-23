@@ -1,3 +1,4 @@
+/* mozilla input type focus style */
 :focus {
     outline: none;
 }
@@ -18,6 +19,7 @@ header {
     width: 100%;
 }
 
+/* all buttons and input types */
 button,
 input {
     user-select: none;
@@ -59,18 +61,18 @@ input {
 
 /* gradient color box */
 .gradient {
-    border-top: 5px solid white;
-    border-bottom: 8px solid white;
+    border-bottom: 5px solid white;
     display: inline-block;
     width: 100%;
-    height: 200px;
+    height: 240px;
     background-size: contain;
     position: -webkit-sticky;
     position: sticky;
-    top: 0px;
+    top: -120px;
     z-index: 1;
 }
 
+/* autosave toogle styling starts */
 .autosave-div {
     background-color: white;
     border-radius: 10px;
@@ -149,6 +151,7 @@ input:checked+.toggle:before {
     transform: translateX(16px);
 }
 
+/* autosave toggle styling ends */
 /* header end */
 
 main {
@@ -157,6 +160,7 @@ main {
     margin-left: 5%;
 }
 
+/* button row below gradient starts*/
 .gradient-buttons-block {
     display: flex;
     flex-flow: row nowrap;
@@ -164,7 +168,7 @@ main {
     height: 56px;
 }
 
-/* gradient buttons div*/
+/* gradient color buttons div*/
 .gradient-color-buttons {
     margin-top: 5px;
     display: flex;
@@ -191,7 +195,7 @@ main {
     background-image: radial-gradient(circle at center, goldenrod 00%, orangered 80%);
 }
 
-/* gradient buttons*/
+/* gradient color buttons*/
 .gradient-color-buttons button {
     margin-right: 2px;
     height: 48px;
@@ -208,6 +212,7 @@ main {
     border-style: dotted;
 }
 
+/* plus color button */
 #addColorButton {
     height: 40px;
     width: 40px;
@@ -221,27 +226,45 @@ main {
     margin-left: 5px;
 }
 
+/* button row below gradient ends */
+
+.preset-Color-Box,
 .color-window,
 .range-buttons,
 .gradient-settings,
-.extra-div,
 .gradient-code,
-.preset-Color-Box {
+.extra-div {
     width: 100%;
-    display: block;
     margin: 10px 0px;
     border-radius: 10px;
     border: 2px solid black;
 }
 
+details {
+    user-select: none;
+    margin: 20px 0px;
+}
+
+.preset-Color-Box {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    width: auto;
+}
+
+.preset-color {
+    margin: 10px 2%;
+    width: 20%;
+    height: 40px;
+}
+
 /* .color-window div */
 .color-window {
-    height: 120px;
-    background-image: inear-gradient(90deg, rgba(255, 0, 254, 1), rgba(255, 0, 254, 1));
+    height: 160px;
+    background-color: whitesmoke;
     background-size: contain;
     position: relative;
 }
-
 
 /* color-code Box */
 .color-codes-block,
@@ -251,66 +274,28 @@ main {
     justify-content: space-around;
     flex-flow: column nowrap;
     position: absolute;
-    right: 32px;
+    right: 38px;
 }
 
 .color-codes-block input[type="text"] {
-    width: 160px;
-    height: 18px;
+    width: 180px;
+    height: 20px;
     color: black;
+    font-size: small;
 }
 
 .color-codes-copy-div {
-    right: 0px;
+    right: 5px;
 }
 
 .colorCodesCopy {
     position: relative;
     display: inline-block;
     width: 30px;
-    margin: 0 auto;
-    font-size: larger;
+    height: 30px;
+    font-weight: 600;
+    font-size: 1em;
 }
-
-.tooltip {
-    font-size: small;
-    visibility: hidden;
-    width: max-content;
-    background-color: #555555;
-    color: white;
-    text-align: center;
-    border-radius: 6px;
-    position: absolute;
-    z-index: 1;
-    padding: 1px 10px;
-    left: -50%;
-    bottom: 150%;
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-.tooltip::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: #555 transparent transparent transparent;
-}
-
-.colorCodesCopy:hover .tooltip {
-    visibility: visible;
-    opacity: 1;
-}
-
-.color-window {
-    height: 140px;
-    background-image: linear-gradient(90deg, rgba(255, 0, 254, 1), rgba(255, 0, 254, 1));
-    background-size: contain;
-}
-
 
 .color-value-div,
 .linear-settings div {
@@ -383,10 +368,6 @@ input[type='range']::-moz-focus-outer {
 }
 
 input[type='range'].notWhiteThumb::-webkit-slider-thumb {
-    background-color: black;
-}
-
-input[type='range'].notWhiteThumb::-moz-range-thumbs {
     background-color: black;
 }
 
@@ -526,25 +507,29 @@ input[type='number'] {
     height: 30px;
 }
 
-details {
-    user-select: none;
-    margin: 20px 0px;
-}
-
-.preset-Color-Box {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-    width: auto;
-}
-
-.preset-color {
-    margin: 12px 8px;
-    width: 20%;
-    height: 40px;
-}
-
 .extra-div {
     height: 20vh;
     background: linear-gradient(90deg, rgba(204, 7, 184, 1), rgba(105, 92, 255, 1), rgba(52, 135, 87, 1));
+}
+
+@media screen and (min-width:1012px) {
+    main {
+        width: 95%;
+        margin-left: 2.5%;
+    }
+
+    .preset-color {
+        width: 14.65%;
+        margin: 10px 1%;
+    }
+
+    .range-buttons,
+    .gradient-settings {
+        width: 48.6%;
+        float: left;
+    }
+
+    .gradient-settings {
+        margin-left: 2%;
+    }
 }

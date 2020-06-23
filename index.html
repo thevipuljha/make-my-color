@@ -40,23 +40,6 @@
             </div>
             <button id="addColorButton">&plus;</button>
         </div>
-
-        <!-- current color box -->
-        <div class="color-window" id="colorWindow">
-            <!-- current color codes blocks starts-->
-            <div class="color-codes-block">
-                <input class="colorCodes" type="text" readonly id="rgb-code">
-                <input class="colorCodes" type="text" readonly id="hex-code">
-                <input class="colorCodes" type="text" readonly id="hsl-code">
-                <input class="colorCodes" type="text" readonly id="cmyk-code">
-            </div>
-            <div class="color-codes-copy-div">
-                <button class="colorCodesCopy"><span class="tooltip">Copy</span> &#10697;</button>
-                <button class="colorCodesCopy"><span class="tooltip">Copy</span> &#10697;</button>
-                <button class="colorCodesCopy"><span class="tooltip">Copy</span> &#10697;</button>
-                <button class="colorCodesCopy"><span class="tooltip">Copy</span> &#10697;</button>
-            </div>
-        </div>
         <details>
             <summary>Choose a preset Colour from pallete
             </summary>
@@ -75,6 +58,22 @@
                 <button class="preset-color"></button>
             </div>
         </details>
+        <!-- current color box -->
+        <div class="color-window" id="colorWindow">
+            <!-- current color codes blocks starts-->
+            <div class="color-codes-block">
+                <input class="colorCodes" type="text" readonly id="rgb-code">
+                <input class="colorCodes" type="text" readonly id="hex-code">
+                <input class="colorCodes" type="text" readonly id="hsl-code">
+                <input class="colorCodes" type="text" readonly id="cmyk-code">
+            </div>
+            <div class="color-codes-copy-div">
+                <button class="colorCodesCopy" title="Copy RGBA">&#10697;</button>
+                <button class="colorCodesCopy" title="Copy HEX">&#10697;</button>
+                <button class="colorCodesCopy" title="Copy HSLA">&#10697;</button>
+                <button class="colorCodesCopy" title="Copy CMYK">&#10697;</button>
+            </div>
+        </div>
         <!-- rgba slider starts -->
         <div class="range-buttons">
             <!-- red slider -->
