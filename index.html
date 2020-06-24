@@ -20,16 +20,19 @@
         <!-- title header ends -->
         <!-- gradient box -->
     </header>
-    <div class="gradient" id="gradient">
-        <div class="autosave-div">
-            <label for="autosave">AutoSave</label>
-            <label class="switch">
-                <input type="checkbox" id="autosave" onclick="saveGradientData()">
-                <span class="toggle"></span>
-            </label>
-            <button id="retrieveData" onclick="retrieveData()">Retrieve</button>
+    <div class="gradient-container">
+        <div class="gradient" id="gradient">
+            <div class="autosave-div">
+                <label for="autosave">AutoSave</label>
+                <label class="switch">
+                    <input type="checkbox" id="autosave" onclick="saveGradientData()">
+                    <span class="toggle"></span>
+                </label>
+                <button id="retrieveData" onclick="retrieveData()">Retrieve</button>
+            </div>
         </div>
     </div>
+
     <!-- main starts -->
     <main>
         <!-- the color storing blocks -->
@@ -40,7 +43,7 @@
             </div>
             <button id="addColorButton">&plus;</button>
         </div>
-
+        <hr>
         <details>
             <summary>Colour Pallete
             </summary>
@@ -159,9 +162,9 @@
         </div>
         <!-- gradient settings box ends -->
         <div class="gradient-code">
-            <span id="gradientCodeHeader">GRADIENT CODE</span>
+            <span id="gradientCodeHeader">CSS GRADIENT CODE</span>
             <code id="gradientCode"></code>
-            <button id="gradientCopyButton"><span>Copy CSS Code</span></button>
+            <button id="gradientCopyButton"><span>Copy Code</span></button>
         </div>
         <!-- just extra blocks for making page more scrollable -->
         <div class="extra-div">

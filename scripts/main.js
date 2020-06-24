@@ -396,7 +396,7 @@ const addEventListeners = () => {
         const currentButton = linearDegrees[index];
         currentButton.value = index * 45;
         currentButton.addEventListener("click", () => {
-            elementById("linearSlider").value = currentButton.value;z
+            elementById("linearSlider").value = currentButton.value;
             elementById("linearInput").value = currentButton.value;
             elementById("currentDegree").removeAttribute("id");
             currentButton.id = "currentDegree";
