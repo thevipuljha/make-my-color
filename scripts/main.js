@@ -358,10 +358,12 @@ const addEventListeners = () => {
             changeActiveButtonColor();
             setMainGradient();
         });
+
         colorCodeCopy[index].addEventListener("click", () => {
             colorCodes[index].select();
             colorCodes[index].setSelectionRange(0, 99999);
             document.execCommand("copy");
+            colorCodes[index].blur();
         });
     }
     elementById("addColorButton").addEventListener("click", () => {
@@ -371,6 +373,7 @@ const addEventListeners = () => {
         newColorButton.id = "activeColor";
         setRandomColor(newColorButton);
         newColorButton.setAttribute("onclick", "colorButtonCicked(this)");
+        newColorButton.setAttribute("onfocus", "this.click()");
         elementById("gradientColorButtons").appendChild(newColorButton);
         if (colorButtons.length > 4) {
             elementById("gradientColorButtons").style.justifyContent = "space-between";
@@ -390,11 +393,13 @@ const addEventListeners = () => {
         setMainGradient();
     });
     for (let index = 0; index < radialDirection.length; index++) {
-        radialDirection[index].setAttribute("onclick", "radialDirectionSwitch(this);setMainGradient()")
+        radialDirection[index].setAttribute("onclick", "radialDirectionSwitch(this);setMainGradient()");
+        radialDirection[index].setAttribute("onfocus", "this.click()");
     }
     for (let index = 0; index < linearDegrees.length; index++) {
         const currentButton = linearDegrees[index];
         currentButton.value = index * 45;
+        currentButton.setAttribute("onfocus", "this.click()");
         currentButton.addEventListener("click", () => {
             elementById("linearSlider").value = currentButton.value;
             elementById("linearInput").value = currentButton.value;
@@ -436,6 +441,7 @@ const setInitialColorButtons = () => {
     for (let index = 0; index < 2; index++) {
         setRandomColor(colorButtons[index]);
         colorButtons[index].setAttribute("onclick", "colorButtonCicked(this)");
+        colorButtons[index].setAttribute("onfocus", "this.click()");
     }
     colorButtons[0].id = "activeColor";
 };

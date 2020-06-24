@@ -110,9 +110,10 @@
         <div class="gradient-settings">
             <!-- type selection buttons -->
             <div class="gradient-type-buttons">
-                <button class="gradientType" onclick="gradientTypeSwitch(this)" id="activeType"
+                <button class="gradientType" onclick="gradientTypeSwitch(this)" onfocus="this.click()" id="activeType"
                     value="linear">linear</button>
-                <button class="gradientType" onclick="gradientTypeSwitch(this)" value="radial">radial</button>
+                <button class="gradientType" onclick="gradientTypeSwitch(this)" onfocus="this.click()"
+                    value="radial">radial</button>
             </div>
             <!-- linear gradient settings box starts-->
             <div class="linear-settings" id="linearDiv">
@@ -141,9 +142,10 @@
             <div class="radial-settings" id="radialDiv">
                 <!-- radial gradient shape selector box -->
                 <div class="radial-shape-buttons">
-                    <button class="radialType" onclick="radialShapeSwitch(this)" id="activeShape"
+                    <button class="radialType" onclick="radialShapeSwitch(this)" onfocus="this.click()" id="activeShape"
                         value="circle">circle</button>
-                    <button class="radialType" onclick="radialShapeSwitch(this)" value="ellipse">ellipse</button>
+                    <button class="radialType" onclick="radialShapeSwitch(this)" onfocus="this.click()"
+                        value="ellipse">ellipse</button>
                 </div>
                 <!-- radial gradient direction block -->
                 <div class="radial-direction-div" id="radialDirections">
@@ -162,16 +164,9 @@
         </div>
         <!-- gradient settings box ends -->
         <div class="gradient-code">
-            <span id="gradientCodeHeader">CSS GRADIENT CODE</span>
+            <div id="gradientCodeHeader"><span>CSS GRADIENT CODE</span></div>
             <code id="gradientCode"></code>
             <button id="gradientCopyButton"><span>Copy Code</span></button>
-        </div>
-        <!-- just extra blocks for making page more scrollable -->
-        <div class="extra-div">
-
-        </div>
-        <div class="extra-div">
-
         </div>
     </main>
     <!-- main ends -->

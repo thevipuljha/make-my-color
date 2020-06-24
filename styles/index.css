@@ -1,14 +1,16 @@
-/* colors used in project fonts : black,
-white border/divider : #03070473
-backgrounds : dodgerblue*/
+/* colors used in project 
+fonts : black,white
+border/divider : #03070473
+backgrounds : #9100D2FF
+box shadow : #00000099*/
 
 /* all buttons and input types */
 button,
 input {
     user-select: none;
     border: none;
-    box-shadow: 1px 1px 2px 1px lightslategrey;
-    border-radius: 10px;
+    border: 1px solid #03070473;
+    border-radius: 8px;
     background-color: white;
     text-align: center;
     outline: none;
@@ -69,7 +71,6 @@ header {
 
 .title-header span:hover {
     animation: animate 2s ease infinite;
-
 }
 
 @keyframes animate {
@@ -80,19 +81,19 @@ header {
 
 /* gradient color box */
 .gradient-container {
+    display: block;
+    width: 97vw;
+    margin: 0 auto;
     border-bottom: 5px solid white;
     position: -webkit-sticky;
     position: sticky;
     top: -25vh;
     z-index: 1;
-    display: inline-block;
-    width: 97vw;
-    margin-left: 1.5vw;
 }
 
 .gradient {
     width: 100%;
-    height: 40vh;
+    height: 34vh;
     border-radius: 16px;
     background-repeat: repeat;
 }
@@ -164,11 +165,11 @@ header {
 }
 
 input:checked+.toggle {
-    background-color: dodgerblue;
+    background-color: #9100D2FF;
 }
 
 input:focus+.toggle {
-    box-shadow: 0 0 1px dodgerblue;
+    box-shadow: 0 0 1px #9100D2FF;
 }
 
 input:checked+.toggle:before {
@@ -181,9 +182,9 @@ input:checked+.toggle:before {
 /* header end */
 
 main {
-    display: inline-block;
+    display: block;
     width: 90vw;
-    margin-left: 5vw;
+    margin: 0 auto;
 }
 
 /* button row below gradient starts*/
@@ -191,22 +192,25 @@ main {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
+    justify-content: space-between;
 }
 
 /* gradient color buttons div*/
 .gradient-color-buttons {
-    margin-top: 5px;
-    margin-bottom: 5px;
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
     width: 90%;
     height: 56px;
     overflow: auto hidden;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
     justify-content: space-around;
-    border-right: 2px solid black;
+    border-right: 2px solid #03070473;
     scrollbar-width: thin;
-    scrollbar-color: orangered #03070473;
+    scrollbar-color: #9100D2FF #03070473;
+}
+
+hr {
+    color: #03070473;
 }
 
 .gradient-color-buttons::-webkit-scrollbar {
@@ -217,8 +221,8 @@ main {
 
 .gradient-color-buttons::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    background-color: darkorchid;
-    background-image: radial-gradient(circle at center, goldenrod 00%, orangered 80%);
+    background-color: #9100D2FF;
+    background-image: radial-gradient(circle at center, #9100D2FF 00%, slateblue 100%);
 }
 
 /* gradient color buttons*/
@@ -229,8 +233,22 @@ main {
     text-align: center;
 }
 
+
 #activeColor {
-    border: 1px solid #03070473;
+    border: none;
+    border: solid 2px #9100D2FF;
+    padding: 2px;
+    background-clip: content-box;
+}
+
+.gradient-color-buttons button:hover,
+#addColorButton:hover,
+.preset-color:hover,
+input[type='range']:focus,
+.preset-color:focus {
+    box-shadow: 1px 1px 5px #00000099;
+    -webkit-box-shadow: 1px 1px 5px #00000099;
+    -moz-box-shadow: 1px 1px 5px #00000099;
 }
 
 /* plus color button */
@@ -238,10 +256,9 @@ main {
     height: 40px;
     width: 40px;
     border-radius: 50%;
-    background-color: dodgerblue;
-    color: antiquewhite;
-    font-size: x-large;
-    font-weight: bold;
+    background-color: #9100D2FF;
+    color: white;
+    font-size: 2em;
     text-align: center;
     margin-left: 5px;
 }
@@ -255,9 +272,11 @@ main {
 .gradient-code,
 .extra-div {
     width: 100%;
-    margin: 10px 0px;
+    margin: 20px 0px;
     border-radius: 10px;
-    box-shadow: 0px 2px 3px 3px lightslategrey;
+    box-shadow: 2px 2px 6px #00000099;
+    -webkit-box-shadow: 2px 2px 6px #00000099;
+    -moz-box-shadow: 2px 2px 6px #00000099;
 }
 
 details {
@@ -280,7 +299,7 @@ details {
 
 /* .color-window div */
 .color-window {
-    height: 35vh;
+    height: 160px;
     background-color: whitesmoke;
     background-repeat: repeat;
     position: relative;
@@ -297,16 +316,16 @@ details {
     right: 40px;
 }
 
+.color-codes-copy-div {
+    right: 5px;
+}
+
 .color-codes-block input[type="text"] {
     width: 180px;
     height: 30px;
     color: black;
     font-size: small;
     border-radius: 30px;
-}
-
-.color-codes-copy-div {
-    right: 5px;
 }
 
 .colorCodesCopy {
@@ -317,11 +336,24 @@ details {
     border-radius: 50%;
 }
 
+.color-codes-block input[type="text"]:focus,
+.colorCodesCopy:focus,
+.colorCodesCopy:hover {
+    background-color: #9100D2FF;
+    color: white;
+}
+
+.range-buttons {
+    height: 160px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-evenly;
+}
+
 .color-value-div,
-.linear-settings div {
+.linear-value-div {
     width: 100%;
     display: flex;
-    height: 24%;
     flex-direction: row;
     align-items: center;
     flex-wrap: nowrap;
@@ -331,17 +363,13 @@ details {
 input[type='range'] {
     width: 70%;
     -webkit-appearance: none;
-    height: 24px;
-    border-radius: 24px;
-    opacity: 0.9;
+    height: 20px;
+    border-radius: 16px;
+    cursor: move;
 }
 
-.color-slider:hover {
-    opacity: 1;
-}
-
-.range-buttons {
-    height: 160px;
+input[type='number']:focus {
+    border: solid 2px #9100D2FF;
 }
 
 #redSlider {
@@ -366,28 +394,26 @@ input[type='range'] {
 input[type='range']::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
-    background-color: whitesmoke;
-    cursor: move;
+    background-color: white;
 }
 
 input[type='range']::-moz-range-thumb {
     appearance: none;
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
-    background-color: whitesmoke;
-    cursor: move;
-}
-
-input[type='range']::-moz-focus-outer {
-    border: 0;
+    background-color: white;
 }
 
 input[type='range'].notWhiteThumb::-webkit-slider-thumb {
-    background-color: black;
+    background-color: #9100D2FF;
+}
+
+input[type='range'].notWhiteThumb::-moz-range-thumb {
+    background-color: #9100D2FF;
 }
 
 input[type='number'] {
@@ -396,13 +422,17 @@ input[type='number'] {
     font-size: small;
 }
 
+::selection {
+    color: white;
+    background-color: #9100D2FF;
+}
 
 .color-value-div label {
     margin-right: 5px;
 }
 
 .gradient-settings {
-    height: 160px;
+    height: 120px;
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
@@ -419,27 +449,45 @@ input[type='number'] {
     justify-content: space-around;
 }
 
+.gradient-type-buttons {
+    border-right: 1px solid #03070473;
+}
+
 #activeType,
 #activeShape,
 #currentDirection,
 #currentDegree {
-    background-color: dodgerblue;
+    background-color: #9100D2FF;
+    color: white;
 }
 
 .gradient-type-buttons button,
 .radial-shape-buttons button {
     height: 40px;
     width: 90%;
-    font-weight: bold;
+    font-size: 1em;
+}
+
+.gradient-settings button:hover,
+.gradient-settings button:focus,
+#gradientCopyButton:hover,
+#gradientCopyButton:focus {
+    background-image: linear-gradient(90deg, rgba(224, 193, 69, 1), rgba(187, 1, 112, 1), rgba(97, 84, 181, 1), rgba(224, 193, 69, 1));
+    background-size: 200% auto;
+    animation: buttonanimate 2s ease infinite;
+    color: white;
+}
+
+@keyframes buttonanimate {
+    to {
+        background-position: 200% 0%;
+    }
 }
 
 .linear-settings,
 .radial-settings {
     height: 100%;
     width: 80%;
-    /* border: 2px solid black; */
-    box-shadow: 0px 1px 1px 1px lightslategrey;
-    border-radius: 10px;
 }
 
 .linear-settings div {
@@ -456,12 +504,15 @@ input[type='number'] {
     font-size: xx-large;
 }
 
-.linear-direction-div button,
-.radial-direction-div button {
-    height: 36px;
-    width: 36px;
-    font-size: 20px;
-    font-weight: bolder;
+.linear-direction-div {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(8, 10%);
+    grid-template-rows: 44px;
+    justify-items: center;
+    align-items: center;
+    align-content: center;
+    justify-content: space-evenly;
 }
 
 .rotate-text span {
@@ -474,7 +525,6 @@ input[type='number'] {
 }
 
 .radial-settings {
-    /* display: flex; */
     align-items: center;
     justify-content: space-evenly;
     flex-flow: row nowrap;
@@ -490,17 +540,26 @@ input[type='number'] {
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
     width: 40%;
-    height: 98%;
-    gap: 5px;
+    height: 95%;
+    gap: 4px;
     justify-items: center;
     align-items: center;
     align-content: center;
     justify-content: center;
 }
 
-.radial-direction-div button {
-    width: 100%;
+.linear-direction-div button {
     height: 100%;
+    width: 100%;
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+.radial-direction-div button {
+    height: 100%;
+    width: 100%;
+    font-size: 20px;
+    font-weight: bolder;
 }
 
 .gradient-code {
@@ -512,19 +571,29 @@ input[type='number'] {
 
 #gradientCodeHeader {
     width: 100%;
-    text-align: center;
-    margin: 8px auto;
+    height: 40px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #9100D2FF;
+    color: white;
 }
 
 #gradientCode {
-    border-bottom: 2px solid black;
-    border-top: 2px solid black;
+    min-height: 60px;
+    border-bottom: 2px solid #03070473;
+    border-top: 2px solid #03070473;
     padding: 10px 0px 10px 5px;
 }
 
 #gradientCopyButton {
+    width: 100%;
     border: none;
-    height: 30px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    height: 40px;
 }
 
 .extra-div {
@@ -538,6 +607,10 @@ input[type='number'] {
         margin-left: 2.5%;
     }
 
+    .gradient-container {
+        top: -2vh;
+    }
+
     .preset-color {
         width: 14.65%;
         margin: 10px 1%;
@@ -549,10 +622,15 @@ input[type='number'] {
         width: 32.5%;
         float: left;
         margin-left: 1%;
-        height: 35vh;
+        height: 140px;
     }
 
     .color-window {
         margin-left: 0.3%;
     }
+
+    .color-codes-block input[type="text"] {
+        height: 26px;
+    }
+
 }
