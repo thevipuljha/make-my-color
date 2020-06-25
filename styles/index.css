@@ -85,6 +85,18 @@ header {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+.summary {
+    background-color: lightslategrey;
+    color: white;
+    border-radius: 4px;
+    padding: 3px;
+    
+}
+.summary:hover{
+    color: white;
+    font-weight: bold;
+}
+
 
 /* gradient color box */
 .gradient-container {
@@ -211,7 +223,6 @@ main {
     flex-flow: row nowrap;
     align-items: center;
     justify-content: space-around;
-    border-right: 2px solid #03070473;
     scrollbar-width: thin;
     scrollbar-color: #9100D2FF #03070473;
 }
