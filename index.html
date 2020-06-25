@@ -43,7 +43,6 @@
             </div>
             <button id="addColorButton">&plus;</button>
         </div>
-        <hr>
         <details>
             <summary>Colour Pallete
             </summary>
@@ -66,10 +65,10 @@
         <div class="color-window" id="colorWindow">
             <!-- current color codes blocks starts-->
             <div class="color-codes-block">
-                <input class="colorCodes" type="text" readonly id="rgb-code">
-                <input class="colorCodes" type="text" readonly id="hex-code">
-                <input class="colorCodes" type="text" readonly id="hsl-code">
-                <input class="colorCodes" type="text" readonly id="cmyk-code">
+                <input class="colorCodes" type="text" tabindex="-1" readonly id="rgb-code">
+                <input class="colorCodes" type="text" tabindex="-1" readonly id="hex-code">
+                <input class="colorCodes" type="text" tabindex="-1" readonly id="hsl-code">
+                <input class="colorCodes" type="text" tabindex="-1" readonly id="cmyk-code">
             </div>
             <div class="color-codes-copy-div">
                 <button class="colorCodesCopy" title="Copy RGBA">&#10697;</button>
@@ -164,15 +163,22 @@
         </div>
         <!-- gradient settings box ends -->
         <div class="gradient-code">
-            <div id="gradientCodeHeader"><span>CSS GRADIENT CODE</span></div>
+            <div id="gradientCodeHeader"><span>CSS GRADIENT CODE</span>
+                <div class="code-switch">
+                    <label for="codeSwitch">RGB</label>
+                    <label class="switch">
+                        <input type="checkbox" id="codeSwitch" onclick="setMainGradient()">
+                        <span class="toggle codeToggle"></span>
+                    </label>
+                    <label for="codeSwitch">HEX</label>
+                </div>
+            </div>
+
             <code id="gradientCode"></code>
             <button id="gradientCopyButton"><span>Copy Code</span></button>
         </div>
     </main>
     <!-- main ends -->
-    <footer>
-
-    </footer>
 </body>
 
 </html>

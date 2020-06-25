@@ -56,27 +56,34 @@ header {
     background-color: brown;
 }
 
-.title-header span {
-    font-weight: 900;
-    text-transform: uppercase;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 2.5em;
-    background-size: 200% auto;
-    background-image: linear-gradient(90deg, rgb(163, 134, 16), rgba(141, 42, 228, 1), rgba(167, 60, 205, 1), rgba(204, 57, 123, 1), rgba(212, 97, 139, 1), rgb(163, 134, 16));
-    background-clip: text;
-    -moz-background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.title-header span:hover {
-    animation: animate 2s ease infinite;
+.title-header span:hover,
+.gradient-settings button:hover,
+.gradient-settings button:focus,
+#gradientCopyButton:hover,
+#gradientCopyButton:focus {
+    background-image: linear-gradient(90deg, rgba(38, 85, 230, 1), rgba(249, 133, 103, 1), rgba(12, 229, 241, 1), rgba(194, 234, 7, 1), rgba(38, 85, 230, 1));
+    background-size: 400% auto;
+    animation: animate 8s ease infinite;
+    color: white;
 }
 
 @keyframes animate {
     to {
-        background-position: 200% center;
+        background-position: 400% 0%;
     }
+}
+
+.title-header span {
+    user-select: none;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 2.5em;
+    background-image: linear-gradient(90deg, rgba(38, 85, 230, 1), rgba(249, 133, 103, 1), rgba(12, 229, 241, 1), rgba(194, 234, 7, 1), rgba(38, 85, 230, 1));
+    background-clip: text;
+    -moz-background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 /* gradient color box */
@@ -209,10 +216,6 @@ main {
     scrollbar-color: #9100D2FF #03070473;
 }
 
-hr {
-    color: #03070473;
-}
-
 .gradient-color-buttons::-webkit-scrollbar {
     background-color: #03070473;
     height: 5px;
@@ -336,7 +339,6 @@ details {
     border-radius: 50%;
 }
 
-.color-codes-block input[type="text"]:focus,
 .colorCodesCopy:focus,
 .colorCodesCopy:hover {
     background-color: #9100D2FF;
@@ -468,22 +470,6 @@ input[type='number'] {
     font-size: 1em;
 }
 
-.gradient-settings button:hover,
-.gradient-settings button:focus,
-#gradientCopyButton:hover,
-#gradientCopyButton:focus {
-    background-image: linear-gradient(90deg, rgba(224, 193, 69, 1), rgba(187, 1, 112, 1), rgba(97, 84, 181, 1), rgba(224, 193, 69, 1));
-    background-size: 200% auto;
-    animation: buttonanimate 2s ease infinite;
-    color: white;
-}
-
-@keyframes buttonanimate {
-    to {
-        background-position: 200% 0%;
-    }
-}
-
 .linear-settings,
 .radial-settings {
     height: 100%;
@@ -570,6 +556,7 @@ input[type='number'] {
 }
 
 #gradientCodeHeader {
+    user-select: none;
     width: 100%;
     height: 40px;
     border-top-left-radius: 10px;
@@ -579,6 +566,21 @@ input[type='number'] {
     justify-content: center;
     background-color: #9100D2FF;
     color: white;
+    position: relative;
+}
+
+.code-switch {
+    display: flex;
+    align-items: center;
+    user-select: none;
+    font-size: small;
+    position: absolute;
+    right: 10px;
+    color: white;
+}
+
+.codeToggle {
+    background-color: #9100D2FF;
 }
 
 #gradientCode {
@@ -594,11 +596,6 @@ input[type='number'] {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     height: 40px;
-}
-
-.extra-div {
-    height: 20vh;
-    background: linear-gradient(90deg, rgba(204, 7, 184, 1), rgba(105, 92, 255, 1), rgba(52, 135, 87, 1));
 }
 
 @media screen and (min-width:1012px) {

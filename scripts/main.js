@@ -13,7 +13,7 @@ const getActiveType = () => elementById("activeType");
 const getLinearDegree = () => elementById("linearSlider").value;
 const getRadialShape = () => elementById("activeShape");
 const getRadialDirection = () => elementById("currentDirection");
-const getGradientPrefix = () => {
+const getGradientString = () => {
     const colorButtons = getColorButtons();
     const type = getActiveType().value;
     let gradientString = type + "-gradient(";
@@ -23,9 +23,14 @@ const getGradientPrefix = () => {
     if (type == "radial") {
         gradientString += `${getRadialShape().value} at ${getRadialDirection().value}`;
     }
+    const codeType = elementById("codeSwitch").checked;
     for (let index = 0; index < colorButtons.length; index++) {
         const rgba = getBackgroundColor(colorButtons[index]);
-        gradientString += `, ${getRgbaString(rgba[0],rgba[1],rgba[2],rgba[3])}`;
+        if (codeType == false) {
+            gradientString += `, ${getRgbaString(rgba[0],rgba[1],rgba[2],rgba[3])}`;
+        } else {
+            gradientString += `, ${getHexString(rgbaToHex(rgba[0],rgba[1],rgba[2],rgba[3]))}`;
+        }
     }
     return gradientString + ')';
 };
@@ -70,8 +75,8 @@ const saveGradientData = () => {
 };
 
 const setMainGradient = () => {
-    elementById("gradient").style.backgroundImage = `${getGradientPrefix()}, ${transparentImage}`;
-    elementById("gradientCode").innerText = `background: ${getGradientPrefix()};`;
+    elementById("gradient").style.backgroundImage = `${getGradientString()}, ${transparentImage}`;
+    elementById("gradientCode").innerText = `background-image : ${getGradientString()};`;
     saveGradientData();
 };
 const setRandomColor = (element) => {
@@ -418,6 +423,14 @@ const addEventListeners = () => {
         document.addEventListener("copy", listener);
         document.execCommand("copy");
         document.removeEventListener("copy", listener);
+        elementById("gradientCopyButton").style.backgroundColor = "green";
+        elementById("gradientCopyButton").innerHTML = "&checkmark;";
+        elementById("gradientCopyButton").style.color = "white";
+        setTimeout(function () {
+            elementById("gradientCopyButton").style.backgroundColor = "white";
+            elementById("gradientCopyButton").innerHTML = "Copy Code";
+            elementById("gradientCopyButton").style.color = "black";
+        }, 3000)
     });
     for (let index = 0; index < palleteColors.length - 1; index++) {
         palleteColors[index].setAttribute("onclick", "palleteColorChoosed(this)");
@@ -475,8 +488,8 @@ const retrieveData = () => {
             elementById('linearDiv').style.display = "none"
             elementById('radialDiv').style.display = "flex"
         }
-        elementById("gradient").style.backgroundImage = `${getGradientPrefix()}, ${transparentImage}`;
-        elementById("gradientCode").innerText = `background: ${getGradientPrefix()};`;
+        elementById("gradient").style.backgroundImage = `${getGradientString()}, ${transparentImage}`;
+        elementById("gradientCode").innerText = `background-image : ${getGradientString()};`;
     }
 };
 const setGradientData = () => {
