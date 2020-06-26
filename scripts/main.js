@@ -17,7 +17,6 @@ const getLinearDegree = () => elementById("linearSlider").value;
 const getRadialShape = () => elementById("activeShape");
 const getCurrentRadialDirection = () => elementById("currentDirection");
 
-
 function switchActiveColor(currentActiveColor) {
     const previousActiveColor = getActiveColorButton();
     if (previousActiveColor != null)
@@ -47,18 +46,17 @@ const getGradientString = () => {
     if (type == "radial") {
         gradientString += `${getRadialShape().value} at ${getCurrentRadialDirection().value}`;
     }
-    const codeType = elementById("codeSwitch").checked;
+    const isHex = elementById("codeSwitch").checked;
     for (let index = 0; index < colorButtons.length; index++) {
         const rgba = getBackgroundColor(colorButtons[index]);
-        if (codeType == false) {
-            gradientString += `, ${getRgbaString(rgba[0],rgba[1],rgba[2],rgba[3])}`;
-        } else {
+        if (isHex) {
             gradientString += `, ${getHexString(rgbaToHex(rgba[0],rgba[1],rgba[2],rgba[3]))}`;
+        } else {
+            gradientString += `, ${getRgbaString(rgba[0],rgba[1],rgba[2],rgba[3])}`;
         }
     }
     return gradientString + ')';
 };
-
 
 function getBackgroundColor(domElelment) {
     let color = domElelment.style.backgroundColor;
@@ -108,8 +106,6 @@ const getSliderRgbaValue = () => {
     }
 }
 
-
-
 const gradientTypeSwitch = (activeButton) => {
     elementById(getActiveType().value + "Div").style.display = "none";
     elementById(activeButton.value + "Div").style.display = "flex";
@@ -117,15 +113,18 @@ const gradientTypeSwitch = (activeButton) => {
     activeButton.id = "activeType";
     setMainGradient();
 };
+
 const radialShapeSwitch = (activeButton) => {
     getRadialShape().removeAttribute("id");
     activeButton.id = "activeShape";
     setMainGradient();
 };
+
 const radialDirectionSwitch = (activeButton) => {
     getCurrentRadialDirection().removeAttribute("id");
     activeButton.id = "currentDirection";
 };
+
 const changeBoxColor = () => {
     const rgba = getSliderRgbaValue();
     const currentColor = `rgba(${rgba.red},${rgba.green},${rgba.blue},${(rgba.alpha)/100})`;
@@ -190,13 +189,25 @@ function palleteColorChoosed(palleteColor) {
     updatesToActiveColor();
 }
 
+function changeLinearDegree(linearSlider, linearDegrees) {
+    const index = Math.floor((linearSlider.value) / 45);
+    elementById("currentDegree").removeAttribute("id");
+    linearDegrees[index].id = "currentDegree";
+    setMainGradient();
+}
+
+function changeCodeCopyButton(backgroundColor, text, color) {
+    const copyButton = elementById("gradientCopyButton");
+    copyButton.style.backgroundColor = backgroundColor;
+    copyButton.innerHTML = text;
+    copyButton.style.color = color;
+}
+
 const addEventListeners = () => {
     const colorSliders = getColorSliders();
     const colorInputs = getColorInputs();
     const colorCodeElements = getColorCodeElements();
     const colorCodeCopy = getColorCodeCopy();
-    const colorButtons = getGradientColors();
-    const palleteColors = getColorPaletteButtons();
     const linearDegrees = elementById("linearDirections").children;
     const radialDirection = getRadialDirections();
     for (let index = 0; index < 4; index++) {
@@ -222,15 +233,18 @@ const addEventListeners = () => {
         });
 
         colorCodeCopy[index].addEventListener("click", () => {
-            colorCodeElements[index].select();
-            colorCodeElements[index].setSelectionRange(0, 99999);
+            function listener(event) {
+                event.clipboardData.setData("text/plain", colorCodeElements[index].value);
+                event.preventDefault();
+            }
+            document.addEventListener("copy", listener);
             document.execCommand("copy");
-            colorCodeElements[index].blur();
+            document.removeEventListener("copy", listener);
         });
     }
     elementById("addColorButton").addEventListener("click", () => {
         getNewColorButton(true);
-        if (colorButtons.length > 4) {
+        if (getGradientColors().length > 4) {
             gradientColorsRow().style.justifyContent = "space-between";
         }
         updatesToActiveColor();
@@ -239,13 +253,15 @@ const addEventListeners = () => {
     const linearInput = elementById("linearInput");
     linearSlider.addEventListener('input', () => {
         linearInput.value = linearSlider.value;
-        setMainGradient();
+        changeLinearDegree(linearSlider, linearDegrees);
     });
+
     linearInput.addEventListener('input', () => {
         setInputLimit(linearInput, 0, 359)
         linearSlider.value = linearInput.value;
-        setMainGradient();
+        changeLinearDegree(linearSlider, linearDegrees);
     });
+
     for (let index = 0; index < radialDirection.length; index++) {
         radialDirection[index].setAttribute("onclick", "radialDirectionSwitch(this);setMainGradient()");
         radialDirection[index].setAttribute("onfocus", "this.click()");
@@ -263,23 +279,15 @@ const addEventListeners = () => {
         });
     }
     elementById("gradientCopyButton").addEventListener('click', () => {
-        const code = elementById('gradientCode').innerText;
-
-        function listener(e) {
-            e.clipboardData.setData("text/plain", code);
-            e.preventDefault();
+        function listener(event) {
+            event.clipboardData.setData("text/plain", elementById('gradientCode').innerText);
+            event.preventDefault();
         }
         document.addEventListener("copy", listener);
         document.execCommand("copy");
         document.removeEventListener("copy", listener);
-        elementById("gradientCopyButton").style.backgroundColor = "green";
-        elementById("gradientCopyButton").innerHTML = "&checkmark;";
-        elementById("gradientCopyButton").style.color = "white";
-        setTimeout(function () {
-            elementById("gradientCopyButton").style.backgroundColor = "white";
-            elementById("gradientCopyButton").innerHTML = "Copy Code";
-            elementById("gradientCopyButton").style.color = "black";
-        }, 3000)
+        changeCodeCopyButton("green", "&checkmark;", "white");
+        setTimeout(() => changeCodeCopyButton("white", "Copy Code", "black"), 3000);
     });
 };
 const setInputLimit = (element, lowerLimit, upperLimit) => {
