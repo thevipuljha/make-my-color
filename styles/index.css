@@ -85,14 +85,16 @@ header {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
 .summary {
     background-color: lightslategrey;
     color: white;
     border-radius: 4px;
     padding: 3px;
-    
+
 }
-.summary:hover{
+
+.summary:hover {
     color: white;
     font-weight: bold;
 }
