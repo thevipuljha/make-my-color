@@ -87,31 +87,40 @@
             </div>
         </div>
         <!-- rgba slider starts -->
-        <div class="range-buttons">
+        <div class="color-settings-div">
             <!-- red slider -->
             <div class="color-value-div">
-                <input type="range" min="0" max="255" value="255" class="color-slider" id="redSlider">
-                <input type="number" min="0" max="255" value="255" class="color-input" id="redInput">
+                <input type="range" min="0" max="255" class="color-slider" id="redSlider">
+                <input type="number" min="0" max="255" class="color-input" id="redInput">
                 <label for="redInput">R</label>
             </div>
             <!-- green slider -->
             <div class="color-value-div">
-                <input type="range" min="0" max="255" value="0" class="color-slider" id="greenSlider">
-                <input type="number" min="0" max="255" value="0" class="color-input" id="greenInput">
+                <input type="range" min="0" max="255" class="color-slider" id="greenSlider">
+                <input type="number" min="0" max="255" class="color-input" id="greenInput">
                 <label for="greenInput">G</label>
             </div>
             <!-- blue slider -->
             <div class="color-value-div">
-                <input type="range" min="0" max="255" value="254" class="color-slider" id="blueSlider">
-                <input type="number" min="0" max="255" value="254" class="color-input" id="blueInput">
+                <input type="range" min="0" max="255" class="color-slider" id="blueSlider">
+                <input type="number" min="0" max="255" class="color-input" id="blueInput">
                 <label for="blueInput">B</label>
             </div>
             <!-- alpha slider -->
             <div class="color-value-div">
-                <input type="range" min="0" max="100" value="100" class="color-slider notWhiteThumb" id="alphaSlider">
-                <input type="number" min="0" max="100" value="100" class="color-input" id="alphaInput">
+                <input type="range" min="0" max="100" class="color-slider notWhiteThumb" id="alphaSlider">
+                <input type="number" min="0" max="100" class="color-input" id="alphaInput">
                 <label for="alphaInput">A</label>
             </div>
+            <!-- hex input -->
+            <div class="hex-value-div">
+                <span>Enter Hex Value</span>
+                <div>
+                    <label for="alphaInput">#</label>
+                    <input type="text" class="hex-input" id="hexInput">
+                </div>
+            </div>
+
         </div>
         <!-- rgba slider ends -->
         <!-- gradient settings box starts -->
