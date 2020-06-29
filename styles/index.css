@@ -238,6 +238,11 @@ main {
     background-color: #9100D2FF;
 }
 
+.add-svg {
+    fill: white;
+    width: 42px;
+}
+
 .options-div {
     display: flex;
     flex-flow: row wrap;
@@ -249,7 +254,7 @@ main {
 
 .preset-Color-Box,
 .color-window,
-.range-buttons,
+.color-settings-div,
 .gradient-settings,
 .gradient-code {
     width: 100%;
@@ -271,6 +276,7 @@ details {
     border-radius: 5px;
     padding: 3px;
 }
+
 
 .preset-Color-Box {
     display: flex;
@@ -329,21 +335,27 @@ details {
     color: white;
 }
 
-.range-buttons {
-    height: 160px;
+.color-settings-div {
+    height: 200px;
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-evenly;
 }
 
 .color-value-div,
-.linear-value-div {
+.linear-value-div,
+.hex-value-div {
     width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
     flex-wrap: nowrap;
     justify-content: space-around;
+}
+
+.hex-input {
+    min-width: 60px;
+    max-width: 100px;
 }
 
 input[type='range'] {
@@ -417,6 +429,7 @@ input[type='number'] {
     margin-right: 5px;
 }
 
+
 .gradient-settings {
     height: 120px;
     display: flex;
@@ -478,7 +491,7 @@ input[type='number'] {
     width: 100%;
     display: grid;
     grid-template-columns: repeat(8, 10%);
-    grid-template-rows: 44px;
+    grid-template-rows: 42px;
     justify-items: center;
     align-items: center;
     align-content: center;
@@ -507,8 +520,8 @@ input[type='number'] {
 
 .radial-direction-div {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(36px, 40px));
+    grid-template-rows: repeat(3, 36px);
     width: 40%;
     height: 95%;
     gap: 4px;
@@ -523,6 +536,8 @@ input[type='number'] {
     width: 100%;
     font-size: 20px;
     font-weight: bolder;
+    max-width: 44px;
+    min-width: 38px;
 }
 
 .radial-direction-div button {
@@ -539,7 +554,7 @@ input[type='number'] {
     justify-content: space-between;
 }
 
-#gradientCodeHeader {
+.gradient-code-header {
     user-select: none;
     width: 100%;
     height: 40px;
@@ -547,10 +562,13 @@ input[type='number'] {
     border-top-right-radius: 10px;
     display: flex;
     align-items: center;
-    justify-content: center;
     background-color: #9100D2FF;
     color: white;
     position: relative;
+}
+
+.gradient-code-header span {
+    padding-left: 10px;
 }
 
 .code-switch {
@@ -602,7 +620,7 @@ input[type='number'] {
     }
 
     .color-window,
-    .range-buttons,
+    .color-settings-div,
     .gradient-settings {
         width: 32.5%;
         float: left;
@@ -618,6 +636,9 @@ input[type='number'] {
         height: 26px;
     }
 
+    .gradient-code-header {
+        justify-content: center;
+    }
 }
 
 /* hover focus */
