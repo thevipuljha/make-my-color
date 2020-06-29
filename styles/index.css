@@ -1,6 +1,6 @@
 /* colors used in project 
 fonts : black,white
-border/divider : #03070473
+border/divider : #03070473,#DFE1E6
 backgrounds : #9100D2FF
 box shadow : #00000099*/
 
@@ -34,51 +34,26 @@ body {
 
 header {
     display: block;
-    width: 96vw;
+    width: 97vw;
     margin: 0 auto;
 }
 
 .title-header {
     display: flex;
-    width: 100%;
+    width: 97vw;
     height: 64px;
     align-items: center;
     flex-flow: row nowrap;
     justify-content: space-between;
 }
 
-.page-logo,
-.page-nav {
-    width: 56px;
-    height: 56px;
-    margin-left: 16px;
-    border-radius: 50%;
-    background-color: brown;
-}
-
-.title-header span:hover,
-.gradient-settings button:hover,
-.gradient-settings button:focus,
-#gradientCopyButton:hover,
-#gradientCopyButton:focus {
-    background-image: linear-gradient(90deg, rgba(38, 85, 230, 1), rgba(249, 133, 103, 1), rgba(12, 229, 241, 1), rgba(194, 234, 7, 1), rgba(38, 85, 230, 1));
-    background-size: 400% auto;
-    animation: animate 8s ease infinite;
-    color: white;
-}
-
-@keyframes animate {
-    to {
-        background-position: 400% 0%;
-    }
-}
-
-.title-header span {
+.title {
+    white-space: nowrap;
     user-select: none;
-    font-weight: 900;
+    font-weight: 700;
     text-transform: uppercase;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 2.5em;
+    font-size: 2em;
     background-image: linear-gradient(90deg, rgba(38, 85, 230, 1), rgba(249, 133, 103, 1), rgba(12, 229, 241, 1), rgba(194, 234, 7, 1), rgba(38, 85, 230, 1));
     background-clip: text;
     -moz-background-clip: text;
@@ -86,42 +61,37 @@ header {
     -webkit-text-fill-color: transparent;
 }
 
-.summary {
-    background-color: lightslategrey;
-    color: white;
-    border-radius: 4px;
-    padding: 3px;
-
-}
-
-.summary:hover {
-    color: white;
-    font-weight: bold;
+.page-logo,
+.page-nav {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid blue;
 }
 
 
-/* gradient color box */
+/* gradient box */
 .gradient-container {
     display: block;
-    width: 97vw;
-    margin: 0 auto;
+    width: 96vw;
+    margin: 5px auto;
     border-bottom: 5px solid white;
     position: -webkit-sticky;
     position: sticky;
-    top: -25vh;
+    top: -100px;
     z-index: 1;
 }
 
 .gradient {
     width: 100%;
-    height: 34vh;
+    height: 200px;
     border-radius: 16px;
     background-repeat: repeat;
 }
 
 /* autosave toogle styling starts */
 .autosave-div {
-    background-color: #03070473;
+    background-color: #2D2C2E87;
     color: white;
     border-radius: 10px;
     opacity: 0.3;
@@ -213,7 +183,7 @@ main {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 /* gradient color buttons div*/
@@ -242,13 +212,13 @@ main {
 }
 
 /* gradient color buttons*/
-.gradient-color-buttons button {
-    margin-right: 2px;
+.colorButton {
+    margin-right: 1px;
+    margin-left: 1px;
     height: 48px;
     color: transparent;
     text-align: center;
 }
-
 
 #activeColor {
     border: none;
@@ -257,38 +227,33 @@ main {
     background-clip: content-box;
 }
 
-.gradient-color-buttons button:hover,
-#addColorButton:hover,
-.preset-color:hover,
-input[type='range']:focus,
-.preset-color:focus {
-    box-shadow: 1px 1px 5px #00000099;
-    -webkit-box-shadow: 1px 1px 5px #00000099;
-    -moz-box-shadow: 1px 1px 5px #00000099;
-}
-
 /* plus color button */
 #addColorButton {
-    height: 40px;
-    width: 40px;
+    height: 42px;
+    width: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 50%;
     background-color: #9100D2FF;
-    color: white;
-    font-size: 2em;
-    text-align: center;
-    margin-left: 5px;
 }
 
-/* button row below gradient ends */
+.options-div {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    display: none;
+}
 
 .preset-Color-Box,
 .color-window,
 .range-buttons,
 .gradient-settings,
-.gradient-code,
-.extra-div {
+.gradient-code {
     width: 100%;
-    margin: 20px 0px;
+    margin: 16px 0px;
     border-radius: 10px;
     box-shadow: 2px 2px 6px #00000099;
     -webkit-box-shadow: 2px 2px 6px #00000099;
@@ -297,14 +262,20 @@ input[type='range']:focus,
 
 details {
     user-select: none;
-    margin: 20px 0px;
+    margin: 16px 0px;
+}
+
+.summary {
+    background-color: lightslategrey;
+    color: white;
+    border-radius: 5px;
+    padding: 3px;
 }
 
 .preset-Color-Box {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-evenly;
-    width: auto;
 }
 
 .preset-color {
@@ -618,7 +589,11 @@ input[type='number'] {
     }
 
     .gradient-container {
-        top: -2vh;
+        top: -100px;
+    }
+
+    .gradient {
+        height: 250px;
     }
 
     .preset-color {
@@ -643,4 +618,39 @@ input[type='number'] {
         height: 26px;
     }
 
+}
+
+/* hover focus */
+.title:hover,
+#gradientCopyButton:hover,
+#gradientCopyButton:focus {
+    background-image: linear-gradient(90deg, rgba(38, 85, 230, 1), rgba(249, 133, 103, 1), rgba(12, 229, 241, 1), rgba(194, 234, 7, 1), rgba(38, 85, 230, 1));
+    background-size: 400% auto;
+    animation: animate 8s ease infinite;
+    color: white;
+}
+
+@keyframes animate {
+    to {
+        background-position: 400% 0%;
+    }
+}
+
+/* 
+.gradient-settings button:hover,
+.gradient-settings button:focus */
+
+.colorButton:hover,
+#addColorButton:hover,
+.preset-color:hover,
+input[type='range']:focus,
+.preset-color:focus {
+    box-shadow: 2px 2px 5px #1E2024F2;
+    -webkit-box-shadow: 2px 2px 5px #1E2024F2;
+    -moz-box-shadow: 2px 2px 5px #1E2024F2;
+}
+
+.summary:hover,
+.summary:focus {
+    padding-left: 8px;
 }

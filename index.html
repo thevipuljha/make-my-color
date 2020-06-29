@@ -15,7 +15,7 @@
         <!-- title header starts -->
         <div class="title-header">
             <div class="page-logo"></div>
-            <span>This is title</span>
+            <span class="title">pagetitle</span>
             <div class="page-nav"></div>
         </div>
         <!-- title header ends -->
@@ -29,7 +29,7 @@
                     <input type="checkbox" id="autosave" onclick="saveGradientData()">
                     <span class="toggle"></span>
                 </label>
-                <button id="retrieveData" onclick="setSavedGradientData()">Retrieve</button>
+                <button id="retrieveData" onclick="applySavedGradient()">Retrieve</button>
             </div>
         </div>
     </div>
@@ -40,11 +40,33 @@
         <div class="gradient-buttons-block">
             <div class="gradient-color-buttons" id="gradientColors">
             </div>
-            <button id="addColorButton" title="add more colors">&plus;</button>
+            <button id="addColorButton" title="add more colors">
+                <svg class="add-svg" viewBox="0 0 16 16" fill="white" xmlns="http://www.w3.org/2000/svg">
+                    <path class="add-path" fill-rule="evenodd"
+                        d="M1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zM8 0a8 8 0 100 16A8 8 0 008 0zm.75 4.75a.75.75 0 00-1.5 0v2.5h-2.5a.75.75 0 000 1.5h2.5v2.5a.75.75 0 001.5 0v-2.5h2.5a.75.75 0 000-1.5h-2.5v-2.5z" />
+                </svg>
+            </button>
+        </div>
+        <div class="options-div">
+            <div class="option">
+                <button id="autoSaveButton"></button>
+                <label for="autoSaveButton">save</label>
+            </div>
+            <div class="option">
+                <button id="loadButton"></button>
+                <label for="loadButton">load</label>
+            </div>
+            <div class="option">
+                <button id="downloadButton"></button>
+                <label for="downloadButton">download</label>
+            </div>
+            <div class="option">
+                <button id="shareButton"></button>
+                <label for="shareButton">share</label>
+            </div>
         </div>
         <details>
-            <summary class="summary">click here to choose more colour from Pallete
-            </summary>
+            <summary class="summary">Pick a colour from pallete </summary>
             <div class="preset-Color-Box" id="colorPallete">
             </div>
         </details>
@@ -96,10 +118,9 @@
         <div class="gradient-settings">
             <!-- type selection buttons -->
             <div class="gradient-type-buttons">
-                <button class="gradientType" onclick="gradientTypeSwitch(this)" onfocus="this.click()" id="activeType"
+                <button class="gradientType" onclick="gradientTypeSwitch(this)" id="activeType"
                     value="linear">linear</button>
-                <button class="gradientType" onclick="gradientTypeSwitch(this)" onfocus="this.click()"
-                    value="radial">radial</button>
+                <button class="gradientType" onclick="gradientTypeSwitch(this)" value="radial">radial</button>
             </div>
             <!-- linear gradient settings box starts-->
             <div class="linear-settings" id="linearDiv">
@@ -128,10 +149,9 @@
             <div class="radial-settings" id="radialDiv">
                 <!-- radial gradient shape selector box -->
                 <div class="radial-shape-buttons">
-                    <button class="radialType" onclick="radialShapeSwitch(this)" onfocus="this.click()" id="activeShape"
+                    <button class="radialType" onclick="radialShapeSwitch(this)" id="activeShape"
                         value="circle">circle</button>
-                    <button class="radialType" onclick="radialShapeSwitch(this)" onfocus="this.click()"
-                        value="ellipse">ellipse</button>
+                    <button class="radialType" onclick="radialShapeSwitch(this)" value="ellipse">ellipse</button>
                 </div>
                 <!-- radial gradient direction block -->
                 <div class="radial-direction-div" id="radialDirections">
@@ -165,6 +185,9 @@
         </div>
     </main>
     <!-- main ends -->
+
+
+
 </body>
 
 </html>
