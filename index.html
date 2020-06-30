@@ -26,7 +26,8 @@
             <details class="options-detail-tag">
                 <summary>More</summary>
                 <div class="options-div">
-                    <button class="option" id="autoSaveButton" title="Auto Save">
+                    <input type="checkbox" id="autosave" onclick="saveGradientData()">
+                    <button class="option" id="autoSaveButton" title="Auto Save" onclick="autosave.click()">
                         <svg class="option-svg save-svg" viewBox="0 0 24 24" fill-rule="evenodd" stroke-width="0px"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill="none" d="M0 0h24v24H0z" />
@@ -34,7 +35,7 @@
                                 d="M5 5v14h14V7.828L16.172 5H5zM4 3h13l3.707 3.707a1 1 0 0 1 .293.707V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm8 15a3 3 0 1 1 0-6 3 3 0 0 1 0 6zM6 6h9v4H6V6z" />
                         </svg>
                     </button>
-                    <button class="option" id="loadButton" title="Load">
+                    <button class="option" id="loadButton" title="Load" onclick="applySavedGradient()">
                         <svg viewBox="0 0 16 16" class="option-svg import-svg" fill-rule="evenodd"
                             style="stroke-linecap: round; stroke-linejoin: round; fill: none; stroke-width: 1.3px;"
                             xmlns="http://www.w3.org/2000/svg">
@@ -64,14 +65,6 @@
                     </button>
                 </div>
             </details>
-            <div class="autosave-div">
-                <label for="autosave">AutoSave</label>
-                <label class="switch">
-                    <input type="checkbox" id="autosave" onclick="saveGradientData()">
-                    <span class="toggle"></span>
-                </label>
-                <button id="retrieveData" onclick="applySavedGradient()">Retrieve</button>
-            </div>
         </div>
     </div>
 
@@ -208,7 +201,7 @@
                     <label for="codeSwitch">RGB</label>
                     <label class="switch">
                         <input type="checkbox" id="codeSwitch" onclick="setMainGradient()">
-                        <span class="toggle codeToggle"></span>
+                        <span class="codeToggle"></span>
                     </label>
                     <label for="codeSwitch">HEX</label>
                 </div>
