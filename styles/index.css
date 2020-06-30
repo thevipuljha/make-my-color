@@ -238,18 +238,33 @@ main {
     background-color: #9100D2FF;
 }
 
-.add-svg {
-    fill: white;
-    width: 42px;
+.options-detail-tag {
+    width: 100px;
+    height: 90%;
 }
 
 .options-div {
     display: flex;
-    flex-flow: row wrap;
-    align-items: center;
+    flex-flow: column nowrap;
+    align-items: flex-end;
     justify-content: space-around;
-    width: 100%;
-    display: none;
+    height: 100%;
+}
+
+.option {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #03070455;
+    border: 2px solid white;
+}
+
+.option-svg {
+    fill: white;
+    stroke: white;
 }
 
 .preset-Color-Box,
@@ -265,12 +280,12 @@ main {
     -moz-box-shadow: 2px 2px 6px #00000099;
 }
 
-details {
+.color-pallete {
     user-select: none;
     margin: 16px 0px;
 }
 
-.summary {
+.color-pallete summary {
     background-color: lightslategrey;
     color: white;
     border-radius: 5px;

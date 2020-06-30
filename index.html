@@ -23,6 +23,47 @@
     </header>
     <div class="gradient-container">
         <div class="gradient" id="gradient">
+            <details class="options-detail-tag">
+                <summary>More</summary>
+                <div class="options-div">
+                    <button class="option" id="autoSaveButton" title="Auto Save">
+                        <svg class="option-svg save-svg" viewBox="0 0 24 24" fill-rule="evenodd" stroke-width="0px"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill="none" d="M0 0h24v24H0z" />
+                            <path
+                                d="M5 5v14h14V7.828L16.172 5H5zM4 3h13l3.707 3.707a1 1 0 0 1 .293.707V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm8 15a3 3 0 1 1 0-6 3 3 0 0 1 0 6zM6 6h9v4H6V6z" />
+                        </svg>
+                    </button>
+                    <button class="option" id="loadButton" title="Load">
+                        <svg viewBox="0 0 16 16" class="option-svg import-svg" fill-rule="evenodd"
+                            style="stroke-linecap: round; stroke-linejoin: round; fill: none; stroke-width: 1.3px;"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M 10.095 15.014 L 2.079 14.988 L 2.079 0.987 L 10.062 0.987 L 10.062 11.23" />
+                            <path
+                                d="M 2.079 5.371 C 2.079 5.371 10.062 5.371 10.062 5.371 M 2.079 9.756 C 2.079 9.756 10.062 9.756 10.062 9.756" />
+                            <path
+                                d="M 11.153 15.014 C 11.153 15.014 13.92 12.906 13.92 12.906 C 13.92 12.906 11.068 11.247 11.068 11.247" />
+                            <path d="M 6.418 12.921 C 6.846 12.921 13.293 12.921 13.464 12.921" />
+                        </svg>
+                    </button>
+                    <button class="option" id="downloadButton" title="Download">
+                        <svg viewBox="0 0 16 16" class="option-svg download-svg" fill-rule="evenodd" stroke-width="0px"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M7.47 10.78a.75.75 0 001.06 0l3.75-3.75a.75.75 0 00-1.06-1.06L8.75 8.44V1.75a.75.75 0 00-1.5 0v6.69L4.78 5.97a.75.75 0 00-1.06 1.06l3.75 3.75zM3.75 13a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5z">
+                            </path>
+                        </svg>
+                    </button>
+                    <button class="option" id="shareButton" title="Share">
+                        <svg viewBox="0 0 16 16" class="option-svg share-svg" fill-rule="evenodd" stroke-width="0px"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M13.5 3a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 3a3 3 0 01-5.175 2.066l-3.92 2.179a3.005 3.005 0 010 1.51l3.92 2.179a3 3 0 11-.73 1.31l-3.92-2.178a3 3 0 110-4.133l3.92-2.178A3 3 0 1115 3zm-1.5 10a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zm-9-5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+            </details>
             <div class="autosave-div">
                 <label for="autosave">AutoSave</label>
                 <label class="switch">
@@ -41,33 +82,15 @@
             <div class="gradient-color-buttons" id="gradientColors">
             </div>
             <button id="addColorButton" title="add more colors">
-                <svg class="add-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-                    <path class="add-path" fill-rule="evenodd"
+                <svg class="add-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="white" width="42px">
+                    <path fill-rule="evenodd"
                         d="M1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zM8 0a8 8 0 100 16A8 8 0 008 0zm.75 4.75a.75.75 0 00-1.5 0v2.5h-2.5a.75.75 0 000 1.5h2.5v2.5a.75.75 0 001.5 0v-2.5h2.5a.75.75 0 000-1.5h-2.5v-2.5z">
                     </path>
                 </svg>
             </button>
         </div>
-        <div class="options-div">
-            <div class="option">
-                <button id="autoSaveButton"></button>
-                <label for="autoSaveButton">save</label>
-            </div>
-            <div class="option">
-                <button id="loadButton"></button>
-                <label for="loadButton">load</label>
-            </div>
-            <div class="option">
-                <button id="downloadButton"></button>
-                <label for="downloadButton">download</label>
-            </div>
-            <div class="option">
-                <button id="shareButton"></button>
-                <label for="shareButton">share</label>
-            </div>
-        </div>
-        <details>
-            <summary class="summary">Pick a colour from pallete </summary>
+        <details class="color-pallete">
+            <summary>Pick a colour from pallete </summary>
             <div class="preset-Color-Box" id="colorPallete">
             </div>
         </details>
