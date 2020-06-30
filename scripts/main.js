@@ -291,7 +291,6 @@ const setColorPallete = () => {
     let newColor = document.createElement("button");
     newColor.className = "preset-color";
     newColor.title = "random color";
-    newColor.innerHTML = "&#x1f500";
     newColor.addEventListener('click', () => {
         setRandomColor(getActiveColorButton());
         updatesToActiveColor();
