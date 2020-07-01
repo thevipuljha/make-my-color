@@ -46,6 +46,12 @@ const getGradientString = () => {
     return gradientString + ')';
 };
 
+function showToast(message) {
+    elementById("toastContainer").style.display = "flex";
+    elementById("toastNotify").innerText = message;
+    setTimeout(() => elementById("toastContainer").style.display = "none", 700);
+}
+
 function getBackgroundColor(domElelment) {
     let color = domElelment.style.backgroundColor;
     color = String(color).split(",");
@@ -144,7 +150,6 @@ function updatesToActiveColor() {
     const colorSliders = getColorSliders();
     const colorInputs = getColorInputs();
     const rgba = getBackgroundColor(getActiveColorButton());
-
     elementById("hexInput").value = rgbaToHex(rgba[0], rgba[1], rgba[2], rgba[3]);
     for (let index = 0; index < 4; index++) {
         colorSliders[index].value = rgba[index];
@@ -171,13 +176,6 @@ function changeLinearDegree(linearSlider, linearDegrees) {
     elementById("currentDegree").removeAttribute("id");
     linearDegrees[index].id = "currentDegree";
     setMainGradient();
-}
-
-function changeCodeCopyButton(backgroundColor, textColor) {
-    const copyButton = elementById("gradientCopyButton");
-    copyButton.style.backgroundColor = backgroundColor;
-    copyButton.style.color = textColor;
-    copyButton.style.fill = textColor;
 }
 
 const isHexValid = (hexValue) => {
@@ -220,7 +218,7 @@ const addEventListeners = () => {
             changeBoxColor();
             setcolorCodeElements();
             changeActiveButtonColor();
-            setMainGradient();
+            updatesToActiveColor();
         });
 
         colorInputs[index].addEventListener('input', () => {
@@ -233,7 +231,7 @@ const addEventListeners = () => {
             changeBoxColor();
             setcolorCodeElements();
             changeActiveButtonColor();
-            setMainGradient();
+            updatesToActiveColor();
         });
 
         colorCodeCopyButton[index].addEventListener("click", () => {
@@ -244,6 +242,7 @@ const addEventListeners = () => {
             document.addEventListener("copy", listener);
             document.execCommand("copy");
             document.removeEventListener("copy", listener);
+            showToast("Copied");
         });
     }
 
@@ -296,8 +295,7 @@ const addEventListeners = () => {
         document.addEventListener("copy", listener);
         document.execCommand("copy");
         document.removeEventListener("copy", listener);
-        changeCodeCopyButton("green", "white");
-        setTimeout(() => changeCodeCopyButton("white", "black"), 3000);
+        showToast('Copied')
     });
 };
 

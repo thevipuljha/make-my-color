@@ -216,7 +216,7 @@ main {
 }
 
 .color-pallete summary {
-    background-color: lightslategrey;
+    background: linear-gradient(90deg, rgba(161, 34, 221, 1), rgba(204, 57, 123, 1), rgba(255, 192, 103, 1));
     color: white;
     border-radius: 5px;
     padding: 3px;
@@ -418,7 +418,7 @@ input[type='number'] {
 #activeShape,
 #currentDirection,
 #currentDegree {
-    background-color: #A122DDFF;
+    background: linear-gradient(90deg, rgba(196, 38, 195, 1)40%, rgba(161, 34, 221, 1));
     color: white;
 }
 
@@ -708,4 +708,29 @@ input[type='range']:focus,
 .summary:hover,
 .summary:focus {
     padding-left: 8px;
+}
+
+.toast {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+    height: max-content;
+    white-space: nowrap;
+    width: 100%;
+    position: fixed;
+    top: 16%;
+    z-index: 2;
+    display: none;
+    user-select: none;
+}
+
+.toast span {
+    background: linear-gradient(90deg, rgba(161, 34, 221, 1), rgba(204, 57, 123, 1));
+    width: max-content;
+    height: max-content;
+    padding: 5px 10px;
+    color: white;
+    font-weight: 500;
+    border-radius: 20px;
 }
