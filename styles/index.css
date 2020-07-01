@@ -245,7 +245,7 @@ main {
 
 /* .color-window div */
 .color-window {
-    height: 160px;
+    height: 180px;
     background-color: whitesmoke;
     background-repeat: repeat;
     position: relative;
@@ -294,7 +294,7 @@ main {
 }
 
 .color-settings-div {
-    height: 200px;
+    height: 180px;
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-evenly;
@@ -305,15 +305,20 @@ main {
 .hex-value-div {
     width: 100%;
     display: flex;
-    flex-direction: row;
+    flex-flow: row nowrap;
     align-items: center;
-    flex-wrap: nowrap;
     justify-content: space-around;
 }
 
+.hex-value-div {
+    white-space: nowrap;
+}
+
 .hex-input {
-    min-width: 60px;
-    max-width: 100px;
+    text-transform: uppercase;
+    min-width: 48px;
+    max-width: 84px;
+    height: 24px;
 }
 
 input[type='range'] {
@@ -324,7 +329,8 @@ input[type='range'] {
     cursor: move;
 }
 
-input[type='number']:focus {
+input[type='number']:focus,
+.hex-input:focus {
     border: solid 2px #9100D2FF;
 }
 
@@ -386,7 +392,6 @@ input[type='number'] {
 .color-value-div label {
     margin-right: 5px;
 }
-
 
 .gradient-settings {
     height: 120px;

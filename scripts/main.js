@@ -144,6 +144,8 @@ function updatesToActiveColor() {
     const colorSliders = getColorSliders();
     const colorInputs = getColorInputs();
     const rgba = getBackgroundColor(getActiveColorButton());
+
+    elementById("hexInput").value = rgbaToHex(rgba[0], rgba[1], rgba[2], rgba[3]);
     for (let index = 0; index < 4; index++) {
         colorSliders[index].value = rgba[index];
         colorInputs[index].value = rgba[index];
@@ -178,11 +180,40 @@ function changeCodeCopyButton(backgroundColor, textColor) {
     copyButton.style.fill = textColor;
 }
 
+const isHexValid = (hexValue) => {
+    const hexRegEx = RegExp(`^([A-F0-9]{6}|[A-F0-9]{8})$`);
+    return hexRegEx.test(hexValue);
+};
+
+function updatesByHex(hexValue) {
+    getActiveColorButton().style.backgroundColor = getHexString(hexValue);
+    updatesToActiveColor();
+}
+
 const addEventListeners = () => {
     const colorSliders = getColorSliders();
     const colorInputs = getColorInputs();
     const colorCodeElements = getColorCodeElements();
     const colorCodeCopyButton = getColorCodeCopy();
+    const hexInput = elementById("hexInput");
+
+    hexInput.addEventListener('change', () => {
+        if (!isHexValid(hexInput.value)) {
+            const rgba = getBackgroundColor(getActiveColorButton());
+            hexInput.value = rgbaToHex(rgba[0], rgba[1], rgba[2], rgba[3]);
+        }
+    });
+
+    hexInput.addEventListener('input', () => {
+        const inputRegEx = RegExp(`[^A-Fa-f0-9]`, 'g');
+        let hex = hexInput.value.replace(inputRegEx, "").slice(0, 8).toUpperCase();
+        if (hex.length == 3)
+            hex = `${hex[0]}${hex[0]}${hex[1]}${hex[1]}${hex[2]}${hex[2]}`;
+        if (isHexValid(hex))
+            updatesByHex(hex);
+        hexInput.value = hex;
+    });
+
     for (let index = 0; index < 4; index++) {
         colorSliders[index].addEventListener('input', () => {
             colorInputs[index].value = colorSliders[index].value;

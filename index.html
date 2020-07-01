@@ -133,6 +133,14 @@
         </div>
         <!-- rgba slider starts -->
         <div class="color-settings-div">
+            <!-- hex input -->
+            <div class="hex-value-div">
+                <label for="hexInput">Enter Hex : </label>
+                <div>
+                    <label for="hexInput">#</label>
+                    <input type="text" class="hex-input" id="hexInput">
+                </div>
+            </div>
             <!-- red slider -->
             <div class="color-value-div">
                 <input type="range" min="0" max="255" class="color-slider" id="redSlider">
@@ -156,14 +164,6 @@
                 <input type="range" min="0" max="100" class="color-slider notWhiteThumb" id="alphaSlider">
                 <input type="number" min="0" max="100" class="color-input" id="alphaInput">
                 <label for="alphaInput">A</label>
-            </div>
-            <!-- hex input -->
-            <div class="hex-value-div">
-                <span>Enter Hex Value</span>
-                <div>
-                    <label for="alphaInput">#</label>
-                    <input type="text" class="hex-input" id="hexInput">
-                </div>
             </div>
 
         </div>
