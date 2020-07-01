@@ -443,6 +443,7 @@ input[type='number'] {
 .linear-value-div div {
     width: 20%;
     display: flex;
+    align-items: center;
     justify-content: center;
 }
 
@@ -459,6 +460,14 @@ input[type='number'] {
     align-items: center;
     align-content: center;
     justify-content: space-evenly;
+}
+
+.linear-direction-div button {
+    width: 100%;
+    height: 100%;
+    font-size: 20px;
+    font-weight: bolder;
+    min-width: 34px;
 }
 
 .rotate-text span {
@@ -492,15 +501,6 @@ input[type='number'] {
     align-items: center;
     align-content: center;
     justify-content: center;
-}
-
-.linear-direction-div button {
-    height: 100%;
-    width: 100%;
-    font-size: 20px;
-    font-weight: bolder;
-    max-width: 44px;
-    min-width: 38px;
 }
 
 .radial-direction-div button {
@@ -619,7 +619,7 @@ input[type='number'] {
     margin: 0 10px;
 }
 
-@media screen and (min-width:1012px) {
+@media screen and (min-width:768px) {
     main {
         width: 95%;
         margin-left: 2.5%;
@@ -633,30 +633,45 @@ input[type='number'] {
         height: 250px;
     }
 
+    .color-settings-div,
+    .gradient-settings {
+        width: 48.5%;
+        float: left;
+        margin-left: 1%;
+        height: 168px;
+    }
+
+    .radial-settings {
+        height: 90%;
+    }
+
+    .radial-direction-div {
+        grid-template-columns: repeat(3, minmax(44px, 48px));
+        grid-template-rows: repeat(3, 44px);
+    }
+
+    .gradient-code-header {
+        justify-content: center;
+    }
+}
+
+@media screen and (min-width:1012px) {
     .preset-color {
         width: 14.65%;
         margin: 10px 1%;
     }
 
-    .color-window,
     .color-settings-div,
     .gradient-settings {
-        width: 32.5%;
+        width: 46%;
         float: left;
-        margin-left: 1%;
-        height: 140px;
+        margin-left: 3%;
+        height: 168px;
+        margin-bottom: 30px;
     }
 
-    .color-window {
-        margin-left: 0.3%;
-    }
-
-    .color-codes-block input[type="text"] {
-        height: 26px;
-    }
-
-    .gradient-code-header {
-        justify-content: center;
+    .gradient-settings {
+        margin-left: 2%;
     }
 }
 
