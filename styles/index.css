@@ -1,8 +1,8 @@
 /* colors used in project 
 fonts : black,white
 border/divider : #03070473,#DFE1E6
-backgrounds : #9100D2FF
-box shadow : #00000099*/
+backgrounds : #A122DDFF
+box shadow : #00000066*/
 
 /* all buttons and input types */
 button,
@@ -54,7 +54,7 @@ header {
     text-transform: uppercase;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-size: 2em;
-    background-image: linear-gradient(90deg, rgba(38, 85, 230, 1), rgba(249, 133, 103, 1), rgba(12, 229, 241, 1), rgba(194, 234, 7, 1), rgba(38, 85, 230, 1));
+    background-image: linear-gradient(90deg, rgba(161, 34, 221, 1), rgba(204, 57, 123, 1), rgba(255, 192, 103, 1));
     background-clip: text;
     -moz-background-clip: text;
     -webkit-background-clip: text;
@@ -126,7 +126,7 @@ header {
 }
 
 #autosave:checked+.option {
-    background-color: #9100D2FF;
+    background-color: #A122DDFF;
 }
 
 /* header end */
@@ -155,7 +155,7 @@ main {
     align-items: center;
     justify-content: space-around;
     scrollbar-width: thin;
-    scrollbar-color: #9100D2FF #03070473;
+    scrollbar-color: #A122DDFF #03070473;
 }
 
 .gradient-color-buttons::-webkit-scrollbar {
@@ -166,8 +166,8 @@ main {
 
 .gradient-color-buttons::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    background-color: #9100D2FF;
-    background-image: radial-gradient(circle at center, #9100D2FF 00%, slateblue 100%);
+    background-color: #A122DDFF;
+    background-image: radial-gradient(circle at center, #A122DDFF 00%, slateblue 100%);
 }
 
 /* gradient color buttons*/
@@ -181,7 +181,7 @@ main {
 
 #activeColor {
     border: none;
-    border: solid 2px #9100D2FF;
+    border: solid 2px #A122DDFF;
     padding: 2px;
     background-clip: content-box;
 }
@@ -194,7 +194,7 @@ main {
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    background-color: #9100D2FF;
+    background-color: #A122DDFF;
 }
 
 .preset-Color-Box,
@@ -205,9 +205,9 @@ main {
     width: 100%;
     margin: 16px 0px;
     border-radius: 10px;
-    box-shadow: 2px 2px 6px #00000099;
-    -webkit-box-shadow: 2px 2px 6px #00000099;
-    -moz-box-shadow: 2px 2px 6px #00000099;
+    -moz-box-shadow: 0px 0 10px #00000066;
+    -webkit-box-shadow: 0px 0 10px #00000066;
+    box-shadow: 0px 0 10px #00000066;
 }
 
 .color-pallete {
@@ -236,11 +236,10 @@ main {
 }
 
 .preset-color:last-child {
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='white' fill-rule='evenodd' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M18 17.883V16l5 3-5 3v-2.09a9 9 0 0 1-6.997-5.365L11 14.54l-.003.006A9 9 0 0 1 2.725 20H2v-2h.725a7 7 0 0 0 6.434-4.243L9.912 12l-.753-1.757A7 7 0 0 0 2.725 6H2V4h.725a9 9 0 0 1 8.272 5.455L11 9.46l.003-.006A9 9 0 0 1 18 4.09V2l5 3-5 3V6.117a7 7 0 0 0-5.159 4.126L12.088 12l.753 1.757A7 7 0 0 0 18 17.883z'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' width='32px' fill='white' fill-rule='evenodd' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M18 17.883V16l5 3-5 3v-2.09a9 9 0 0 1-6.997-5.365L11 14.54l-.003.006A9 9 0 0 1 2.725 20H2v-2h.725a7 7 0 0 0 6.434-4.243L9.912 12l-.753-1.757A7 7 0 0 0 2.725 6H2V4h.725a9 9 0 0 1 8.272 5.455L11 9.46l.003-.006A9 9 0 0 1 18 4.09V2l5 3-5 3V6.117a7 7 0 0 0-5.159 4.126L12.088 12l.753 1.757A7 7 0 0 0 18 17.883z'/%3E%3C/svg%3E"),
+        linear-gradient(90deg, rgba(161, 34, 221, 1), rgba(204, 57, 123, 1), rgba(255, 192, 103, 1));
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 24px;
-    background-color: #9100D2FF;
 }
 
 /* .color-window div */
@@ -289,7 +288,7 @@ main {
 
 .colorCodesCopy:focus,
 .colorCodesCopy:hover {
-    background-color: #9100D2FF;
+    background-color: #A122DDFF;
     fill: white;
 }
 
@@ -331,7 +330,7 @@ input[type='range'] {
 
 input[type='number']:focus,
 .hex-input:focus {
-    border: solid 2px #9100D2FF;
+    border: solid 2px #A122DDFF;
 }
 
 #redSlider {
@@ -371,11 +370,11 @@ input[type='range']::-moz-range-thumb {
 }
 
 input[type='range'].notWhiteThumb::-webkit-slider-thumb {
-    background-color: #9100D2FF;
+    background-color: #A122DDFF;
 }
 
 input[type='range'].notWhiteThumb::-moz-range-thumb {
-    background-color: #9100D2FF;
+    background-color: #A122DDFF;
 }
 
 input[type='number'] {
@@ -386,7 +385,7 @@ input[type='number'] {
 
 ::selection {
     color: white;
-    background-color: #9100D2FF;
+    background-color: #A122DDFF;
 }
 
 .color-value-div label {
@@ -419,7 +418,7 @@ input[type='number'] {
 #activeShape,
 #currentDirection,
 #currentDegree {
-    background-color: #9100D2FF;
+    background-color: #A122DDFF;
     color: white;
 }
 
@@ -525,7 +524,7 @@ input[type='number'] {
     border-top-right-radius: 10px;
     display: flex;
     align-items: center;
-    background-color: #9100D2FF;
+    background: linear-gradient(90deg, rgba(196, 38, 195, 1)40%, rgba(161, 34, 221, 1));
     color: white;
     position: relative;
 }
@@ -567,7 +566,7 @@ input[type='number'] {
     -webkit-transition: .2s;
     transition: .2s;
     border-radius: 24px;
-    background-color: #9100D2FF;
+    background-color: #A122DDFF;
 }
 
 .codeToggle:before {
@@ -679,7 +678,7 @@ input[type='number'] {
 .title:hover,
 #gradientCopyButton:hover,
 #gradientCopyButton:focus {
-    background-image: linear-gradient(90deg, rgba(38, 85, 230, 1), rgba(249, 133, 103, 1), rgba(12, 229, 241, 1), rgba(194, 234, 7, 1), rgba(38, 85, 230, 1));
+    background-image: linear-gradient(90deg, rgba(161, 34, 221, 1), rgba(204, 57, 123, 1), rgba(255, 192, 103, 1), rgba(161, 34, 221, 1));
     background-size: 400% auto;
     animation: animate 8s ease infinite;
     color: white;
@@ -701,9 +700,9 @@ input[type='number'] {
 .preset-color:hover,
 input[type='range']:focus,
 .preset-color:focus {
-    box-shadow: 2px 2px 5px #1E2024F2;
-    -webkit-box-shadow: 2px 2px 5px #1E2024F2;
-    -moz-box-shadow: 2px 2px 5px #1E2024F2;
+    box-shadow: 2px 2px 5px #00000066;
+    -webkit-box-shadow: 2px 2px 5px #00000066;
+    -moz-box-shadow: 2px 2px 5px #00000066;
 }
 
 .summary:hover,
