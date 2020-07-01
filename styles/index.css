@@ -118,6 +118,7 @@ header {
 .option-svg {
     fill: white;
     stroke: white;
+    width: 42px;
 }
 
 #autosave {
@@ -238,7 +239,7 @@ main {
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='white' fill-rule='evenodd' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M18 17.883V16l5 3-5 3v-2.09a9 9 0 0 1-6.997-5.365L11 14.54l-.003.006A9 9 0 0 1 2.725 20H2v-2h.725a7 7 0 0 0 6.434-4.243L9.912 12l-.753-1.757A7 7 0 0 0 2.725 6H2V4h.725a9 9 0 0 1 8.272 5.455L11 9.46l.003-.006A9 9 0 0 1 18 4.09V2l5 3-5 3V6.117a7 7 0 0 0-5.159 4.126L12.088 12l.753 1.757A7 7 0 0 0 18 17.883z'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 36px;
+    background-size: 24px;
     background-color: #9100D2FF;
 }
 
@@ -273,10 +274,6 @@ main {
     border-radius: 30px;
 }
 
-.code-copy-svg {
-    fill: black;
-}
-
 .colorCodesCopy {
     width: 32px;
     height: 32px;
@@ -284,6 +281,10 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.code-copy-svg {
+    width: 32px;
 }
 
 .colorCodesCopy:focus,
@@ -602,6 +603,15 @@ input[type='number'] {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.grad-code-copy {
+    width: 24px;
+    height: 24px;
+    margin: 0 10px;
 }
 
 @media screen and (min-width:1012px) {
@@ -653,6 +663,7 @@ input[type='number'] {
     background-size: 400% auto;
     animation: animate 8s ease infinite;
     color: white;
+    fill: white;
 }
 
 @keyframes animate {

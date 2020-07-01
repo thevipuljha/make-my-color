@@ -171,11 +171,11 @@ function changeLinearDegree(linearSlider, linearDegrees) {
     setMainGradient();
 }
 
-function changeCodeCopyButton(backgroundColor, text, color) {
+function changeCodeCopyButton(backgroundColor, textColor) {
     const copyButton = elementById("gradientCopyButton");
     copyButton.style.backgroundColor = backgroundColor;
-    copyButton.innerHTML = text;
-    copyButton.style.color = color;
+    copyButton.style.color = textColor;
+    copyButton.style.fill = textColor;
 }
 
 const addEventListeners = () => {
@@ -265,8 +265,8 @@ const addEventListeners = () => {
         document.addEventListener("copy", listener);
         document.execCommand("copy");
         document.removeEventListener("copy", listener);
-        changeCodeCopyButton("green", "&checkmark;", "white");
-        setTimeout(() => changeCodeCopyButton("white", "Copy Code", "black"), 3000);
+        changeCodeCopyButton("green", "white");
+        setTimeout(() => changeCodeCopyButton("white", "black"), 3000);
     });
 };
 
