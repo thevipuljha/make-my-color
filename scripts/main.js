@@ -179,7 +179,7 @@ function changeLinearDegree(linearSlider, linearDegrees) {
 }
 
 const isHexValid = (hexValue) => {
-    const hexRegEx = RegExp(`^([A-F0-9]{6}|[A-F0-9]{8})$`);
+    const hexRegEx = RegExp(`^([A-F0-9]{3}|[A-F0-9]{6}|[A-F0-9]{8})$`);
     return hexRegEx.test(hexValue);
 };
 
@@ -196,17 +196,18 @@ const addEventListeners = () => {
     const hexInput = elementById("hexInput");
 
     hexInput.addEventListener('change', () => {
-        if (!isHexValid(hexInput.value)) {
+        let hex = hexInput.value;
+        if (!isHexValid(hex)) {
             const rgba = getBackgroundColor(getActiveColorButton());
-            hexInput.value = rgbaToHex(rgba[0], rgba[1], rgba[2], rgba[3]);
-        }
+            hex = rgbaToHex(rgba[0], rgba[1], rgba[2], rgba[3]);
+        } else if (hex.length == 3)
+            hex = `${hex[0]}${hex[0]}${hex[1]}${hex[1]}${hex[2]}${hex[2]}FF`;
+        hexInput.value = hex;
     });
 
     hexInput.addEventListener('input', () => {
         const inputRegEx = RegExp(`[^A-Fa-f0-9]`, 'g');
-        let hex = hexInput.value.replace(inputRegEx, "").slice(0, 8).toUpperCase();
-        if (hex.length == 3)
-            hex = `${hex[0]}${hex[0]}${hex[1]}${hex[1]}${hex[2]}${hex[2]}`;
+        const hex = hexInput.value.replace(inputRegEx, "").slice(0, 8).toUpperCase();
         if (isHexValid(hex))
             updatesByHex(hex);
         hexInput.value = hex;
