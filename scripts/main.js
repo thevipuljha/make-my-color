@@ -306,6 +306,22 @@ const addEventListeners = () => {
         if (getActiveColorButton().value < getGradientColors().length - 1)
             swapColors("right");
     });
+    elementById("deleteColor").addEventListener("click", () => {
+        const gradientColors = getGradientColors();
+        if (gradientColors.length > 2) {
+            let currentIndex = Number(getActiveColorButton().value);
+            gradientColors[currentIndex].remove();
+            if (currentIndex === gradientColors.length) {
+                currentIndex--;
+            } else
+                for (let index = currentIndex; index < gradientColors.length; index++) {
+                    gradientColors[index].value = index;
+                }
+            gradientColors[currentIndex].id = "activeColor";
+            setMainGradient();
+            updatesToActiveColor();
+        }
+    });
 };
 
 const swapColors = (shiftDirection) => {
