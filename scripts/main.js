@@ -298,6 +298,29 @@ const addEventListeners = () => {
         document.removeEventListener("copy", listener);
         showToast('Copied')
     });
+    elementById("leftShift").addEventListener("click", () => {
+        if (getActiveColorButton().value > 0)
+            swapColors("left");
+    });
+    elementById("rightShift").addEventListener("click", () => {
+        if (getActiveColorButton().value < getGradientColors().length - 1)
+            swapColors("right");
+    });
+};
+
+const swapColors = (shiftDirection) => {
+    let colorList = getGradientColors();
+    const currentIndex = Number(getActiveColorButton().value);
+    const temp = colorList[currentIndex].style.backgroundColor;
+    let colorToSwap = colorList[currentIndex + 1];
+    if (shiftDirection === "left") {
+        colorToSwap = colorList[currentIndex - 1];
+    }
+    colorList[currentIndex].style.backgroundColor = colorToSwap.style.backgroundColor;
+    colorToSwap.style.backgroundColor = temp;
+    colorList[currentIndex].removeAttribute('id');
+    colorToSwap.id = "activeColor";
+    setMainGradient();
 };
 
 const setInputLimit = (element, lowerLimit, upperLimit) => {
@@ -392,6 +415,7 @@ function getNewColorButton(switchAciveColor = false) {
     setRandomColor(newColorButton);
     newColorButton.setAttribute("onclick", "colorButtonCicked(this)");
     newColorButton.setAttribute("onfocus", "this.click()");
+    newColorButton.value = getGradientColors().length;
     if (switchAciveColor)
         switchActiveColor(newColorButton);
     gradientColorsRow().appendChild(newColorButton);
