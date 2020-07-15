@@ -80,18 +80,42 @@
         <div class="gradient-buttons-block">
             <div class="gradient-color-buttons" id="gradientColors">
             </div>
-            <button id="addColorButton" title="add more colors">
-                <svg class="add-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="white" width="42px">
+        </div>
+        <div class="color-arrange">
+            <button class="arrange-buttons" id="leftShift" title="shift left">
+                <svg class="arrange-svg" viewBox="0 0 24 16" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M 11.068 3.445 C 10.19 3.445 9.478 3.995 9.478 4.671 L 9.478 11.327 C 9.478 12.005 10.19 12.554 11.068 12.554 L 19.693 12.554 C 20.57 12.554 21.282 12.005 21.282 11.327 L 21.282 4.671 C 21.282 3.995 20.57 3.445 19.693 3.445 L 11.068 3.445 Z M 10.84 4.671 C 10.84 4.574 10.943 4.496 11.068 4.496 L 19.693 4.496 C 19.818 4.496 19.92 4.574 19.92 4.671 L 19.92 11.327 C 19.92 11.425 19.818 11.502 19.693 11.502 L 11.068 11.502 C 10.943 11.502 10.84 11.425 10.84 11.327 L 10.84 4.671 Z">
+                    </path>
+                    <path fill-rule="evenodd"
+                        d="M 7.322 3.857 C 7.142 3.678 6.852 3.678 6.674 3.857 L 2.852 7.677 C 2.674 7.856 2.674 8.146 2.852 8.326 L 6.674 12.146 C 6.915 12.404 7.345 12.304 7.447 11.967 C 7.498 11.799 7.45 11.617 7.322 11.498 L 3.825 8.001 L 7.322 4.505 C 7.5 4.326 7.5 4.036 7.322 3.857 Z">
+                    </path>
+                </svg>
+            </button>
+            <button class="arrange-buttons" id="rightShift" title="shift right">
+                <svg class="arrange-svg" viewBox="0 0 24 16" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M 4.644 3.445 C 3.766 3.445 3.054 3.995 3.054 4.671 L 3.054 11.327 C 3.054 12.005 3.766 12.554 4.644 12.554 L 13.269 12.554 C 14.146 12.554 14.858 12.005 14.858 11.327 L 14.858 4.671 C 14.858 3.995 14.146 3.445 13.269 3.445 L 4.644 3.445 Z M 4.416 4.671 C 4.416 4.574 4.519 4.496 4.644 4.496 L 13.269 4.496 C 13.394 4.496 13.496 4.574 13.496 4.671 L 13.496 11.327 C 13.496 11.425 13.394 11.502 13.269 11.502 L 4.644 11.502 C 4.519 11.502 4.416 11.425 4.416 11.327 L 4.416 4.671 Z">
+                    </path>
+                    <path fill-rule="evenodd"
+                        d="M 17.264 12.292 C 17.447 12.475 17.741 12.475 17.924 12.292 L 21.809 8.406 C 21.992 8.224 21.992 7.929 21.809 7.746 L 17.924 3.861 C 17.661 3.616 17.232 3.748 17.151 4.098 C 17.117 4.247 17.159 4.407 17.264 4.52 L 20.822 8.076 L 17.264 11.633 C 17.083 11.815 17.083 12.11 17.264 12.292 Z">
+                    </path>
+                </svg>
+            </button>
+            <button class="arrange-buttons" id="deleteColor" title="delete color">
+                <svg class="arrange-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M 5.5 12 C 5.5 6.996 10.917 3.869 15.25 6.371 C 17.261 7.532 18.5 9.678 18.5 12 C 18.5 17.004 13.083 20.131 8.75 17.629 C 6.739 16.468 5.5 14.322 5.5 12 Z M 12 4 C 5.842 4 1.993 10.667 5.072 16 C 6.501 18.475 9.142 20 12 20 C 18.158 20 22.007 13.333 18.928 8 C 17.499 5.525 14.858 4 12 4 Z M 12.75 8.75 C 12.75 8.173 12.125 7.812 11.625 8.1 C 11.393 8.234 11.25 8.482 11.25 8.75 L 11.25 11.25 L 8.75 11.25 C 8.173 11.25 7.812 11.875 8.1 12.375 C 8.234 12.607 8.482 12.75 8.75 12.75 L 11.25 12.75 L 11.25 15.25 C 11.25 15.827 11.875 16.188 12.375 15.9 C 12.607 15.766 12.75 15.518 12.75 15.25 L 12.75 12.75 L 15.25 12.75 C 15.827 12.75 16.188 12.125 15.9 11.625 C 15.766 11.393 15.518 11.25 15.25 11.25 L 12.75 11.25 L 12.75 8.75 Z"
+                        transform="matrix(0.711209, 0.702981, -0.702981, 0.711209, 11.901264, -4.970275)"></path>
+                </svg>
+            </button>
+            <button class="arrange-buttons" id="addColorButton" title="add more colors">
+                <svg class="arrange-svg" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd"
                         d="M1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zM8 0a8 8 0 100 16A8 8 0 008 0zm.75 4.75a.75.75 0 00-1.5 0v2.5h-2.5a.75.75 0 000 1.5h2.5v2.5a.75.75 0 001.5 0v-2.5h2.5a.75.75 0 000-1.5h-2.5v-2.5z">
                     </path>
                 </svg>
             </button>
-        </div>
-        <div class="color-arrange">
-            <button id="leftShift" title="shift left">left</button>
-            <button id="rightShift" title="shift right">right</button>
-            <button id="deleteColor" title="delete color">delete</button>
         </div>
         <details class="color-pallete">
             <summary>Pick a colour from pallete </summary>

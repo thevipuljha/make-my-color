@@ -151,32 +151,34 @@ main {
 
 /* button row below gradient starts*/
 .gradient-buttons-block {
+    margin: 0 auto;
+    width: 98%;
     display: flex;
-    flex-flow: row nowrap;
     align-items: center;
-    justify-content: space-around;
-}
-
-/* gradient color buttons div*/
-.gradient-color-buttons {
-    width: 90%;
-    height: 56px;
+    justify-content: center;
     overflow: auto hidden;
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    justify-content: space-around;
     scrollbar-width: thin;
     scrollbar-color: #A122DDFF #03070473;
 }
 
-.gradient-color-buttons::-webkit-scrollbar {
+/* gradient color buttons div*/
+.gradient-color-buttons {
+    max-width: fit-content;
+    min-width: 100%;
+    height: 56px;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.gradient-buttons-block::-webkit-scrollbar {
     background-color: #03070473;
     height: 5px;
     border-radius: 10px;
 }
 
-.gradient-color-buttons::-webkit-scrollbar-thumb {
+.gradient-buttons-block::-webkit-scrollbar-thumb {
     border-radius: 10px;
     background-color: #A122DDFF;
     background-image: radial-gradient(circle at center, #A122DDFF 00%, slateblue 100%);
@@ -184,8 +186,8 @@ main {
 
 /* gradient color buttons*/
 .colorButton {
-    margin-right: 1px;
-    margin-left: 1px;
+    margin-right: 2px;
+    margin-left: 2px;
     height: 48px;
     color: transparent;
     text-align: center;
@@ -198,15 +200,33 @@ main {
     background-clip: content-box;
 }
 
-/* plus color button */
-#addColorButton {
-    height: 42px;
-    width: 42px;
+.color-arrange {
+    margin: 0 auto;
+    margin-top: 16px;
+    width: 98%;
     display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-evenly;
+    border: 2px dashed #03070473;
+    border-radius: 10px;
+}
+
+.arrange-buttons {
+    margin: 5px;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: inline-flex;
+    flex-flow: row nowrap;
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
     background-color: #A122DDFF;
+}
+
+.arrange-svg {
+    width: 44px;
+    fill: white;
 }
 
 .preset-Color-Box,
