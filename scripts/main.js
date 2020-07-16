@@ -129,7 +129,7 @@ const changeActiveButtonColor = () => {
     activeButton.style.backgroundColor = getRgbaString(rgba[0], rgba[1], rgba[2], rgba[3]);
 };
 
-const setcolorCodeElements = () => {
+const setColorCodeElements = () => {
     const colorCodeElements = getColorCodeElements();
     const {
         red,
@@ -157,7 +157,7 @@ function updatesToActiveColor() {
     }
     const currentColor = getRgbaString(rgba[0], rgba[1], rgba[2], rgba[3]);
     elementById("colorWindow").style.backgroundImage = `linear-gradient(90deg, ${currentColor}, ${currentColor}),${transparentImage}`;
-    setcolorCodeElements();
+    setColorCodeElements();
     setMainGradient();
 }
 
@@ -186,6 +186,14 @@ const isHexValid = (hexValue) => {
 function updatesByHex(hexValue) {
     getActiveColorButton().style.backgroundColor = getHexString(hexValue);
     updatesToActiveColor();
+}
+
+function gradientColorsSpacing() {
+    let spaceValue = "space-around";
+    if (getGradientColors().length > 4) {
+        spaceValue = "space-between";
+    }
+    gradientColorsRow().style.justifyContent = spaceValue;
 }
 
 const addEventListeners = () => {
@@ -217,22 +225,24 @@ const addEventListeners = () => {
         colorSliders[index].addEventListener('input', () => {
             colorInputs[index].value = colorSliders[index].value;
             changeBoxColor();
-            setcolorCodeElements();
+            setColorCodeElements();
             changeActiveButtonColor();
             updatesToActiveColor();
         });
 
         colorInputs[index].addEventListener('input', () => {
-            if (index != 3) {
-                setInputLimit(colorInputs[index], 0, 255);
-            } else {
+            if (index == 3) {
                 setInputLimit(colorInputs[index], 0, 100);
+            } else {
+                setInputLimit(colorInputs[index], 0, 255);
             }
-            colorSliders[index].value = colorInputs[index].value;
-            changeBoxColor();
-            setcolorCodeElements();
-            changeActiveButtonColor();
-            updatesToActiveColor();
+            if (colorInputs[index].value != "") {
+                colorSliders[index].value = colorInputs[index].value;
+                changeBoxColor();
+                setColorCodeElements();
+                changeActiveButtonColor();
+                updatesToActiveColor();
+            }
         });
 
         colorCodeCopyButton[index].addEventListener("click", () => {
@@ -247,14 +257,6 @@ const addEventListeners = () => {
         });
     }
 
-    elementById("addColorButton").addEventListener("click", () => {
-        getNewColorButton(true);
-        if (getGradientColors().length > 4) {
-            gradientColorsRow().style.justifyContent = "space-between";
-        }
-        updatesToActiveColor();
-    });
-
     const linearSlider = elementById("linearSlider");
     const linearInput = elementById("linearInput");
     linearSlider.addEventListener('input', () => {
@@ -263,7 +265,7 @@ const addEventListeners = () => {
     });
 
     linearInput.addEventListener('input', () => {
-        setInputLimit(linearInput, 0, 359)
+        setInputLimit(linearInput, 0, 359);
         linearSlider.value = linearInput.value;
         changeLinearDegree(linearSlider, linearDegrees);
     });
@@ -306,6 +308,7 @@ const addEventListeners = () => {
         if (getActiveColorButton().value < getGradientColors().length - 1)
             swapColors("right");
     });
+
     elementById("deleteColor").addEventListener("click", () => {
         const gradientColors = getGradientColors();
         if (gradientColors.length > 2) {
@@ -320,6 +323,23 @@ const addEventListeners = () => {
             gradientColors[currentIndex].id = "activeColor";
             setMainGradient();
             updatesToActiveColor();
+            gradientColorsSpacing();
+        }
+    });
+
+    elementById("addColorButton").addEventListener("click", () => {
+        getNewColorButton(true);
+        gradientColorsSpacing();
+        updatesToActiveColor();
+    });
+
+    elementById("loadButton").addEventListener("click", () => {
+        if (localStorage.getItem('settings') != null) {
+            applySavedGradient();
+            updatesToActiveColor();
+            showToast(`Gradient Restored`);
+        } else {
+            showToast(`Save some gradient`);
         }
     });
 };
@@ -346,8 +366,7 @@ const setInputLimit = (element, lowerLimit, upperLimit) => {
     if (element.value < lowerLimit) {
         element.value = lowerLimit;
     }
-};
-
+}
 const setColorPallete = () => {
     const colors = ['EB808E', 'C0C0D8', '53C6A9', 'AF3C44', '80BFFF', 'FF99BB', '17918A', '31F26E', 'E0C145', 'CC397B', 'EA9482'];
     for (let index = 0; index < 11; index++) {

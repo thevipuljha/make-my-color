@@ -40,8 +40,7 @@
                                 d="M5 5v14h14V7.828L16.172 5H5zM4 3h13l3.707 3.707a1 1 0 0 1 .293.707V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm8 15a3 3 0 1 1 0-6 3 3 0 0 1 0 6zM6 6h9v4H6V6z" />
                         </svg>
                     </button>
-                    <button class="option" id="loadButton" title="Load Gradient"
-                        onclick="applySavedGradient(); updatesToActiveColor();showToast(`Gradient Restored`)">
+                    <button class="option" id="loadButton" title="Load Gradient">
                         <svg viewBox="0 0 16 16" class="option-svg import-svg" fill-rule="evenodd"
                             style="stroke-linecap: round; stroke-linejoin: round; fill: none; stroke-width: 1.3px;"
                             xmlns="http://www.w3.org/2000/svg">
@@ -169,35 +168,33 @@
         <!-- rgba slider starts -->
         <div class="color-settings-div">
             <!-- hex input -->
-            <div class="hex-value-div">
-                <label for="hexInput">Enter Hex : </label>
-                <div>
-                    <label for="hexInput">#</label>
-                    <input type="text" class="hex-input" id="hexInput">
-                </div>
+            <div class="color-value-div hex-value-div">
+                <label for="hexInput">Hex :&nbsp;&nbsp;&nbsp;&nbsp;#</label>
+                <input type="text" class="hex-input" id="hexInput" placeholder="# Hex">
+                <div style="width: 40px;"></div>
             </div>
             <!-- red slider -->
             <div class="color-value-div">
                 <input type="range" min="0" max="255" class="color-slider" id="redSlider">
-                <input type="number" min="0" max="255" class="color-input" id="redInput">
+                <input type="number" min="0" max="255" class="color-input" id="redInput" placeholder="Red">
                 <label for="redInput">R</label>
             </div>
             <!-- green slider -->
             <div class="color-value-div">
                 <input type="range" min="0" max="255" class="color-slider" id="greenSlider">
-                <input type="number" min="0" max="255" class="color-input" id="greenInput">
+                <input type="number" min="0" max="255" class="color-input" id="greenInput" placeholder="Green">
                 <label for="greenInput">G</label>
             </div>
             <!-- blue slider -->
             <div class="color-value-div">
                 <input type="range" min="0" max="255" class="color-slider" id="blueSlider">
-                <input type="number" min="0" max="255" class="color-input" id="blueInput">
+                <input type="number" min="0" max="255" class="color-input" id="blueInput" placeholder="Blue">
                 <label for="blueInput">B</label>
             </div>
             <!-- alpha slider -->
             <div class="color-value-div">
                 <input type="range" min="0" max="100" class="color-slider notWhiteThumb" id="alphaSlider">
-                <input type="number" min="0" max="100" class="color-input" id="alphaInput">
+                <input type="number" min="0" max="100" class="color-input" id="alphaInput" placeholder="Alpha">
                 <label for="alphaInput">A</label>
             </div>
 
@@ -208,8 +205,8 @@
             <!-- type selection buttons -->
             <div class="gradient-type-buttons">
                 <button class="gradientType" onclick="gradientTypeSwitch(this)" id="activeType"
-                    value="linear">linear</button>
-                <button class="gradientType" onclick="gradientTypeSwitch(this)" value="radial">radial</button>
+                    value="linear">Linear</button>
+                <button class="gradientType" onclick="gradientTypeSwitch(this)" value="radial">Radial</button>
             </div>
             <!-- linear gradient settings box starts-->
             <div class="linear-settings" id="linearDiv">
@@ -217,7 +214,7 @@
                 <div class="linear-value-div">
                     <input type="range" min="0" max="359" value="90" class="notWhiteThumb" id="linearSlider">
                     <div>
-                        <input type="number" min="0" max="359" value="90" id="linearInput">
+                        <input type="number" min="0" max="359" value="90" id="linearInput" placeholder="Deg">
                         <label for="linearInput">&deg;</label>
                     </div>
                 </div>
@@ -239,8 +236,8 @@
                 <!-- radial gradient shape selector box -->
                 <div class="radial-shape-buttons">
                     <button class="radialType" onclick="radialShapeSwitch(this)" id="activeShape"
-                        value="circle">circle</button>
-                    <button class="radialType" onclick="radialShapeSwitch(this)" value="ellipse">ellipse</button>
+                        value="circle">Circle</button>
+                    <button class="radialType" onclick="radialShapeSwitch(this)" value="ellipse">Ellipse</button>
                 </div>
                 <!-- radial gradient direction block -->
                 <div class="radial-direction-div" id="radialDirections">

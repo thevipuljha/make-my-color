@@ -69,12 +69,11 @@ header {
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    border: 1px solid blue;
 }
 
 .page-logo {
     background: linear-gradient(90deg, #A122DDFF, #CC397BFF, #FF374FFF);
-    border: none;
+    border: 1px solid #A122DDFF;
 }
 
 .logo {
@@ -103,9 +102,9 @@ header {
 
 .options-detail-tag {
     width: 70px;
-    height: 90%;
     position: absolute;
     right: 5px;
+    top: 5px;
 }
 
 .options-div {
@@ -113,7 +112,7 @@ header {
     flex-flow: column nowrap;
     align-items: flex-end;
     justify-content: space-around;
-    height: 100%;
+    height: 170px;
 }
 
 .option {
@@ -332,8 +331,7 @@ main {
 }
 
 .color-value-div,
-.linear-value-div,
-.hex-value-div {
+.linear-value-div {
     width: 100%;
     display: flex;
     flex-flow: row nowrap;
@@ -343,6 +341,7 @@ main {
 
 .hex-value-div {
     white-space: nowrap;
+    justify-content: flex-end;
 }
 
 .hex-input {
@@ -415,7 +414,7 @@ input[type='range'].notWhiteThumb {
 }
 
 input[type='number'] {
-    width: 40px;
+    width: 44px;
     height: 25px;
     font-size: small;
 }
@@ -603,7 +602,7 @@ input[type='number'] {
     -webkit-transition: .2s;
     transition: .2s;
     border-radius: 24px;
-    background-color: #FF374FFF;
+    background-color: transparent;
 }
 
 .codeToggle:before {
@@ -667,6 +666,10 @@ input[type='number'] {
 
     .gradient {
         height: 250px;
+    }
+
+    .options-div {
+        height: 220px;
     }
 
     .color-settings-div,
