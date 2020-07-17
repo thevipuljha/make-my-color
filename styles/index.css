@@ -157,7 +157,7 @@ main {
     justify-content: center;
     overflow: auto hidden;
     scrollbar-width: thin;
-    scrollbar-color: #A122DDFF #03070473;
+    scrollbar-color: #888888 #a5a5a586;
 }
 
 /* gradient color buttons div*/
@@ -652,6 +652,138 @@ input[type='number'] {
     width: 24px;
     height: 24px;
     margin: 0 10px;
+}
+
+.user-colors,
+.user-gradients {
+    width: 100%;
+    margin: 16px 0px;
+    border-radius: 10px;
+    -moz-box-shadow: 0px 0 10px #00000066;
+    -webkit-box-shadow: 0px 0 10px #00000066;
+    box-shadow: 0px 0 10px #00000066;
+    height: auto;
+}
+
+.user-color-header,
+.user-gradient-header {
+    width: 100%;
+    height: 40px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(90deg, #A122DDFF, #CC397BFF, #FF374FFF);
+    color: white;
+}
+
+.user-color-header span,
+.user-gradient-header span {
+    padding-left: 10px;
+}
+
+.save-userdata-button {
+    width: max-content;
+    border: none;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.user-save-svg {
+    width: 26px;
+    fill: white;
+}
+
+.user-colors-list,
+.user-gradients-list {
+    min-height: 100px;
+    max-height: 220px;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: space-between;
+    overflow: hidden auto;
+    scrollbar-width: thin;
+    scrollbar-color: #888888 #a5a5a586;
+    padding: 0px 0px 10px 5px;
+}
+
+.user-colors-list:hover,
+.user-gradients-list:hover,
+.gradient-buttons-block:hover {
+    scrollbar-color: #A122DDFF #a5a5a586;
+}
+
+.user-color-container,
+.user-grad-container {
+    width: 80%;
+    height: max-content;
+    margin-top: 10px;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.user-color,
+.user-color-info {
+    border: 1px solid salmon;
+    width: 36%;
+    height: 44px;
+    background-color: coral;
+    border-radius: 10px;
+    font-size: medium;
+}
+
+.user-color,
+.user-grad {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.user-color button,
+.user-grad button {
+    width: 44%;
+    height: 80%;
+    background-color: #55555555;
+    color: white;
+    font-size: large;
+}
+
+.user-color-info {
+    width: max-content;
+    background-color: transparent;
+}
+
+.user-grad,
+.user-grad-copy {
+    width: 44%;
+    height: 44px;
+    background: linear-gradient(90deg, #A122DDFF, #CC397BFF, #FF374FFF);
+    border-radius: 10px;
+}
+
+.user-grad-copy {
+    border: 1px solid salmon;
+    width: max-content;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    font-size: medium;
+}
+
+.grad-copy {
+    width: 36px;
+    margin-right: 5px;
+}
+
+footer {
+    height: 24px;
 }
 
 @media screen and (min-width:768px) {

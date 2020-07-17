@@ -467,6 +467,28 @@ const initiate = () => {
     setLocalData();
     updatesToActiveColor();
     addEventListeners();
+    const userColors = elementsByclass("user-color");
+    for (let index = 0; index < userColors.length; index++) {
+        userColors[index].addEventListener("mouseenter", () => {
+            const html = `<button>&check;</button><button>&cross;</button>`;
+            userColors[index].innerHTML = html;
+        });
+        userColors[index].addEventListener("mouseleave", () => {
+            const html = ``;
+            userColors[index].innerHTML = html;
+        });
+    }
+    const userGradient = elementsByclass("user-grad");
+    for (let index = 0; index < userGradient.length; index++) {
+        userGradient[index].addEventListener("mouseenter", () => {
+            const html = `<button>&check;</button><button>&cross;</button>`;
+            userGradient[index].innerHTML = html;
+        });
+        userGradient[index].addEventListener("mouseleave", () => {
+            const html = ``;
+            userGradient[index].innerHTML = html;
+        });
+    }
 };
 
 window.onload = initiate;
