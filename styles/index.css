@@ -87,6 +87,7 @@ header {
     width: 96vw;
     margin: 5px auto;
     border-bottom: 5px solid white;
+    border-radius: 16px;
     position: -webkit-sticky;
     position: sticky;
     top: -100px;
@@ -709,7 +710,20 @@ input[type='number'] {
     overflow: hidden auto;
     scrollbar-width: thin;
     scrollbar-color: #888888 #a5a5a586;
-    padding: 0px 0px 10px 5px;
+}
+
+.empty-list {
+    font-size: x-large;
+    font-weight: 500;
+    color: #A122DDFF;
+    opacity: 0.8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.extra-space {
+    height: 10px;
 }
 
 .user-colors-list:hover,
@@ -731,8 +745,7 @@ input[type='number'] {
 
 .user-color,
 .user-color-info {
-    border: 1px solid salmon;
-    width: 36%;
+    width: 40%;
     height: 44px;
     background-color: coral;
     border-radius: 10px;
@@ -741,9 +754,12 @@ input[type='number'] {
 
 .user-color,
 .user-grad {
+    border: 1px solid #dddddd;
     display: inline-flex;
     align-items: center;
     justify-content: space-around;
+    background-repeat: repeat;
+    background-size: cover;
 }
 
 .user-color button,
@@ -762,7 +778,7 @@ input[type='number'] {
 
 .user-grad,
 .user-grad-copy {
-    width: 44%;
+    width: 40%;
     height: 44px;
     background: linear-gradient(90deg, #A122DDFF, #CC397BFF, #FF374FFF);
     border-radius: 10px;
@@ -778,7 +794,7 @@ input[type='number'] {
 }
 
 .grad-copy {
-    width: 36px;
+    width: 28px;
     margin-right: 5px;
 }
 

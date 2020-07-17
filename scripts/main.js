@@ -171,6 +171,28 @@ function palleteColorChoosed(palleteColor) {
     updatesToActiveColor();
 }
 
+function applySavedColor(hexColor) {
+    getActiveColorButton().style.backgroundColor = hexColor;
+    updatesToActiveColor();
+    showToast(`${hexColor} Applied`);
+}
+
+function deleteSavedColor(colorID) {
+    let userColorList = localStorage.getItem("userColorList").split(",");
+    elementById(colorID).remove();
+    const indexToDelete = userColorList.indexOf(colorID);
+    if (userColorList.length == 1) {
+        localStorage.removeItem("userColorList");
+        const colorListContainer = elementById("userColors");
+        colorListContainer.classList.add("empty-list");
+        colorListContainer.innerHTML = "Save Some Colors";
+    } else {
+        userColorList.splice(indexToDelete, 1);
+        localStorage.setItem("userColorList", userColorList);
+    }
+    showToast(`${colorID} Deleted`);
+}
+
 function changeLinearDegree(linearSlider, linearDegrees) {
     const index = Math.floor((linearSlider.value) / 45);
     elementById("currentDegree").removeAttribute("id");
@@ -300,10 +322,12 @@ const addEventListeners = () => {
         document.removeEventListener("copy", listener);
         showToast('Copied')
     });
+
     elementById("leftShift").addEventListener("click", () => {
         if (getActiveColorButton().value > 0)
             swapColors("left");
     });
+
     elementById("rightShift").addEventListener("click", () => {
         if (getActiveColorButton().value < getGradientColors().length - 1)
             swapColors("right");
@@ -342,7 +366,115 @@ const addEventListeners = () => {
             showToast(`Save some gradient`);
         }
     });
+
+    elementById("addUserColor").addEventListener("click", () => {
+        const rgba = getBackgroundColor(getActiveColorButton());
+        const hex = getHexString(rgbaToHex(rgba[0], rgba[1], rgba[2], rgba[3]));
+        let userColorList = localStorage.getItem("userColorList");
+        if (userColorList != null) {
+            userColorList = userColorList.split(",");
+        } else {
+            userColorList = [];
+        }
+        if (userColorList.indexOf(hex) === -1) {
+            userColorList.push(hex);
+            localStorage.setItem("userColorList", userColorList);
+            let colorListContainer = elementById("userColors");
+            if (colorListContainer.classList.contains("empty-list")) {
+                colorListContainer.innerHTML = "";
+                colorListContainer.classList.remove("empty-list");
+            }
+
+            let colorContainer = document.createElement("div");
+            colorContainer.className = "user-color-container";
+            colorContainer.id = hex;
+
+            let userColor = document.createElement("div");
+            userColor.className = "user-color";
+            userColor.style.backgroundImage = `linear-gradient(90deg, ${hex}, ${hex}),${transparentImage}`;
+
+            userColor.addEventListener("mouseenter", () => {
+                const html = `<button class="user-color-apply" value="${hex}" onclick="applySavedColor(this.value)">&check;</button>
+                              <button class="user-color-delete" value="${hex}" onclick="deleteSavedColor(this.value)">&cross;</button>`;
+                userColor.innerHTML = html;
+            });
+            userColor.addEventListener("mouseleave", () => {
+                userColor.innerHTML = "";
+            });
+
+            let userColorInfo = document.createElement("button");
+            userColorInfo.className = "user-color-info";
+            userColorInfo.title = "Copy Hex";
+            userColorInfo.innerText = hex;
+            userColorInfo.style.borderColor = hex;
+            userColorInfo.addEventListener("click", () => {
+                function listener(event) {
+                    event.clipboardData.setData("text/plain", hex);
+                    event.preventDefault();
+                }
+                document.addEventListener("copy", listener);
+                document.execCommand("copy");
+                document.removeEventListener("copy", listener);
+                showToast(`${hex} Copied`)
+            });
+
+            colorContainer.append(userColor, userColorInfo);
+            colorListContainer.appendChild(colorContainer);
+
+        } else {
+            showToast("Color already saved");
+        }
+
+    });
 };
+
+function setUserColors() {
+    let userColorList = localStorage.getItem("userColorList");
+    let colorListContainer = elementById("userColors");
+    if (userColorList != null) {
+        userColorList = userColorList.split(",");
+        for (let index = 0; index < userColorList.length; index++) {
+            const hex = userColorList[index];
+            let colorContainer = document.createElement("div");
+            colorContainer.className = "user-color-container";
+            colorContainer.id = hex;
+
+            let userColor = document.createElement("div");
+            userColor.className = "user-color";
+            userColor.style.backgroundColor = hex;
+            userColor.addEventListener("mouseenter", () => {
+                const html = `<button class="user-color-apply" value="${hex}" onclick="applySavedColor(this.value)">&check;</button>
+                              <button class="user-color-delete" value="${hex}" onclick="deleteSavedColor(this.value)">&cross;</button>`;
+                userColor.innerHTML = html;
+            });
+            userColor.addEventListener("mouseleave", () => {
+                userColor.innerHTML = "";
+            });
+
+            let userColorInfo = document.createElement("button");
+            userColorInfo.className = "user-color-info";
+            userColorInfo.title = "Copy Hex";
+            userColorInfo.innerText = hex;
+            userColorInfo.style.borderColor = hex;
+            userColorInfo.addEventListener("click", () => {
+                function listener(event) {
+                    event.clipboardData.setData("text/plain", hex);
+                    event.preventDefault();
+                }
+                document.addEventListener("copy", listener);
+                document.execCommand("copy");
+                document.removeEventListener("copy", listener);
+                showToast(`${hex} Copied`)
+            });
+
+            colorContainer.append(userColor, userColorInfo);
+            colorListContainer.appendChild(colorContainer);
+        }
+    } else {
+        colorListContainer.classList.add("empty-list");
+        colorListContainer.innerHTML = "Save Some Colors";
+    }
+}
 
 const swapColors = (shiftDirection) => {
     let colorList = getGradientColors();
@@ -466,18 +598,9 @@ const initiate = () => {
     setColorPallete();
     setLocalData();
     updatesToActiveColor();
+    setUserColors();
     addEventListeners();
-    const userColors = elementsByclass("user-color");
-    for (let index = 0; index < userColors.length; index++) {
-        userColors[index].addEventListener("mouseenter", () => {
-            const html = `<button>&check;</button><button>&cross;</button>`;
-            userColors[index].innerHTML = html;
-        });
-        userColors[index].addEventListener("mouseleave", () => {
-            const html = ``;
-            userColors[index].innerHTML = html;
-        });
-    }
+
     const userGradient = elementsByclass("user-grad");
     for (let index = 0; index < userGradient.length; index++) {
         userGradient[index].addEventListener("mouseenter", () => {
