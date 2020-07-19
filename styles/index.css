@@ -780,14 +780,12 @@ input[type='number'] {
 .user-grad-copy {
     width: 40%;
     height: 44px;
-    background: linear-gradient(90deg, #A122DDFF, #CC397BFF, #FF374FFF);
     border-radius: 10px;
 }
 
 .user-grad-copy {
-    border: 1px solid salmon;
+    border: 1px solid #cccccc;
     width: max-content;
-    background: transparent;
     display: flex;
     align-items: center;
     font-size: medium;

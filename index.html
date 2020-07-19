@@ -14,7 +14,6 @@
 
 <body>
     <header>
-        <!-- title header starts -->
         <div class="title-header">
             <div class="page-logo">
                 <img class="logo" src="images/logo.svg" alt="logo">
@@ -22,8 +21,6 @@
             <span class="title">gracy</span>
             <div class="page-nav"></div>
         </div>
-        <!-- title header ends -->
-        <!-- gradient box -->
     </header>
     <div class="gradient-container">
         <div class="gradient" id="gradient">
@@ -73,7 +70,6 @@
         </div>
     </div>
 
-    <!-- main starts -->
     <main>
         <!-- the color storing blocks -->
         <div class="gradient-buttons-block">
@@ -123,7 +119,6 @@
         </details>
         <!-- current color box -->
         <div class="color-window" id="colorWindow">
-            <!-- current color codes blocks starts-->
             <div class="color-codes-block">
                 <input class="colorCodes" type="text" tabindex="-1" readonly id="rgb-code">
                 <input class="colorCodes" type="text" tabindex="-1" readonly id="hex-code">
@@ -165,7 +160,6 @@
                 </button>
             </div>
         </div>
-        <!-- rgba slider starts -->
         <div class="color-settings-div">
             <!-- hex input -->
             <div class="color-value-div hex-value-div">
@@ -197,20 +191,14 @@
                 <input type="number" min="0" max="100" class="color-input" id="alphaInput" placeholder="Alpha">
                 <label for="alphaInput">A</label>
             </div>
-
         </div>
-        <!-- rgba slider ends -->
-        <!-- gradient settings box starts -->
         <div class="gradient-settings">
-            <!-- type selection buttons -->
             <div class="gradient-type-buttons">
                 <button class="gradientType" onclick="gradientTypeSwitch(this)" id="activeType"
                     value="linear">Linear</button>
                 <button class="gradientType" onclick="gradientTypeSwitch(this)" value="radial">Radial</button>
             </div>
-            <!-- linear gradient settings box starts-->
             <div class="linear-settings" id="linearDiv">
-                <!-- linear gradient degree slider box-->
                 <div class="linear-value-div">
                     <input type="range" min="0" max="359" value="90" class="notWhiteThumb" id="linearSlider">
                     <div>
@@ -218,7 +206,6 @@
                         <label for="linearInput">&deg;</label>
                     </div>
                 </div>
-                <!-- linear gradient direction block -->
                 <div class="linear-direction-div" id="linearDirections">
                     <button class="rotate-text"><span>&nearrow;</span></button>
                     <button><span>&nearrow;</span></button>
@@ -230,16 +217,12 @@
                     <button><span>&nwarrow;</span></button>
                 </div>
             </div>
-            <!-- linear gradient settings box ends -->
-            <!-- radial gradient settings box starts -->
             <div class="radial-settings" id="radialDiv">
-                <!-- radial gradient shape selector box -->
                 <div class="radial-shape-buttons">
                     <button class="radialType" onclick="radialShapeSwitch(this)" id="activeShape"
                         value="circle">Circle</button>
                     <button class="radialType" onclick="radialShapeSwitch(this)" value="ellipse">Ellipse</button>
                 </div>
-                <!-- radial gradient direction block -->
                 <div class="radial-direction-div" id="radialDirections">
                     <button value="top left"><span>&searrow;</span></button>
                     <button value="top" class="rotate-text"><span>&swarrow;</span></button>
@@ -252,9 +235,7 @@
                     <button value="bottom right"><span>&nwarrow;</span></button>
                 </div>
             </div>
-            <!-- radial gradient settings box ends -->
         </div>
-        <!-- gradient settings box ends -->
         <div class="gradient-code">
             <div class="gradient-code-header"><span>CSS GRADIENT CODE</span>
                 <div class="code-switch">
@@ -306,119 +287,14 @@
                     </svg>
                 </button>
             </header>
-            <div class="user-gradients-list" id="userGradients">
-                <div class="user-grad-container">
-                    <div class="user-grad"></div>
-                    <button class="user-grad-copy" title="copy gradient">
-                        <svg viewBox="0 0 24 24" class="grad-copy" fill-rule="evenodd"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M4.75 3A1.75 1.75 0 003 4.75v9.5c0 .966.784 1.75 1.75 1.75h1.5a.75.75 0 000-1.5h-1.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.25-.25h9.5a.25.25 0 01.25.25v1.5a.75.75 0 001.5 0v-1.5A1.75 1.75 0 0014.25 3h-9.5zm5 5A1.75 1.75 0 008 9.75v9.5c0 .966.784 1.75 1.75 1.75h9.5A1.75 1.75 0 0021 19.25v-9.5A1.75 1.75 0 0019.25 8h-9.5zM9.5 9.75a.25.25 0 01.25-.25h9.5a.25.25 0 01.25.25v9.5a.25.25 0 01-.25.25h-9.5a.25.25 0 01-.25-.25v-9.5z">
-                            </path>
-                        </svg>Copy</button>
-                </div>
-                <div class="user-grad-container">
-                    <div class="user-grad"></div>
-                    <button class="user-grad-copy">
-                        <svg viewBox="0 0 24 24" class="grad-copy" fill-rule="evenodd"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M4.75 3A1.75 1.75 0 003 4.75v9.5c0 .966.784 1.75 1.75 1.75h1.5a.75.75 0 000-1.5h-1.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.25-.25h9.5a.25.25 0 01.25.25v1.5a.75.75 0 001.5 0v-1.5A1.75 1.75 0 0014.25 3h-9.5zm5 5A1.75 1.75 0 008 9.75v9.5c0 .966.784 1.75 1.75 1.75h9.5A1.75 1.75 0 0021 19.25v-9.5A1.75 1.75 0 0019.25 8h-9.5zM9.5 9.75a.25.25 0 01.25-.25h9.5a.25.25 0 01.25.25v9.5a.25.25 0 01-.25.25h-9.5a.25.25 0 01-.25-.25v-9.5z">
-                            </path>
-                        </svg>Copy</button>
-                </div>
-                <div class="user-grad-container">
-                    <div class="user-grad"></div>
-                    <button class="user-grad-copy">
-                        <svg viewBox="0 0 24 24" class="grad-copy" fill-rule="evenodd"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M4.75 3A1.75 1.75 0 003 4.75v9.5c0 .966.784 1.75 1.75 1.75h1.5a.75.75 0 000-1.5h-1.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.25-.25h9.5a.25.25 0 01.25.25v1.5a.75.75 0 001.5 0v-1.5A1.75 1.75 0 0014.25 3h-9.5zm5 5A1.75 1.75 0 008 9.75v9.5c0 .966.784 1.75 1.75 1.75h9.5A1.75 1.75 0 0021 19.25v-9.5A1.75 1.75 0 0019.25 8h-9.5zM9.5 9.75a.25.25 0 01.25-.25h9.5a.25.25 0 01.25.25v9.5a.25.25 0 01-.25.25h-9.5a.25.25 0 01-.25-.25v-9.5z">
-                            </path>
-                        </svg>Copy</button>
-                </div>
-                <div class="user-grad-container">
-                    <div class="user-grad"></div>
-                    <button class="user-grad-copy">
-                        <svg viewBox="0 0 24 24" class="grad-copy" fill-rule="evenodd"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M4.75 3A1.75 1.75 0 003 4.75v9.5c0 .966.784 1.75 1.75 1.75h1.5a.75.75 0 000-1.5h-1.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.25-.25h9.5a.25.25 0 01.25.25v1.5a.75.75 0 001.5 0v-1.5A1.75 1.75 0 0014.25 3h-9.5zm5 5A1.75 1.75 0 008 9.75v9.5c0 .966.784 1.75 1.75 1.75h9.5A1.75 1.75 0 0021 19.25v-9.5A1.75 1.75 0 0019.25 8h-9.5zM9.5 9.75a.25.25 0 01.25-.25h9.5a.25.25 0 01.25.25v9.5a.25.25 0 01-.25.25h-9.5a.25.25 0 01-.25-.25v-9.5z">
-                            </path>
-                        </svg>Copy</button>
-                </div>
-                <div class="user-grad-container">
-                    <div class="user-grad"></div>
-                    <button class="user-grad-copy">
-                        <svg viewBox="0 0 24 24" class="grad-copy" fill-rule="evenodd"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M4.75 3A1.75 1.75 0 003 4.75v9.5c0 .966.784 1.75 1.75 1.75h1.5a.75.75 0 000-1.5h-1.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.25-.25h9.5a.25.25 0 01.25.25v1.5a.75.75 0 001.5 0v-1.5A1.75 1.75 0 0014.25 3h-9.5zm5 5A1.75 1.75 0 008 9.75v9.5c0 .966.784 1.75 1.75 1.75h9.5A1.75 1.75 0 0021 19.25v-9.5A1.75 1.75 0 0019.25 8h-9.5zM9.5 9.75a.25.25 0 01.25-.25h9.5a.25.25 0 01.25.25v9.5a.25.25 0 01-.25.25h-9.5a.25.25 0 01-.25-.25v-9.5z">
-                            </path>
-                        </svg>Copy</button>
-                </div>
-                <div class="user-grad-container">
-                    <div class="user-grad"></div>
-                    <button class="user-grad-copy">
-                        <svg viewBox="0 0 24 24" class="grad-copy" fill-rule="evenodd"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M4.75 3A1.75 1.75 0 003 4.75v9.5c0 .966.784 1.75 1.75 1.75h1.5a.75.75 0 000-1.5h-1.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.25-.25h9.5a.25.25 0 01.25.25v1.5a.75.75 0 001.5 0v-1.5A1.75 1.75 0 0014.25 3h-9.5zm5 5A1.75 1.75 0 008 9.75v9.5c0 .966.784 1.75 1.75 1.75h9.5A1.75 1.75 0 0021 19.25v-9.5A1.75 1.75 0 0019.25 8h-9.5zM9.5 9.75a.25.25 0 01.25-.25h9.5a.25.25 0 01.25.25v9.5a.25.25 0 01-.25.25h-9.5a.25.25 0 01-.25-.25v-9.5z">
-                            </path>
-                        </svg>Copy</button>
-                </div>
-                <div class="user-grad-container">
-                    <div class="user-grad"></div>
-                    <button class="user-grad-copy">
-                        <svg viewBox="0 0 24 24" class="grad-copy" fill-rule="evenodd"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M4.75 3A1.75 1.75 0 003 4.75v9.5c0 .966.784 1.75 1.75 1.75h1.5a.75.75 0 000-1.5h-1.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.25-.25h9.5a.25.25 0 01.25.25v1.5a.75.75 0 001.5 0v-1.5A1.75 1.75 0 0014.25 3h-9.5zm5 5A1.75 1.75 0 008 9.75v9.5c0 .966.784 1.75 1.75 1.75h9.5A1.75 1.75 0 0021 19.25v-9.5A1.75 1.75 0 0019.25 8h-9.5zM9.5 9.75a.25.25 0 01.25-.25h9.5a.25.25 0 01.25.25v9.5a.25.25 0 01-.25.25h-9.5a.25.25 0 01-.25-.25v-9.5z">
-                            </path>
-                        </svg>Copy</button>
-                </div>
-                <div class="user-grad-container">
-                    <div class="user-grad"></div>
-                    <button class="user-grad-copy">
-                        <svg viewBox="0 0 24 24" class="grad-copy" fill-rule="evenodd"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M4.75 3A1.75 1.75 0 003 4.75v9.5c0 .966.784 1.75 1.75 1.75h1.5a.75.75 0 000-1.5h-1.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.25-.25h9.5a.25.25 0 01.25.25v1.5a.75.75 0 001.5 0v-1.5A1.75 1.75 0 0014.25 3h-9.5zm5 5A1.75 1.75 0 008 9.75v9.5c0 .966.784 1.75 1.75 1.75h9.5A1.75 1.75 0 0021 19.25v-9.5A1.75 1.75 0 0019.25 8h-9.5zM9.5 9.75a.25.25 0 01.25-.25h9.5a.25.25 0 01.25.25v9.5a.25.25 0 01-.25.25h-9.5a.25.25 0 01-.25-.25v-9.5z">
-                            </path>
-                        </svg>Copy</button>
-                </div>
-                <div class="user-grad-container">
-                    <div class="user-grad"></div>
-                    <button class="user-grad-copy">
-                        <svg viewBox="0 0 24 24" class="grad-copy" fill-rule="evenodd"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M4.75 3A1.75 1.75 0 003 4.75v9.5c0 .966.784 1.75 1.75 1.75h1.5a.75.75 0 000-1.5h-1.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.25-.25h9.5a.25.25 0 01.25.25v1.5a.75.75 0 001.5 0v-1.5A1.75 1.75 0 0014.25 3h-9.5zm5 5A1.75 1.75 0 008 9.75v9.5c0 .966.784 1.75 1.75 1.75h9.5A1.75 1.75 0 0021 19.25v-9.5A1.75 1.75 0 0019.25 8h-9.5zM9.5 9.75a.25.25 0 01.25-.25h9.5a.25.25 0 01.25.25v9.5a.25.25 0 01-.25.25h-9.5a.25.25 0 01-.25-.25v-9.5z">
-                            </path>
-                        </svg>Copy</button>
-                </div>
-                <div class="user-grad-container">
-                    <div class="user-grad"></div>
-                    <button class="user-grad-copy">
-                        <svg viewBox="0 0 24 24" class="grad-copy" fill-rule="evenodd"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M4.75 3A1.75 1.75 0 003 4.75v9.5c0 .966.784 1.75 1.75 1.75h1.5a.75.75 0 000-1.5h-1.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.25-.25h9.5a.25.25 0 01.25.25v1.5a.75.75 0 001.5 0v-1.5A1.75 1.75 0 0014.25 3h-9.5zm5 5A1.75 1.75 0 008 9.75v9.5c0 .966.784 1.75 1.75 1.75h9.5A1.75 1.75 0 0021 19.25v-9.5A1.75 1.75 0 0019.25 8h-9.5zM9.5 9.75a.25.25 0 01.25-.25h9.5a.25.25 0 01.25.25v9.5a.25.25 0 01-.25.25h-9.5a.25.25 0 01-.25-.25v-9.5z">
-                            </path>
-                        </svg>Copy</button>
-                </div>
-            </div>
+            <div class="user-gradients-list" id="userGradients"> </div>
             <div class="extra-space"></div>
         </div>
     </main>
-    <!-- main ends -->
     <div class="toast" id="toastContainer">
         <span id="toastNotify">Task Notify</span>
     </div>
     <footer></footer>
-
-
-
 </body>
 
 </html>
