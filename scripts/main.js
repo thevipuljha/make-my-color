@@ -180,33 +180,84 @@ function applySavedColor(hexColor) {
 function deleteSavedColor(colorID) {
     let userColorList = localStorage.getItem("userColorList").split(",");
     elementById(colorID).remove();
-    const indexToDelete = userColorList.indexOf(colorID);
     if (userColorList.length == 1) {
         localStorage.removeItem("userColorList");
         const colorListContainer = elementById("userColors");
         colorListContainer.classList.add("empty-list");
         colorListContainer.innerHTML = "Save Some Colors";
     } else {
+        const indexToDelete = userColorList.indexOf(colorID);
         userColorList.splice(indexToDelete, 1);
         localStorage.setItem("userColorList", userColorList);
     }
     showToast(`${colorID} Deleted`);
 }
 
-function deleteSavedGradient(gradientName) {
-    let usergradList = JSON.parse(localStorage.getItem("userGradList"));
-    elementById(gradientName).remove();
-    // const indexToDelete = userColorList.indexOf(colorID);
-    // if (userColorList.length == 1) {
-    //     localStorage.removeItem("userColorList");
-    //     const colorListContainer = elementById("userColors");
-    //     colorListContainer.classList.add("empty-list");
-    //     colorListContainer.innerHTML = "Save Some Colors";
-    // } else {
-    //     userColorList.splice(indexToDelete, 1);
-    //     localStorage.setItem("userColorList", userColorList);
-    // }
+function deleteSavedGradient(gradientId) {
+    let userGradList = JSON.parse(localStorage.getItem("userGradList"));
+    elementById(gradientId).remove();
     showToast(`Gradient Deleted`);
+    if (userGradList.length == 1) {
+        localStorage.removeItem("userGradList");
+        const gradListContainer = elementById("userGradients");
+        gradListContainer.classList.add("empty-list");
+        gradListContainer.innerHTML = "Save Some Gradients";
+    } else {
+        for (let index = 0; index < userGradList.length; index++) {
+            if (userGradList[index].gradientID == gradientId) {
+                userGradList.splice(index, 1);
+                localStorage.setItem("userGradList", JSON.stringify(userGradList));
+                return;
+            }
+        }
+    }
+}
+
+function applySavedUserGradient(gradientId) {
+    const userGradList = JSON.parse(localStorage.getItem("userGradList"));
+    let userGradient = {};
+    for (let index = 0; index < userGradList.length; index++) {
+        if (userGradList[index].gradientID == gradientId) {
+            userGradient = userGradList[index];
+        }
+    }
+    gradientColorsRow().innerHTML = userGradient.gradientColors;
+
+    function retrieveLinearSettigs(gradientSetting) {
+        toggleActives(gradientSetting, 0, 1, "activeType");
+        elementById('linearInput').value = userGradient.linearDegree;
+        elementById('linearSlider').value = userGradient.linearDegree;
+        elementById('linearDiv').style.display = "flex"
+        elementById('radialDiv').style.display = "none"
+    }
+
+    function retrieveRadialSettigs(gradientSetting) {
+        const radialType = elementsByClass('radialType');
+        const radialDirections = getRadialDirections();
+        toggleActives(gradientSetting, 1, 0, "activeType");
+        if (userGradient.radialShape == "circle")
+            toggleActives(radialType, 0, 1, "activeShape");
+        else
+            toggleActives(radialType, 1, 0, "activeShape");
+        elementById('linearDiv').style.display = "none"
+        elementById('radialDiv').style.display = "flex"
+        for (let index = 0; index < radialDirections.length; index++) {
+            if (radialDirections[index].value == userGradient.radialDirection) {
+                radialDirections[index].id = "currentDirection";
+            } else
+                radialDirections[index].removeAttribute('id');
+        }
+    }
+
+    const gradientType = elementsByClass('gradientType');
+    if (userGradient.activeType == 'linear') {
+        retrieveLinearSettigs(gradientType);
+    } else {
+        retrieveRadialSettigs(gradientType);
+    }
+    elementById("gradient").style.backgroundImage = `${getGradientString()}, ${transparentImage}`;
+    elementById("gradientCode").innerText = `background : ${getGradientString()};`;
+    updatesToActiveColor();
 }
 
 function changeLinearDegree(linearSlider, linearDegrees) {
@@ -232,6 +283,15 @@ function gradientColorsSpacing() {
         spaceValue = "space-between";
     }
     gradientColorsRow().style.justifyContent = spaceValue;
+}
+
+function makeGradientId(gradientCode) {
+    let tempArray = gradientCode.split(",");
+    let gradientID = tempArray[0].split("(")[1];
+    for (let index = 1; index < tempArray.length; index++) {
+        gradientID = gradientID + tempArray[index];
+    }
+    return gradientID.replace(RegExp(`[ #)]`, 'g'), "");
 }
 
 const addEventListeners = () => {
@@ -458,7 +518,9 @@ const addEventListeners = () => {
                 return;
             }
         }
+        const gradientId = makeGradientId(currentGradientCode);
         const gradientData = {
+            gradientID: gradientId,
             gradientColors: elementById('gradientColors').innerHTML,
             activeType: getActiveType().value,
             linearDegree: getLinearDegree(),
@@ -474,19 +536,18 @@ const addEventListeners = () => {
             gradListContainer.innerHTML = "";
             gradListContainer.classList.remove("empty-list");
         }
-        const gradientName = `gradient${userGradList.length - 1}`;
 
         let gradContainer = document.createElement("div");
         gradContainer.className = "user-grad-container";
-        gradContainer.id = gradientName;
+        gradContainer.id = gradientId;
 
         let userGrad = document.createElement("div");
         userGrad.className = "user-grad";
         userGrad.style.backgroundImage = `${currentGradientCode}, ${transparentImage}`;
 
         userGrad.addEventListener("mouseenter", () => {
-            const html = `<button class="user-grad-apply" value="${currentGradientCode}" onclick="applySavedColor(this.value)">&check;</button>
-                          <button class="user-grad-delete" value="${gradientName}" onclick="console.log(this.value)">&cross;</button>`;
+            const html = `<button class="user-grad-apply" value="${gradientId}" onclick="applySavedUserGradient(this.value)">&check;</button>
+                          <button class="user-grad-delete" value="${gradientId}" onclick="deleteSavedGradient(this.value)">&cross;</button>`;
             userGrad.innerHTML = html;
         });
         userGrad.addEventListener("mouseleave", () => {
@@ -524,19 +585,18 @@ function setUserGradients() {
         userGradList = JSON.parse(userGradList);
         for (let index = 0; index < userGradList.length; index++) {
             const currentGradientCode = userGradList[index].gradientCode;
-            const gradientName = `gradient${index}`;
-
+            const gradientId = makeGradientId(currentGradientCode);
             let gradContainer = document.createElement("div");
             gradContainer.className = "user-grad-container";
-            gradContainer.id = gradientName;
+            gradContainer.id = gradientId;
 
             let userGrad = document.createElement("div");
             userGrad.className = "user-grad";
             userGrad.style.backgroundImage = `${currentGradientCode}, ${transparentImage}`;
 
             userGrad.addEventListener("mouseenter", () => {
-                const html = `<button class="user-grad-apply" value="${currentGradientCode}" onclick="applySavedColor(this.value)">&check;</button>
-                          <button class="user-grad-delete" value="${gradientName}" onclick="console.log(this.value)">&cross;</button>`;
+                const html = `<button class="user-grad-apply" value="${gradientId}" onclick="applySavedUserGradient(this.value)">&check;</button>
+                          <button class="user-grad-delete" value="${gradientId}" onclick="deleteSavedGradient(this.value)">&cross;</button>`;
                 userGrad.innerHTML = html;
             });
 
@@ -691,7 +751,6 @@ const applySavedGradient = () => {
         for (let index = 0; index < radialDirections.length; index++) {
             if (radialDirections[index].value == gradientData.radialDirection) {
                 radialDirections[index].id = "currentDirection";
-                index = radialDirections.length;
             } else
                 radialDirections[index].removeAttribute('id');
         }
@@ -742,17 +801,6 @@ const initiate = () => {
     setUserColors();
     setUserGradients();
     addEventListeners();
-    const userGradient = elementsByClass("user-grad");
-    for (let index = 0; index < userGradient.length; index++) {
-        userGradient[index].addEventListener("mouseenter", () => {
-            const html = `<button>&check;</button><button>&cross;</button>`;
-            userGradient[index].innerHTML = html;
-        });
-        userGradient[index].addEventListener("mouseleave", () => {
-            const html = ``;
-            userGradient[index].innerHTML = html;
-        });
-    }
 };
 
 window.onload = initiate;
