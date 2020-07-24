@@ -285,6 +285,11 @@ function gradientColorsSpacing() {
     gradientColorsRow().style.justifyContent = spaceValue;
 }
 
+function topFunction() {
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+}
+
 function makeGradientId(gradientCode) {
     let tempArray = gradientCode.split(",");
     let gradientID = tempArray[0].split("(")[1];
@@ -300,6 +305,15 @@ const addEventListeners = () => {
     const colorCodeElements = getColorCodeElements();
     const colorCodeCopyButton = getColorCodeCopy();
     const hexInput = elementById("hexInput");
+    const toTopButton = document.getElementById("toTop");
+
+    window.onscroll = function () {
+        if (document.body.scrollTop > 120 || document.documentElement.scrollTop > 120) {
+            toTopButton.style.display = "grid";
+        } else {
+            toTopButton.style.display = "none";
+        }
+    };
 
     hexInput.addEventListener('change', () => {
         let hex = hexInput.value;
@@ -431,6 +445,7 @@ const addEventListeners = () => {
         getNewColorButton(true);
         gradientColorsSpacing();
         updatesToActiveColor();
+        elementById("gradientBlock").scrollLeft = elementById("gradientBlock").scrollWidth;
     });
 
     elementById("loadButton").addEventListener("click", () => {
@@ -496,7 +511,7 @@ const addEventListeners = () => {
 
             colorContainer.append(userColor, userColorInfo);
             colorListContainer.appendChild(colorContainer);
-
+            elementById("userColors").scrollTop = elementById("userColors").scrollHeight;
         } else {
             showToast("Color already saved");
         }
@@ -571,7 +586,7 @@ const addEventListeners = () => {
 
         gradContainer.append(userGrad, userGradCopy);
         gradListContainer.appendChild(gradContainer);
-
+        elementById("userGradients").scrollTop = elementById("userGradients").scrollHeight;
         elementById("codeSwitch").checked = codeSwitchState;
     });
 };
@@ -763,11 +778,15 @@ const applySavedGradient = () => {
 };
 
 const setLocalData = () => {
-    if (localStorage.getItem('autosave') == 'true') {
-        applySavedGradient();
-        elementById('autosave').checked = true;
+    if (localStorage.getItem('autosave') != null) {
+        if (localStorage.getItem('autosave') == 'true') {
+            applySavedGradient();
+            elementById('autosave').checked = true;
+        } else {
+            elementById('autosave').checked = false;
+        }
     } else {
-        elementById('autosave').checked = false;
+        elementById('autosave').checked = true;
     }
 };
 

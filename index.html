@@ -29,7 +29,7 @@
                 <div class="options-div">
                     <input type="checkbox" id="autosave"
                         onclick="saveGradientData(); showToast(`AutoSave : ${autosave.checked}`)">
-                    <button class="option" id="autoSaveButton" title="Auto Save" onclick="autosave.click()">
+                    <button class=" option" id="autoSaveButton" title="Auto Save" onclick="autosave.click()">
                         <i class="gi gi-save"></i>
                     </button>
                     <button class="option" id="loadButton" title="Load Gradient">
@@ -48,7 +48,7 @@
 
     <main>
         <!-- the color storing blocks -->
-        <div class="gradient-buttons-block">
+        <div class="gradient-buttons-block" id="gradientBlock">
             <div class="gradient-color-buttons" id="gradientColors">
             </div>
         </div>
@@ -209,10 +209,13 @@
             <div class="extra-space"></div>
         </div>
     </main>
-    <div class="toast" id="toastContainer">
-        <span id="toastNotify">Task Notify</span>
-    </div>
-    <footer></footer>
+    <footer>
+        <div class="toast" id="toastContainer">
+            <span id="toastNotify">Task Notify</span>
+        </div>
+        <button class="go-to-top" id="toTop" onclick="topFunction()" title="Go to top"><i
+                class="gi gi-top"></i></button>
+    </footer>
 </body>
 
 </html>
