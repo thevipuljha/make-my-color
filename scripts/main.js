@@ -470,8 +470,8 @@ const addEventListeners = () => {
             userColor.style.backgroundImage = `linear-gradient(90deg, ${hex}, ${hex}),${transparentImage}`;
 
             userColor.addEventListener("mouseenter", () => {
-                const html = `<button class="user-color-apply" value="${hex}" onclick="applySavedColor(this.value)">&check;</button>
-                              <button class="user-color-delete" value="${hex}" onclick="deleteSavedColor(this.value)">&cross;</button>`;
+                const html = `<button class="user-color-apply" value="${hex}" onclick="applySavedColor(this.value)"><i class="gi gi-apply"></i></button>
+                              <button class="user-color-delete" value="${hex}" onclick="deleteSavedColor(this.value)"><i class="gi gi-remove"></i></button>`;
                 userColor.innerHTML = html;
             });
             userColor.addEventListener("mouseleave", () => {
@@ -546,8 +546,8 @@ const addEventListeners = () => {
         userGrad.style.backgroundImage = `${currentGradientCode}, ${transparentImage}`;
 
         userGrad.addEventListener("mouseenter", () => {
-            const html = `<button class="user-grad-apply" value="${gradientId}" onclick="applySavedUserGradient(this.value)">&check;</button>
-                          <button class="user-grad-delete" value="${gradientId}" onclick="deleteSavedGradient(this.value)">&cross;</button>`;
+            const html = `<button class="user-grad-apply" value="${gradientId}" onclick="applySavedUserGradient(this.value)"><i class="gi gi-apply"></i></button>
+                          <button class="user-grad-delete" value="${gradientId}" onclick="deleteSavedGradient(this.value)"><i class="gi gi-remove"></i></button>`;
             userGrad.innerHTML = html;
         });
         userGrad.addEventListener("mouseleave", () => {
@@ -557,9 +557,7 @@ const addEventListeners = () => {
         let userGradCopy = document.createElement("button");
         userGradCopy.className = "user-grad-copy";
         userGradCopy.title = "Copy Gradient";
-        userGradCopy.innerHTML = `<svg viewBox="0 0 24 24" class="grad-copy" fill-rule="evenodd" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M4.75 3A1.75 1.75 0 003 4.75v9.5c0 .966.784 1.75 1.75 1.75h1.5a.75.75 0 000-1.5h-1.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.25-.25h9.5a.25.25 0 01.25.25v1.5a.75.75 0 001.5 0v-1.5A1.75 1.75 0 0014.25 3h-9.5zm5 5A1.75 1.75 0 008 9.75v9.5c0 .966.784 1.75 1.75 1.75h9.5A1.75 1.75 0 0021 19.25v-9.5A1.75 1.75 0 0019.25 8h-9.5zM9.5 9.75a.25.25 0 01.25-.25h9.5a.25.25 0 01.25.25v9.5a.25.25 0 01-.25.25h-9.5a.25.25 0 01-.25-.25v-9.5z">
-                                    </path></svg>Copy`;
+        userGradCopy.innerHTML = `<i class="gi gi-copy"></i>Copy`;
         userGradCopy.addEventListener("click", () => {
             function listener(event) {
                 event.clipboardData.setData("text/plain", `background : ${currentGradientCode};`);
@@ -595,8 +593,8 @@ function setUserGradients() {
             userGrad.style.backgroundImage = `${currentGradientCode}, ${transparentImage}`;
 
             userGrad.addEventListener("mouseenter", () => {
-                const html = `<button class="user-grad-apply" value="${gradientId}" onclick="applySavedUserGradient(this.value)">&check;</button>
-                          <button class="user-grad-delete" value="${gradientId}" onclick="deleteSavedGradient(this.value)">&cross;</button>`;
+                const html = `<button class="user-grad-apply" value="${gradientId}" onclick="applySavedUserGradient(this.value)"><i class="gi gi-apply"></i></button>
+                          <button class="user-grad-delete" value="${gradientId}" onclick="deleteSavedGradient(this.value)"><i class="gi gi-remove"></i></button>`;
                 userGrad.innerHTML = html;
             });
 
@@ -607,9 +605,7 @@ function setUserGradients() {
             let userGradCopy = document.createElement("button");
             userGradCopy.className = "user-grad-copy";
             userGradCopy.title = "Copy Gradient";
-            userGradCopy.innerHTML = `<svg viewBox="0 0 24 24" class="grad-copy" fill-rule="evenodd" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M4.75 3A1.75 1.75 0 003 4.75v9.5c0 .966.784 1.75 1.75 1.75h1.5a.75.75 0 000-1.5h-1.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.25-.25h9.5a.25.25 0 01.25.25v1.5a.75.75 0 001.5 0v-1.5A1.75 1.75 0 0014.25 3h-9.5zm5 5A1.75 1.75 0 008 9.75v9.5c0 .966.784 1.75 1.75 1.75h9.5A1.75 1.75 0 0021 19.25v-9.5A1.75 1.75 0 0019.25 8h-9.5zM9.5 9.75a.25.25 0 01.25-.25h9.5a.25.25 0 01.25.25v9.5a.25.25 0 01-.25.25h-9.5a.25.25 0 01-.25-.25v-9.5z">
-                                    </path></svg>Copy`;
+            userGradCopy.innerHTML = `<i class="gi gi-copy"></i>Copy`;
             userGradCopy.addEventListener("click", () => {
                 function listener(event) {
                     event.clipboardData.setData("text/plain", `background : ${currentGradientCode};`);
@@ -644,8 +640,8 @@ function setUserColors() {
             userColor.className = "user-color";
             userColor.style.backgroundImage = `linear-gradient(90deg, ${hex}, ${hex}),${transparentImage}`;
             userColor.addEventListener("mouseenter", () => {
-                const html = `<button class="user-color-apply" value="${hex}" onclick="applySavedColor(this.value)">&check;</button>
-                              <button class="user-color-delete" value="${hex}" onclick="deleteSavedColor(this.value)">&cross;</button>`;
+                const html = `<button class="user-color-apply" value="${hex}" onclick="applySavedColor(this.value)"><i class="gi gi-apply"></i></button>
+                              <button class="user-color-delete" value="${hex}" onclick="deleteSavedColor(this.value)"><i class="gi gi-remove"></i></button>`;
                 userColor.innerHTML = html;
             });
             userColor.addEventListener("mouseleave", () => {
@@ -710,7 +706,7 @@ const setColorPallete = () => {
         elementById("colorPallete").appendChild(newColor);
     }
     let newColor = document.createElement("button");
-    newColor.className = "preset-color";
+    newColor.className = "preset-color gi gi-random";
     newColor.title = "random color";
     newColor.addEventListener('click', () => {
         setRandomColor(getActiveColorButton());
@@ -793,10 +789,15 @@ const setInitialGradientColors = () => {
     getNewColorButton();
 };
 
-const setAlphaSliderBackground = () => {
+const setSliderBackgrounds = () => {
+    const sliders = getColorSliders();
+    const colors = ["#FF0000", "#00FF00", "#0000FF"];
+    for (let index = 0; index < 3; index++) {
+        sliders[index].style.background = `linear-gradient(90deg, #000000, ${colors[index]})`;
+    }
     const rgba = getBackgroundColor(getActiveColorButton());
     const hex = `#${decToHex(rgba[0])}${decToHex(rgba[1])}${decToHex(rgba[2])}`;
-    elementById("alphaSlider").style.backgroundImage = `linear-gradient(90deg, ${hex}00,${hex}FF),${transparentImage}`;
+    sliders[3].style.backgroundImage = `linear-gradient(90deg, ${hex}00,${hex}FF),${transparentImage}`;
 };
 
 const initiate = () => {
@@ -807,7 +808,7 @@ const initiate = () => {
     setUserColors();
     setUserGradients();
     addEventListeners();
-    setAlphaSliderBackground();
+    setSliderBackgrounds();
 };
 
 window.onload = initiate;

@@ -61,6 +61,116 @@ box shadow : #00000066*/
         url('../fonts/work-sans-v8-latin-800.ttf') format('truetype');
 }
 
+@font-face {
+    font-family: 'Gracycon';
+    font-style: normal;
+    font-weight: normal;
+    src: url('../fonts/gracy-icons.woff?19260748') format('woff'),
+        url('../fonts/gracy-icons.ttf?19260748') format('truetype');
+}
+
+.gi {
+    font-family: 'Gracycon';
+    font-style: normal;
+    font-weight: normal;
+    display: inline-block;
+    width: 1em;
+    text-align: center;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.gi-delete:before {
+    content: '\e800';
+}
+
+.gi-add:before {
+    content: '\e801';
+}
+
+.gi-random:before {
+    content: '\e802';
+}
+
+.gi-leftshift:before {
+    content: '\e803';
+}
+
+.gi-share:before {
+    content: '\e804';
+}
+
+.gi-rightshift:before {
+    content: '\e805';
+}
+
+.gi-copy:before {
+    content: '\e806';
+}
+
+.gi-download:before {
+    content: '\e808';
+}
+
+.gi-apply:before {
+    content: '\e80a';
+}
+
+.gi-bottom:before {
+    content: '\e80b';
+}
+
+.gi-bottom-left:before {
+    content: '\e80c';
+}
+
+.gi-bottom-right:before {
+    content: '\e80d';
+}
+
+.gi-circle:before {
+    content: '\e80e';
+}
+
+.gi-left:before {
+    content: '\e80f';
+}
+
+.gi-right:before {
+    content: '\e810';
+}
+
+.gi-top:before {
+    content: '\e811';
+}
+
+.gi-top-left:before {
+    content: '\e812';
+}
+
+.gi-top-right:before {
+    content: '\e813';
+}
+
+.gi-restore:before {
+    content: '\e814';
+}
+
+.gi-save:before {
+    content: '\e815';
+}
+
+.gi-remove:before {
+    content: '\e816';
+}
+
+.gi-code:before {
+    content: '\f121';
+}
+
 /* all buttons and input types */
 button,
 input {
@@ -177,14 +287,10 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
+    color: white;
+    font-size: 24px;
     background-color: #03070455;
     border: 2px solid white;
-}
-
-.option-svg {
-    fill: white;
-    stroke: white;
-    width: 42px;
 }
 
 #autosave {
@@ -275,12 +381,9 @@ main {
     flex-flow: row nowrap;
     align-items: center;
     justify-content: center;
+    font-size: 24px;
+    color: white;
     background-color: var(--theme-color);
-}
-
-.arrange-svg {
-    width: 44px;
-    fill: white;
 }
 
 .preset-Color-Box,
@@ -322,10 +425,9 @@ main {
 }
 
 .preset-color:last-child {
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' width='32px' fill='white' fill-rule='evenodd' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M18 17.883V16l5 3-5 3v-2.09a9 9 0 0 1-6.997-5.365L11 14.54l-.003.006A9 9 0 0 1 2.725 20H2v-2h.725a7 7 0 0 0 6.434-4.243L9.912 12l-.753-1.757A7 7 0 0 0 2.725 6H2V4h.725a9 9 0 0 1 8.272 5.455L11 9.46l.003-.006A9 9 0 0 1 18 4.09V2l5 3-5 3V6.117a7 7 0 0 0-5.159 4.126L12.088 12l.753 1.757A7 7 0 0 0 18 17.883z'/%3E%3C/svg%3E"),
-        var(--theme-gradient);
-    background-repeat: no-repeat;
-    background-position: center;
+    background: var(--theme-gradient);
+    color: white;
+    font-size: 24px;
 }
 
 /* .color-window div */
@@ -366,16 +468,13 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.code-copy-svg {
-    width: 32px;
+    font-size: 20px;
 }
 
 .colorCodesCopy:focus,
 .colorCodesCopy:hover {
     background-color: var(--theme-color);
-    fill: white;
+    color: white;
 }
 
 .color-settings-div {
@@ -541,18 +640,8 @@ input[type='number'] {
 .linear-direction-div button {
     width: 100%;
     height: 100%;
-    font-size: 20px;
-    font-weight: bolder;
+    font-size: 16px;
     min-width: 34px;
-}
-
-.rotate-text span {
-    display: inline-block;
-    transform: rotate(-45deg);
-    -webkit-transform: rotate(-45deg);
-    -moz-transform: rotate(-45deg);
-    -ms-transform: rotate(-45deg);
-    -o-transform: rotate(-45deg);
 }
 
 .radial-settings {
@@ -582,7 +671,7 @@ input[type='number'] {
 .radial-direction-div button {
     height: 100%;
     width: 100%;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: bolder;
 }
 
@@ -675,7 +764,9 @@ input[type='number'] {
     min-height: 60px;
     border-bottom: 2px solid #03070473;
     border-top: 2px solid #03070473;
-    padding: 10px 0px 10px 5px;
+    padding: 10px 0px 16px 10px;
+    font-size: large;
+    line-height: 1.5em;
 }
 
 #gradientCopyButton {
@@ -687,12 +778,12 @@ input[type='number'] {
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 16px;
 }
 
-.grad-code-copy {
-    width: 24px;
-    height: 24px;
-    margin: 0 10px;
+#gradientCopyButton i {
+    font-size: 20px;
+    margin: 0 8px 0 8px;
 }
 
 .user-colors,
@@ -725,18 +816,15 @@ input[type='number'] {
 }
 
 .save-userdata-button {
-    width: max-content;
+    width: 40px;
+    height: 40px;
     border: none;
+    display: grid;
+    place-content: center;
+    font-size: 32px;
+    color: white;
     background-color: transparent;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
-}
-
-.user-save-svg {
-    width: 26px;
-    fill: white;
+    margin-right: 8px;
 }
 
 .user-colors-list,
@@ -797,18 +885,27 @@ input[type='number'] {
     border: 1px solid #dddddd;
     display: inline-flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
     background-repeat: repeat;
     background-size: cover;
 }
 
 .user-color button,
 .user-grad button {
-    width: 44%;
-    height: 80%;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    font-size: 44px;
     background-color: #55555555;
     color: white;
-    font-size: large;
+    display: grid;
+    place-content: center;
+}
+
+.user-color button:last-child,
+.user-grad button:last-child {
+    margin-left: 10px;
 }
 
 .user-color-info {
@@ -826,10 +923,15 @@ input[type='number'] {
 
 .user-grad-copy {
     border: 1px solid #cccccc;
-    width: max-content;
+    font-size: 20px;
     display: flex;
     align-items: center;
-    font-size: medium;
+    justify-content: center;
+}
+
+.user-grad-copy i {
+    font-size: 24px;
+    margin-right: 8px;
 }
 
 .grad-copy {
@@ -906,7 +1008,6 @@ footer {
     background-size: 400% auto;
     animation: animate 6s ease infinite;
     color: white;
-    fill: white;
 }
 
 @keyframes animate {
