@@ -1,6 +1,6 @@
 const getRgbaString = (red, green, blue, alpha) => `rgba(${red},${green},${blue},${alpha/100})`;
 const getHexString = (hexValue) => `#${hexValue}`;
-const getHslaString = (hue, sat, light, alpha) => `hsla(${hue},${sat}%,${light}%,${alpha}%)`;
+const getHslaString = (hue, sat, light, alpha) => `hsla(${hue},${sat}%,${light}%,${alpha})`;
 const getCmykString = (cyan, magenta, yellow, konsant) => `cmyk(${cyan}%,${magenta}%,${yellow}%,${konsant}%)`;
 const getRandomInteger = (limit) => Math.round(Math.random() * limit);
 
@@ -46,8 +46,7 @@ const rgbatohsla = function (red, green, blue, alpha = 100) {
                 break;
         }
     }
-    if (alpha > 1)
-        alpha *= 100;
+    alpha /= 100;
     return {
         hue: Math.round(hue * 60),
         sat: Math.round(sat * 100),
