@@ -7,8 +7,6 @@ const getActiveColorButton = () => elementById("activeColor");
 
 const getColorSliders = () => elementsByClass("color-slider");
 const getColorInputs = () => elementsByClass("color-input");
-const getColorCodeElements = () => elementsByClass("colorCodes");
-const getColorCodeCopy = () => elementsByClass("colorCodesCopy");
 const getRadialDirections = () => elementById("radialDirections").children;
 const getColorPaletteButtons = () => elementsByClass("preset-color");
 const getActiveType = () => elementById("activeType");
@@ -86,12 +84,13 @@ const setMainGradient = () => {
     saveGradientData();
 };
 
-const getSliderRgbaValue = () => {
+const getSliderHslaValue = () => {
+    const colorSliders = getColorSliders();
     return {
-        red: elementById("redSlider").value,
-        green: elementById("greenSlider").value,
-        blue: elementById("blueSlider").value,
-        alpha: elementById("alphaSlider").value
+        hue: colorSliders[0].value,
+        sat: colorSliders[1].value,
+        light: colorSliders[2].value,
+        alpha: colorSliders[3].value / 100
     }
 }
 
@@ -115,49 +114,39 @@ const radialDirectionSwitch = (activeButton) => {
 };
 
 const changeBoxColor = () => {
-    const rgba = getSliderRgbaValue();
-    const hex = `#${decToHex(rgba.red)}${decToHex(rgba.green)}${decToHex(rgba.blue)}`;
-    const currentColor = `${hex}${decToHex(rgba.alpha)})`;
-    elementById("alphaSlider").style.backgroundImage = `linear-gradient(90deg, ${hex}00,${hex}FF),${transparentImage}`;
+    const hsla = getSliderHslaValue();
+    const fullColor = `#${hslaToHex(hsla.hue,hsla.sat,hsla.light,100)}`;
+    const currentColor = `#${hslaToHex(hsla.hue,hsla.sat,hsla.light,hsla.alpha)}`;
+    elementById("satSlider").style.backgroundImage = `linear-gradient(90deg, ${getHslaString(hsla.hue,0,hsla.light,100)}, ${getHslaString(hsla.hue,100,hsla.light,100)})`;
+    elementById("alphaSlider").style.backgroundImage = `linear-gradient(90deg, transparent,${fullColor}),${transparentImage}`;
     elementById("colorWindow").style.backgroundImage = `linear-gradient(90deg, ${currentColor}, ${currentColor}),${transparentImage}`;
 }
 
 const changeActiveButtonColor = () => {
-    const colorSliders = getColorSliders();
-    const activeButton = getActiveColorButton();
-    const rgba = [0, 0, 0, 0].map(func = (value, index) => colorSliders[index].value);
-    activeButton.style.backgroundColor = getRgbaString(rgba[0], rgba[1], rgba[2], rgba[3]);
+    const hsla = getSliderHslaValue();
+    getActiveColorButton().style.backgroundColor = getHslaString(hsla.hue, hsla.sat, hsla.light, hsla.alpha);
 };
 
-const setColorCodeElements = () => {
-    const colorCodeElements = getColorCodeElements();
-    const {
-        red,
-        green,
-        blue,
-        alpha
-    } = getSliderRgbaValue();
-    const hex = rgbaToHex(red, green, blue, alpha);
-    const hsla = rgbatohsla(red, green, blue, alpha);
-    const cmyk = rgbToCmyk(red, green, blue);
-    colorCodeElements[0].value = getRgbaString(red, green, blue, alpha);
-    colorCodeElements[1].value = getHexString(hex);
-    colorCodeElements[2].value = getHslaString(hsla.hue, hsla.sat, hsla.light, hsla.alpha);
-    colorCodeElements[3].value = getCmykString(cmyk.cyan, cmyk.magenta, cmyk.yellow, cmyk.konsant);
-}
-
-function updatesToActiveColor() {
-    const colorSliders = getColorSliders();
-    const colorInputs = getColorInputs();
+function updatesToActiveColor(changeSlider = true) {
     const rgba = getBackgroundColor(getActiveColorButton());
-    elementById("hexInput").value = rgbaToHex(rgba[0], rgba[1], rgba[2], rgba[3]);
-    for (let index = 0; index < 4; index++) {
-        colorSliders[index].value = rgba[index];
-        colorInputs[index].value = rgba[index];
+    elementById("redInput").value = rgba[0];
+    elementById("greenInput").value = rgba[1];
+    elementById("blueInput").value = rgba[2];
+    const hex = rgbaToHex(rgba[0], rgba[1], rgba[2], rgba[3]);
+    elementById("hexInput").value = hex;
+    if (changeSlider) {
+        const hsla = rgbatohsla(rgba[0], rgba[1], rgba[2], rgba[3]);
+        const colorSliders = getColorSliders();
+        colorSliders[0].value = hsla.hue;
+        colorSliders[1].value = hsla.sat;
+        colorSliders[2].value = hsla.light;
+        colorSliders[3].value = hsla.alpha * 100;
+        const colorInputs = getColorInputs();
+        for (let index = 0; index < 4; index++) {
+            colorInputs[index].value = colorSliders[index].value;
+        }
     }
-    const currentColor = getRgbaString(rgba[0], rgba[1], rgba[2], rgba[3]);
-    elementById("colorWindow").style.backgroundImage = `linear-gradient(90deg, ${currentColor}, ${currentColor}),${transparentImage}`;
-    setColorCodeElements();
+    elementById("colorWindow").style.backgroundImage = `linear-gradient(90deg, ${getHexString(hex)}, ${getHexString(hex)}),${transparentImage}`;
     setMainGradient();
 }
 
@@ -302,8 +291,6 @@ function makeGradientId(gradientCode) {
 const addEventListeners = () => {
     const colorSliders = getColorSliders();
     const colorInputs = getColorInputs();
-    const colorCodeElements = getColorCodeElements();
-    const colorCodeCopyButton = getColorCodeCopy();
     const hexInput = elementById("hexInput");
     const toTopButton = document.getElementById("toTop");
 
@@ -337,35 +324,22 @@ const addEventListeners = () => {
         colorSliders[index].addEventListener('input', () => {
             colorInputs[index].value = colorSliders[index].value;
             changeBoxColor();
-            setColorCodeElements();
             changeActiveButtonColor();
-            updatesToActiveColor();
+            updatesToActiveColor(false);
         });
 
         colorInputs[index].addEventListener('input', () => {
-            if (index == 3) {
-                setInputLimit(colorInputs[index], 0, 100);
+            if (index == 0) {
+                setInputLimit(colorInputs[index], 0, 359);
             } else {
-                setInputLimit(colorInputs[index], 0, 255);
+                setInputLimit(colorInputs[index], 0, 100);
             }
             if (colorInputs[index].value != "") {
                 colorSliders[index].value = colorInputs[index].value;
                 changeBoxColor();
-                setColorCodeElements();
                 changeActiveButtonColor();
-                updatesToActiveColor();
+                updatesToActiveColor(false);
             }
-        });
-
-        colorCodeCopyButton[index].addEventListener("click", () => {
-            function listener(event) {
-                event.clipboardData.setData("text/plain", colorCodeElements[index].value);
-                event.preventDefault();
-            }
-            document.addEventListener("copy", listener);
-            document.execCommand("copy");
-            document.removeEventListener("copy", listener);
-            showToast("Copied");
         });
     }
 
@@ -810,13 +784,10 @@ const setInitialGradientColors = () => {
 
 const setSliderBackgrounds = () => {
     const sliders = getColorSliders();
-    const colors = ["#FF0000", "#00FF00", "#0000FF"];
-    for (let index = 0; index < 3; index++) {
-        sliders[index].style.background = `linear-gradient(90deg, #000000, ${colors[index]})`;
-    }
-    const rgba = getBackgroundColor(getActiveColorButton());
-    const hex = `#${decToHex(rgba[0])}${decToHex(rgba[1])}${decToHex(rgba[2])}`;
-    sliders[3].style.backgroundImage = `linear-gradient(90deg, ${hex}00,${hex}FF),${transparentImage}`;
+    const hsla = getSliderHslaValue();
+    sliders[0].style.backgroundImage = `linear-gradient(90deg, #F00 0%, #FF0 16.66%, #0F0 33.33%, #0FF 50%, #00F 66.66%, #F0F 83.33%, #F00 100%)`;
+    sliders[1].style.backgroundImage = `linear-gradient(90deg, ${getHslaString(hsla.hue,0,hsla.light,100)}, ${getHslaString(hsla.hue,100,hsla.light,100)})`;
+    sliders[2].style.backgroundImage = `linear-gradient(90deg, black, white)`;
 };
 
 const initiate = () => {
@@ -828,6 +799,7 @@ const initiate = () => {
     setUserGradients();
     addEventListeners();
     setSliderBackgrounds();
+    changeBoxColor();
 };
 
 window.onload = initiate;
