@@ -35,7 +35,7 @@
 	"create a div": {
 		"scope": "html",
 		"prefix": "div",
-		"body": "<div class=${1:classname}>$0</div>;",
+		"body": "<div class=${1:classname}>$0</div>",
 		"description": "find element by class"
 	},
 	"const function": {
