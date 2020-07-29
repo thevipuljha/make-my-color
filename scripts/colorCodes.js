@@ -17,9 +17,11 @@ const rgbaToHex = function (red, green, blue, alpha = 100) {
     red = decToHex(red);
     green = decToHex(green);
     blue = decToHex(blue);
+    if (alpha <= 1)
+        alpha *= 100;
     alpha = Math.round(255 * (alpha / 100));
     alpha = decToHex(alpha);
-    return red + green + blue + alpha;
+    return `${red}${green}${blue}${alpha}`;
 };
 
 const rgbatohsla = function (red, green, blue, alpha = 100) {
@@ -46,7 +48,8 @@ const rgbatohsla = function (red, green, blue, alpha = 100) {
                 break;
         }
     }
-    alpha /= 100;
+    if (alpha > 1)
+        alpha /= 100;
     return {
         hue: Math.round(hue * 60),
         sat: Math.round(sat * 100),
@@ -98,7 +101,7 @@ const hexToCmyk = function (hex) {
     return rgbToCmyk(rgb.red, rgb.green, rgb.blue);
 }
 
-const hslaToRgb = function (hue, sat, light, alpha = 100) {
+const hslaToRgba = function (hue, sat, light, alpha = 100) {
     hue /= 360, sat /= 100, light /= 100;
     let red = green = blue = light;
     if (sat != 0) {
@@ -128,12 +131,12 @@ const hslaToRgb = function (hue, sat, light, alpha = 100) {
 };
 
 const hslaToHex = function (hue, sat, light, alpha = 100) {
-    const rgba = hslaToRgb(hue, sat, light, alpha);
+    const rgba = hslaToRgba(hue, sat, light, alpha);
     return rgbaToHex(rgba.red, rgba.green, rgba.blue, rgba.alpha);
 };
 
 const hslaToCmyk = function (hue, sat, light, alpha = 100) {
-    const rgb = hslaToRgb(hue, sat, light, alpha);
+    const rgb = hslaToRgba(hue, sat, light, alpha);
     return rgbToCmyk(rgb.red, rgb.green, rgb.blue)
 };
 
