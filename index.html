@@ -45,87 +45,85 @@
             </details>
         </div>
     </div>
-
     <main>
         <!-- the color storing blocks -->
-        <div class="gradient-buttons-block" id="gradientBlock">
-            <div class="gradient-color-buttons" id="gradientColors">
+        <div class="colors-block">
+            <div class="gradient-buttons-block" id="gradientBlock">
+                <div class="gradient-color-buttons" id="gradientColors">
+                </div>
+            </div>
+            <div class="color-arrange">
+                <button class="arrange-buttons" id="leftShift" title="shift left">
+                    <i class="gi gi-leftshift"></i>
+                </button>
+                <button class="arrange-buttons" id="rightShift" title="shift right">
+                    <i class="gi gi-rightshift"></i>
+                </button>
+                <button class="arrange-buttons" id="deleteColor" title="delete color">
+                    <i class="gi gi-delete"></i>
+                </button>
+                <button class="arrange-buttons" id="addColorButton" title="add more colors">
+                    <i class="gi gi-add"></i>
+                </button>
             </div>
         </div>
-        <div class="color-arrange">
-            <button class="arrange-buttons" id="leftShift" title="shift left">
-                <i class="gi gi-leftshift"></i>
-            </button>
-            <button class="arrange-buttons" id="rightShift" title="shift right">
-                <i class="gi gi-rightshift"></i>
-            </button>
-            <button class="arrange-buttons" id="deleteColor" title="delete color">
-                <i class="gi gi-delete"></i>
-            </button>
-            <button class="arrange-buttons" id="addColorButton" title="add more colors">
-                <i class="gi gi-add"></i>
-            </button>
-        </div>
+
         <details class="color-pallete">
             <summary>Pick a colour from pallete </summary>
             <div class="preset-Color-Box" id="colorPallete">
             </div>
         </details>
         <!-- current color box -->
-        <div class="color-window" id="colorWindow">
-            <div class="color-codes-block">
-                <input class="colorCodes" type="text" tabindex="-1" readonly id="rgb-code">
-                <input class="colorCodes" type="text" tabindex="-1" readonly id="hex-code">
-                <input class="colorCodes" type="text" tabindex="-1" readonly id="hsl-code">
-                <input class="colorCodes" type="text" tabindex="-1" readonly id="cmyk-code">
+        <div class="color-box-with-setting">
+            <div class="color-window" id="colorWindow">
             </div>
-            <div class="color-codes-copy-div">
-                <button class="colorCodesCopy" title="Copy RGBA">
-                    <i class="gi gi-copy"></i>
-                </button>
-                <button class="colorCodesCopy" title="Copy HEX">
-                    <i class="gi gi-copy"></i>
-                </button>
-                <button class="colorCodesCopy" title="Copy HSLA">
-                    <i class="gi gi-copy"></i>
-                </button>
-                <button class="colorCodesCopy" title="Copy CMYK">
-                    <i class="gi gi-copy"></i>
-                </button>
-            </div>
-        </div>
-        <div class="color-settings-div">
-            <!-- hex input -->
-            <div class="color-value-div hex-value-div">
-                <label for="hexInput">Hex :&nbsp;&nbsp;&nbsp;&nbsp;#</label>
-                <input type="text" class="hex-input" id="hexInput" placeholder="# Hex">
-                <div style="width: 40px;"></div>
-            </div>
-            <!-- red slider -->
-            <div class="color-value-div">
-                <input type="range" min="0" max="255" class="color-slider" id="redSlider">
-                <input type="number" min="0" max="255" class="color-input" id="redInput" placeholder="Red">
-                <label for="redInput">R</label>
-            </div>
-            <!-- green slider -->
-            <div class="color-value-div">
-                <input type="range" min="0" max="255" class="color-slider" id="greenSlider">
-                <input type="number" min="0" max="255" class="color-input" id="greenInput" placeholder="Green">
-                <label for="greenInput">G</label>
-            </div>
-            <!-- blue slider -->
-            <div class="color-value-div">
-                <input type="range" min="0" max="255" class="color-slider" id="blueSlider">
-                <input type="number" min="0" max="255" class="color-input" id="blueInput" placeholder="Blue">
-                <label for="blueInput">B</label>
-            </div>
-            <!-- alpha slider -->
-            <div class="color-value-div">
-                <input type="range" min="0" max="100" class="color-slider notWhiteThumb" id="alphaSlider">
-                <input type="number" min="0" max="100" class="color-input" id="alphaInput" placeholder="Alpha">
-                <label for="alphaInput">A</label>
+            <div class="color-settings-div">
+                <!-- hex input -->
+                <div class="color-value-div">
+                    <div>
+                        <label for="redInput">R</label>
+                        <input type="number" min="0" max="255" class="rgb-input" id="redInput" placeholder="Red">
+                    </div>
+                    <div>
+                        <label for="greenInput">G</label>
+                        <input type="number" min="0" max="255" class="rgb-input" id="greenInput" placeholder="Green">
+                    </div>
+                    <div>
+                        <label for="blueInput">B</label>
+                        <input type="number" min="0" max="255" class="rgb-input" id="blueInput" placeholder="Blue">
+                    </div>
+                    <div>
+                        <label for="hexInput">#</label>
+                        <input type="text" class="hex-input" id="hexInput" placeholder="# Hex">
+                    </div>
+                </div>
+                <!-- Hue slider -->
+                <div class="color-value-div">
+                    <input type="range" min="0" max="359" class="color-slider" id="hueSlider">
+                    <input type="number" min="0" max="359" class="color-input" id="hueInput" placeholder="Hue">
+                    <label for="hueInput">H</label>
+                </div>
+                <!-- Saturation slider -->
+                <div class="color-value-div">
+                    <input type="range" min="0" max="100" class="color-slider" id="satSlider">
+                    <input type="number" min="0" max="100" class="color-input" id="satInput" placeholder="Sat">
+                    <label for="satInput">S</label>
+                </div>
+                <!-- Lightness slider -->
+                <div class="color-value-div">
+                    <input type="range" min="0" max="100" class="color-slider" id="lightSlider">
+                    <input type="number" min="0" max="100" class="color-input" id="lightInput" placeholder="Light">
+                    <label for="lightInput">L</label>
+                </div>
+                <!-- Alpha slider -->
+                <div class="color-value-div">
+                    <input type="range" min="0" max="100" class="color-slider notWhiteThumb" id="alphaSlider">
+                    <input type="number" min="0" max="100" class="color-input" id="alphaInput" placeholder="Alpha">
+                    <label for="alphaInput">A</label>
+                </div>
             </div>
         </div>
+
         <div class="gradient-settings">
             <div class="gradient-type-buttons">
                 <button class="gradientType" onclick="gradientTypeSwitch(this)" id="activeType"

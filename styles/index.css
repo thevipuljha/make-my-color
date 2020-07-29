@@ -312,13 +312,17 @@ main {
     margin: 0 auto;
 }
 
+.colors-block {
+    margin: 0 auto;
+    width: 98%;
+    border: 2px solid #03070473;
+    border-radius: 10px;
+}
+
 /* button row below gradient starts*/
 .gradient-buttons-block {
     margin: 0 auto;
-    width: 98%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 99%;
     overflow: auto hidden;
     scrollbar-width: thin;
     scrollbar-color: #888888 #a5a5a586;
@@ -327,8 +331,7 @@ main {
 
 /* gradient color buttons div*/
 .gradient-color-buttons {
-    max-width: fit-content;
-    min-width: 100%;
+    width: 100%;
     height: 56px;
     display: flex;
     flex-flow: row nowrap;
@@ -365,15 +368,12 @@ main {
 }
 
 .color-arrange {
-    margin: 0 auto;
-    margin-top: 16px;
-    width: 98%;
+    border-top: 2px solid #03070473;
+    width: 100%;
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
     justify-content: space-evenly;
-    border: 2px dashed #03070473;
-    border-radius: 10px;
 }
 
 .arrange-buttons {
@@ -392,11 +392,9 @@ main {
 
 .preset-Color-Box,
 .color-window,
-.color-settings-div,
 .gradient-settings,
 .gradient-code {
     width: 100%;
-    margin: 16px 0px;
     border-radius: 10px;
     -moz-box-shadow: 0px 0 10px #00000066;
     -webkit-box-shadow: 0px 0 10px #00000066;
@@ -434,37 +432,19 @@ main {
     font-size: 24px;
 }
 
-/* .color-window div */
-.color-window {
+.color-box-with-setting {
+    width: 100%;
     height: 180px;
-    background-color: whitesmoke;
-    background-repeat: repeat;
     position: relative;
 }
 
-/* color-code Box */
-.color-codes-block,
-.color-codes-copy-div {
-    display: flex;
-    height: 99%;
-    justify-content: space-around;
-    flex-flow: column nowrap;
-    position: absolute;
-    right: 40px;
+.color-window {
+    height: 180px;
+    background-repeat: repeat;
+    background-size: contain;
 }
 
-.color-codes-copy-div {
-    right: 5px;
-}
-
-.color-codes-block input[type="text"] {
-    width: 180px;
-    height: 30px;
-    color: black;
-    font-size: small;
-    border-radius: 30px;
-}
-
+/* 
 .colorCodesCopy {
     width: 32px;
     height: 32px;
@@ -479,13 +459,17 @@ main {
 .colorCodesCopy:hover {
     background-color: var(--theme-color);
     color: white;
-}
+} */
 
 .color-settings-div {
+    width: 100%;
     height: 180px;
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-evenly;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .color-value-div,
@@ -495,11 +479,6 @@ main {
     flex-flow: row nowrap;
     align-items: center;
     justify-content: space-around;
-}
-
-.hex-value-div {
-    white-space: nowrap;
-    justify-content: flex-end;
 }
 
 .hex-input {
@@ -568,10 +547,6 @@ input[type='number'] {
     background-color: var(--theme-color);
 }
 
-.color-value-div label {
-    margin-right: 5px;
-}
-
 .gradient-settings {
     height: 120px;
     display: flex;
@@ -598,7 +573,7 @@ input[type='number'] {
 #activeShape,
 #currentDirection,
 #currentDegree {
-    background: linear-gradient(90deg, #A122DD, #FF374F);
+    background-color: var(--theme-color);
     color: white;
 }
 
@@ -1025,8 +1000,6 @@ footer {
 .gradient-settings button:hover,
 .gradient-settings button:focus */
 
-.colorButton:hover,
-#addColorButton:hover,
 .preset-color:hover,
 input[type='range']:focus,
 .preset-color:focus {
