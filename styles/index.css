@@ -334,13 +334,10 @@ main {
     scroll-behavior: smooth;
 }
 
-.color-buttons-gap {
-    width: 12px;
-}
-
 /* gradient color buttons div*/
 .gradient-color-buttons {
-    width: 100%;
+    min-width: max-content;
+    max-width: 99%;
     height: 56px;
     display: flex;
     flex-flow: row nowrap;
@@ -361,8 +358,12 @@ main {
 }
 
 /* gradient color buttons*/
+.color-buttons-gap {
+    width: 10px !important;
+}
+
 .colorButton {
-    margin-left: 5px;
+    user-select: none;
     height: 48px;
     color: transparent;
     text-align: center;
@@ -398,6 +399,10 @@ main {
     background-color: var(--theme-color);
 }
 
+.empty-space-div {
+    height: 20px;
+}
+
 .preset-color-pallete,
 .color-window,
 .gradient-settings,
@@ -411,7 +416,6 @@ main {
 
 .color-pallete {
     user-select: none;
-    margin: 16px 0px;
 }
 
 .color-pallete summary {
@@ -483,15 +487,16 @@ main {
 }
 
 .rgb-input,
-.color-input {
+.hsla-input {
     width: 54px !important;
+    height: 26px !important;
 }
 
 .hex-input {
     text-transform: uppercase;
     min-width: 48px;
     max-width: 84px;
-    height: 24px;
+    height: 26px;
 }
 
 input[type='range'] {
@@ -757,7 +762,6 @@ input[type='range']::-moz-range-thumb {
 .user-colors,
 .user-gradients {
     width: 100%;
-    margin: 16px 0px;
     border-radius: 10px;
     -moz-box-shadow: 0px 0 10px #00000066;
     -webkit-box-shadow: 0px 0 10px #00000066;
@@ -817,10 +821,6 @@ input[type='range']::-moz-range-thumb {
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.extra-space {
-    height: 10px;
 }
 
 .user-colors-list:hover,

@@ -66,12 +66,13 @@
                 </button>
             </div>
         </div>
-
+        <div class="empty-space-div"></div>
         <details class="color-pallete">
             <summary>Pick a colour from pallete </summary>
             <div class="preset-color-pallete" id="colorPallete">
             </div>
         </details>
+        <div class="empty-space-div"></div>
         <!-- current color box -->
         <div class="color-box-with-setting">
             <div class="color-window" id="colorWindow">
@@ -97,31 +98,31 @@
                 </div>
                 <!-- Hue slider -->
                 <div class="color-value-div">
-                    <input type="range" min="0" max="359" class="color-slider" id="hueSlider">
-                    <input type="number" min="0" max="359" class="color-input" id="hueInput" placeholder="Hue">
+                    <input type="range" min="0" max="359" class="hsla-slider" id="hueSlider">
+                    <input type="number" min="0" max="359" class="hsla-input" id="hueInput" placeholder="Hue">
                     <label for="hueInput">H</label>
                 </div>
                 <!-- Saturation slider -->
                 <div class="color-value-div">
-                    <input type="range" min="0" max="100" class="color-slider" id="satSlider">
-                    <input type="number" min="0" max="100" class="color-input" id="satInput" placeholder="Sat">
+                    <input type="range" min="0" max="100" class="hsla-slider" id="satSlider">
+                    <input type="number" min="0" max="100" class="hsla-input" id="satInput" placeholder="Sat">
                     <label for="satInput">S</label>
                 </div>
                 <!-- Lightness slider -->
                 <div class="color-value-div">
-                    <input type="range" min="0" max="100" class="color-slider" id="lightSlider">
-                    <input type="number" min="0" max="100" class="color-input" id="lightInput" placeholder="Light">
+                    <input type="range" min="0" max="100" class="hsla-slider" id="lightSlider">
+                    <input type="number" min="0" max="100" class="hsla-input" id="lightInput" placeholder="Light">
                     <label for="lightInput">L</label>
                 </div>
                 <!-- Alpha slider -->
                 <div class="color-value-div">
-                    <input type="range" min="0" max="100" class="color-slider" id="alphaSlider">
-                    <input type="number" min="0" max="100" class="color-input" id="alphaInput" placeholder="Alpha">
+                    <input type="range" min="0" max="100" class="hsla-slider" id="alphaSlider">
+                    <input type="number" min="0" max="100" class="hsla-input" id="alphaInput" placeholder="Alpha">
                     <label for="alphaInput">A</label>
                 </div>
             </div>
         </div>
-
+        <div class="empty-space-div"></div>
         <div class="gradient-settings">
             <div class="gradient-type-buttons">
                 <button class="gradientType" onclick="gradientTypeSwitch(this)" id="activeType"
@@ -166,6 +167,7 @@
                 </div>
             </div>
         </div>
+        <div class="empty-space-div"></div>
         <div class="gradient-code">
             <div class="gradient-code-header"><span>CSS GRADIENT CODE</span>
                 <div class="code-switch">
@@ -184,6 +186,7 @@
                 <i class="gi gi-code"></i>
             </button>
         </div>
+        <div class="empty-space-div"></div>
         <div class="user-colors">
             <header class="user-color-header">
                 <span>My Colors</span>
@@ -192,8 +195,9 @@
                 </button>
             </header>
             <div class="user-colors-list" id="userColors"></div>
-            <div class="extra-space"></div>
+            <div class="empty-space-div"></div>
         </div>
+        <div class="empty-space-div"></div>
         <div class="user-gradients">
             <header class="user-gradient-header">
                 <span>My Gradients</span>
@@ -202,7 +206,7 @@
                 </button>
             </header>
             <div class="user-gradients-list" id="userGradients"> </div>
-            <div class="extra-space"></div>
+            <div class="empty-space-div"></div>
         </div>
     </main>
     <footer>
