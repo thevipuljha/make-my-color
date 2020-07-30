@@ -61,6 +61,7 @@ box shadow : #00000066*/
         url('../fonts/work-sans-v8-latin-800.ttf') format('truetype');
 }
 
+/* custom icon font for gracy project */
 @font-face {
     font-family: 'Gracycon';
     font-style: normal;
@@ -69,6 +70,7 @@ box shadow : #00000066*/
         url('../fonts/gracy-icons.ttf?19260748') format('truetype');
 }
 
+/* gi class for gracy font icons */
 .gi {
     font-family: 'Gracycon';
     font-style: normal;
@@ -83,6 +85,7 @@ box shadow : #00000066*/
     -moz-osx-font-smoothing: grayscale;
 }
 
+/* gracy font icons */
 .gi-delete:before {
     content: '\e800';
 }
@@ -171,7 +174,6 @@ box shadow : #00000066*/
     content: '\f121';
 }
 
-/* all buttons and input types */
 button,
 input {
     user-select: none;
@@ -180,6 +182,12 @@ input {
     background-color: white;
     text-align: center;
     outline: none;
+}
+
+input[type='number'] {
+    width: 44px;
+    height: 24px;
+    font-size: small;
 }
 
 /* mozilla input type focus style */
@@ -206,12 +214,8 @@ header {
     display: block;
     width: 90vw;
     margin: 0 auto;
-}
-
-.title-header {
-    display: flex;
-    width: 100%;
     height: 64px;
+    display: flex;
     align-items: center;
     flex-flow: row nowrap;
     justify-content: space-between;
@@ -251,21 +255,22 @@ header {
 /* gradient box */
 .gradient-container {
     display: block;
-    width: 96vw;
+    width: 94vw;
     margin: 5px auto;
     border-bottom: 5px solid white;
     border-radius: 16px;
     position: -webkit-sticky;
     position: sticky;
     top: -100px;
-    z-index: 1;
+    z-index: 999;
 }
 
 .gradient {
     width: 100%;
-    height: 200px;
+    height: 36vh;
     border-radius: 16px;
     background-repeat: repeat;
+    background-size: contain;
 }
 
 .options-detail-tag {
@@ -312,21 +317,25 @@ main {
     margin: 0 auto;
 }
 
-.colors-block {
+.gradient-colors-block {
     margin: 0 auto;
-    width: 98%;
+    width: 100%;
     border: 2px solid #03070473;
     border-radius: 10px;
 }
 
 /* button row below gradient starts*/
-.gradient-buttons-block {
+.gradient-buttons-row {
     margin: 0 auto;
-    width: 99%;
+    width: 98%;
     overflow: auto hidden;
     scrollbar-width: thin;
     scrollbar-color: #888888 #a5a5a586;
     scroll-behavior: smooth;
+}
+
+.color-buttons-gap {
+    width: 12px;
 }
 
 /* gradient color buttons div*/
@@ -339,13 +348,13 @@ main {
     justify-content: space-around;
 }
 
-.gradient-buttons-block::-webkit-scrollbar {
+.gradient-buttons-row::-webkit-scrollbar {
     background-color: #03070473;
     height: 5px;
     border-radius: 10px;
 }
 
-.gradient-buttons-block::-webkit-scrollbar-thumb {
+.gradient-buttons-row::-webkit-scrollbar-thumb {
     border-radius: 10px;
     background-color: var(--theme-color);
     background-image: radial-gradient(circle at center, #A122DDFF 00%, slateblue 100%);
@@ -353,8 +362,7 @@ main {
 
 /* gradient color buttons*/
 .colorButton {
-    margin-right: 2px;
-    margin-left: 2px;
+    margin-left: 5px;
     height: 48px;
     color: transparent;
     text-align: center;
@@ -367,7 +375,7 @@ main {
     background-clip: content-box;
 }
 
-.color-arrange {
+.gradient-color-arrange {
     border-top: 2px solid #03070473;
     width: 100%;
     display: flex;
@@ -376,12 +384,12 @@ main {
     justify-content: space-evenly;
 }
 
-.arrange-buttons {
+.arrange-button {
     margin: 5px;
     border-radius: 50%;
     width: 48px;
     height: 48px;
-    display: inline-flex;
+    display: flex;
     flex-flow: row nowrap;
     align-items: center;
     justify-content: center;
@@ -390,7 +398,7 @@ main {
     background-color: var(--theme-color);
 }
 
-.preset-Color-Box,
+.preset-color-pallete,
 .color-window,
 .gradient-settings,
 .gradient-code {
@@ -409,15 +417,24 @@ main {
 .color-pallete summary {
     background-image: var(--theme-gradient);
     color: white;
-    border-radius: 5px;
-    padding: 3px;
+    border-radius: 8px;
+    padding: 5px;
+}
+
+.color-pallete[open] summary {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
 }
 
 
-.preset-Color-Box {
+.preset-color-pallete {
+    margin: 0 auto;
     display: flex;
     flex-flow: row wrap;
     justify-content: space-evenly;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    z-index: 1;
 }
 
 .preset-color {
@@ -434,42 +451,26 @@ main {
 
 .color-box-with-setting {
     width: 100%;
-    height: 180px;
+    height: 200px;
     position: relative;
 }
 
-.color-window {
-    height: 180px;
-    background-repeat: repeat;
-    background-size: contain;
-}
-
-/* 
-.colorCodesCopy {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-}
-
-.colorCodesCopy:focus,
-.colorCodesCopy:hover {
-    background-color: var(--theme-color);
-    color: white;
-} */
-
+.color-window,
 .color-settings-div {
     width: 100%;
-    height: 180px;
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: space-evenly;
+    height: 100%;
+    background-repeat: repeat;
+    background-size: contain;
     position: absolute;
     top: 0;
     left: 0;
+}
+
+.color-settings-div {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-evenly;
+    z-index: 1;
 }
 
 .color-value-div,
@@ -478,7 +479,12 @@ main {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-evenly;
+}
+
+.rgb-input,
+.color-input {
+    width: 54px !important;
 }
 
 .hex-input {
@@ -491,7 +497,7 @@ main {
 input[type='range'] {
     width: 70%;
     -webkit-appearance: none;
-    height: 20px;
+    height: 24px;
     border: 1px ridge #00000099;
     border-radius: 16px;
     cursor: move;
@@ -499,47 +505,30 @@ input[type='range'] {
 
 input[type='number']:focus,
 .hex-input:focus {
-    border: solid 2px var(--theme-color);
+    border: solid 1px var(--theme-color);
 }
 
 #alphaSlider {
-    opacity: 1;
     background-size: contain;
 }
 
 input[type='range']::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 18px;
-    height: 18px;
+    width: 22px;
+    height: 22px;
     border-radius: 50%;
+    border: 1px solid #00000099;
     background-color: white;
 }
 
 input[type='range']::-moz-range-thumb {
     appearance: none;
-    width: 18px;
-    height: 18px;
+    width: 22px;
+    height: 22px;
     border-radius: 50%;
+    border-color: #00000099;
     background-color: white;
-}
-
-input[type='range'].notWhiteThumb::-webkit-slider-thumb {
-    background-color: var(--theme-color);
-}
-
-input[type='range'].notWhiteThumb::-moz-range-thumb {
-    background-color: var(--theme-color);
-}
-
-input[type='range'].notWhiteThumb {
-    border: 1px solid #aaaaaa;
-}
-
-input[type='number'] {
-    width: 44px;
-    height: 25px;
-    font-size: small;
 }
 
 ::selection {
@@ -836,7 +825,7 @@ input[type='number'] {
 
 .user-colors-list:hover,
 .user-gradients-list:hover,
-.gradient-buttons-block:hover {
+.gradient-buttons-row:hover {
     scrollbar-color: var(--theme-color) #a5a5a586;
 }
 

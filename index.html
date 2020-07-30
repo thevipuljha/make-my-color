@@ -14,13 +14,11 @@
 
 <body>
     <header>
-        <div class="title-header">
-            <div class="page-logo">
-                <img class="logo" src="images/logo.svg" alt="logo">
-            </div>
-            <span class="title">gracy</span>
-            <div class="page-nav"></div>
+        <div class="page-logo">
+            <img class="logo" src="images/logo.svg" alt="logo">
         </div>
+        <span class="title">gracy</span>
+        <div class="page-nav"></div>
     </header>
     <div class="gradient-container">
         <div class="gradient" id="gradient">
@@ -47,22 +45,23 @@
     </div>
     <main>
         <!-- the color storing blocks -->
-        <div class="colors-block">
-            <div class="gradient-buttons-block" id="gradientBlock">
+        <div class="gradient-colors-block">
+            <div class="gradient-buttons-row" id="gradientBlock">
                 <div class="gradient-color-buttons" id="gradientColors">
+                    <div class="color-buttons-gap"></div>
                 </div>
             </div>
-            <div class="color-arrange">
-                <button class="arrange-buttons" id="leftShift" title="shift left">
+            <div class="gradient-color-arrange">
+                <button class="arrange-button" id="leftShift" title="shift left">
                     <i class="gi gi-leftshift"></i>
                 </button>
-                <button class="arrange-buttons" id="rightShift" title="shift right">
+                <button class="arrange-button" id="rightShift" title="shift right">
                     <i class="gi gi-rightshift"></i>
                 </button>
-                <button class="arrange-buttons" id="deleteColor" title="delete color">
+                <button class="arrange-button" id="deleteColor" title="delete color">
                     <i class="gi gi-delete"></i>
                 </button>
-                <button class="arrange-buttons" id="addColorButton" title="add more colors">
+                <button class="arrange-button" id="addColorButton" title="add more colors">
                     <i class="gi gi-add"></i>
                 </button>
             </div>
@@ -70,7 +69,7 @@
 
         <details class="color-pallete">
             <summary>Pick a colour from pallete </summary>
-            <div class="preset-Color-Box" id="colorPallete">
+            <div class="preset-color-pallete" id="colorPallete">
             </div>
         </details>
         <!-- current color box -->
@@ -78,23 +77,22 @@
             <div class="color-window" id="colorWindow">
             </div>
             <div class="color-settings-div">
-                <!-- hex input -->
                 <div class="color-value-div">
-                    <div>
+                    <div class="secondary-color">
                         <label for="redInput">R</label>
                         <input type="number" min="0" max="255" class="rgb-input" id="redInput" placeholder="Red">
                     </div>
-                    <div>
+                    <div class="secondary-color">
                         <label for="greenInput">G</label>
                         <input type="number" min="0" max="255" class="rgb-input" id="greenInput" placeholder="Green">
                     </div>
-                    <div>
+                    <div class="secondary-color">
                         <label for="blueInput">B</label>
                         <input type="number" min="0" max="255" class="rgb-input" id="blueInput" placeholder="Blue">
                     </div>
-                    <div>
+                    <div class="secondary-color">
                         <label for="hexInput">#</label>
-                        <input type="text" class="hex-input" id="hexInput" placeholder="# Hex">
+                        <input type="text" class="hex-input" id="hexInput" placeholder="Hex">
                     </div>
                 </div>
                 <!-- Hue slider -->
@@ -117,7 +115,7 @@
                 </div>
                 <!-- Alpha slider -->
                 <div class="color-value-div">
-                    <input type="range" min="0" max="100" class="color-slider notWhiteThumb" id="alphaSlider">
+                    <input type="range" min="0" max="100" class="color-slider" id="alphaSlider">
                     <input type="number" min="0" max="100" class="color-input" id="alphaInput" placeholder="Alpha">
                     <label for="alphaInput">A</label>
                 </div>
@@ -132,7 +130,7 @@
             </div>
             <div class="linear-settings" id="linearDiv">
                 <div class="linear-value-div">
-                    <input type="range" min="0" max="359" value="90" class="notWhiteThumb" id="linearSlider">
+                    <input type="range" min="0" max="359" value="90" id="linearSlider">
                     <div>
                         <input type="number" min="0" max="359" value="90" id="linearInput" placeholder="Deg">
                         <label for="linearInput">&deg;</label>
