@@ -5,8 +5,10 @@ const gradientColorsRow = () => elementById("gradientColors");
 const getGradientColors = () => elementsByClass("colorButton");
 const getActiveColorButton = () => elementById("activeColor");
 
-const getColorSliders = () => elementsByClass("color-slider");
-const getColorInputs = () => elementsByClass("color-input");
+const getHslaSliders = () => elementsByClass("hsla-slider");
+const getHslaInputs = () => elementsByClass("hsla-input");
+const getRgbInputs = () => elementsByClass("rgb-input");
+
 const getRadialDirections = () => elementById("radialDirections").children;
 const getColorPaletteButtons = () => elementsByClass("preset-color");
 const getActiveType = () => elementById("activeType");
@@ -85,12 +87,12 @@ const setMainGradient = () => {
 };
 
 const getSliderHslaValue = () => {
-    const colorSliders = getColorSliders();
+    const hslaSliders = getHslaSliders();
     return {
-        hue: colorSliders[0].value,
-        sat: colorSliders[1].value,
-        light: colorSliders[2].value,
-        alpha: colorSliders[3].value / 100
+        hue: hslaSliders[0].value,
+        sat: hslaSliders[1].value,
+        light: hslaSliders[2].value,
+        alpha: hslaSliders[3].value / 100
     }
 }
 
@@ -129,21 +131,22 @@ const changeActiveButtonColor = () => {
 
 function updatesToActiveColor(changeSlider = true) {
     const rgba = getBackgroundColor(getActiveColorButton());
-    elementById("redInput").value = rgba[0];
-    elementById("greenInput").value = rgba[1];
-    elementById("blueInput").value = rgba[2];
+    const rgbInputs = getRgbInputs();
+    for (let index = 0; index < rgbInputs.length; index++) {
+        rgbInputs[index].value = rgba[index];
+    }
     const hex = rgbaToHex(rgba[0], rgba[1], rgba[2], rgba[3]);
     elementById("hexInput").value = hex;
     if (changeSlider) {
         const hsla = rgbatohsla(rgba[0], rgba[1], rgba[2], rgba[3]);
-        const colorSliders = getColorSliders();
-        colorSliders[0].value = hsla.hue;
-        colorSliders[1].value = hsla.sat;
-        colorSliders[2].value = hsla.light;
-        colorSliders[3].value = hsla.alpha * 100;
-        const colorInputs = getColorInputs();
+        const hslaSliders = getHslaSliders();
+        hslaSliders[0].value = hsla.hue;
+        hslaSliders[1].value = hsla.sat;
+        hslaSliders[2].value = hsla.light;
+        hslaSliders[3].value = hsla.alpha * 100;
+        const hslaInputs = getHslaInputs();
         for (let index = 0; index < 4; index++) {
-            colorInputs[index].value = colorSliders[index].value;
+            hslaInputs[index].value = hslaSliders[index].value;
         }
     }
     elementById("colorWindow").style.backgroundImage = `linear-gradient(90deg, ${getHexString(hex)}, ${getHexString(hex)}),${transparentImage}`;
@@ -289,8 +292,9 @@ function makeGradientId(gradientCode) {
 }
 
 const addEventListeners = () => {
-    const colorSliders = getColorSliders();
-    const colorInputs = getColorInputs();
+    const hslaSliders = getHslaSliders();
+    const hslaInputs = getHslaInputs();
+    const rgbInputs = getRgbInputs();
     const hexInput = elementById("hexInput");
     const toTopButton = document.getElementById("toTop");
 
@@ -321,26 +325,35 @@ const addEventListeners = () => {
     });
 
     for (let index = 0; index < 4; index++) {
-        colorSliders[index].addEventListener('input', () => {
-            colorInputs[index].value = colorSliders[index].value;
+        hslaSliders[index].addEventListener('input', () => {
+            hslaInputs[index].value = hslaSliders[index].value;
             changeBoxColor();
             changeActiveButtonColor();
             updatesToActiveColor(false);
         });
 
-        colorInputs[index].addEventListener('input', () => {
+        hslaInputs[index].addEventListener('input', () => {
             if (index == 0) {
-                setInputLimit(colorInputs[index], 0, 359);
+                setInputLimit(hslaInputs[index], 0, 359);
             } else {
-                setInputLimit(colorInputs[index], 0, 100);
+                setInputLimit(hslaInputs[index], 0, 100);
             }
-            if (colorInputs[index].value != "") {
-                colorSliders[index].value = colorInputs[index].value;
-                changeBoxColor();
-                changeActiveButtonColor();
-                updatesToActiveColor(false);
-            }
+            hslaSliders[index].value = hslaInputs[index].value;
+            changeBoxColor();
+            changeActiveButtonColor();
+            updatesToActiveColor(false);
         });
+        if (index != 3) {
+            rgbInputs[index].addEventListener('input', () => {
+                setInputLimit(rgbInputs[index], 0, 255);
+                const red = rgbInputs[0].value;
+                const green = rgbInputs[1].value;
+                const blue = rgbInputs[2].value;
+                const alpha = hslaSliders[3].value;
+                getActiveColorButton().style.backgroundColor = getRgbaString(red, green, blue, alpha);
+                updatesToActiveColor();
+            });
+        }
     }
 
     const linearSlider = elementById("linearSlider");
@@ -402,6 +415,7 @@ const addEventListeners = () => {
         if (gradientColors.length > 2) {
             let currentIndex = Number(getActiveColorButton().value);
             gradientColors[currentIndex].remove();
+            elementsByClass("color-buttons-gap")[currentIndex + 1].remove();
             if (currentIndex === gradientColors.length) {
                 currentIndex--;
             } else
@@ -678,13 +692,14 @@ const swapColors = (shiftDirection) => {
 };
 
 const setInputLimit = (element, lowerLimit, upperLimit) => {
-    if (element.value > upperLimit) {
+    if (element.value >= upperLimit) {
         element.value = upperLimit;
     }
-    if (element.value < lowerLimit) {
+    if (element.value <= lowerLimit) {
         element.value = lowerLimit;
     }
 }
+
 const setColorPallete = () => {
     const colors = ['EB808E', 'C0C0D8', '53C6A9', 'AF3C44', '80BFFF', 'FF99BB', '17918A', '31F26E', 'E0C145', 'CC397B', 'EA9482'];
     for (let index = 0; index < 11; index++) {
@@ -774,7 +789,9 @@ function getNewColorButton(switchAciveColor = false) {
     newColorButton.value = getGradientColors().length;
     if (switchAciveColor)
         switchActiveColor(newColorButton);
-    gradientColorsRow().appendChild(newColorButton);
+    let newColorButtonGap = document.createElement("div");
+    newColorButtonGap.className = "color-buttons-gap";
+    gradientColorsRow().append(newColorButton, newColorButtonGap);
 }
 
 const setInitialGradientColors = () => {
@@ -783,7 +800,7 @@ const setInitialGradientColors = () => {
 };
 
 const setSliderBackgrounds = () => {
-    const sliders = getColorSliders();
+    const sliders = getHslaSliders();
     const hsla = getSliderHslaValue();
     sliders[0].style.backgroundImage = `linear-gradient(90deg, #F00 0%, #FF0 16.66%, #0F0 33.33%, #0FF 50%, #00F 66.66%, #F0F 83.33%, #F00 100%)`;
     sliders[1].style.backgroundImage = `linear-gradient(90deg, ${getHslaString(hsla.hue,0,hsla.light,100)}, ${getHslaString(hsla.hue,100,hsla.light,100)})`;
