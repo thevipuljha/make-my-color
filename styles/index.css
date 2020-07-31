@@ -1,12 +1,13 @@
 /* colors used in project 
 fonts : black,white
-border/divider : #03070473,#DFE1E6
+border/divider : #03070473,#A4A4A5
 theme : #A122DD #CC397B #FF374F
 box shadow : #00000066*/
 
 :root {
     --theme-color: #A122DD;
     --theme-gradient: linear-gradient(90deg, #A122DDFF, #CC397BFF, #FF374FFF);
+    --active-color: #A122DD;
 }
 
 /* @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;600;800&display=swap'); */
@@ -177,8 +178,8 @@ box shadow : #00000066*/
 button,
 input {
     user-select: none;
-    border: 1px solid #03070473;
-    border-radius: 8px;
+    border: 2px solid #A4A4A5;
+    border-radius: 10px;
     background-color: white;
     text-align: center;
     outline: none;
@@ -190,6 +191,11 @@ input[type='number'] {
     font-size: small;
 }
 
+input[type="number"],
+input[type="text"] {
+    transition: all 160ms ease-in;
+}
+
 /* mozilla input type focus style */
 :focus {
     outline: none;
@@ -197,6 +203,19 @@ input[type='number'] {
 
 ::-moz-focus-inner {
     border: 0;
+}
+
+/* to remove spinners from number type inputs */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
 }
 
 html {
@@ -252,40 +271,48 @@ header {
     height: 100%;
 }
 
+.transparent-img-div {
+    background-image: linear-gradient(45deg, #ccc 25%, transparent 25%), linear-gradient(-45deg, #ccc 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #ccc 75%), linear-gradient(-45deg, transparent 75%, #ccc 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+    z-index: -1;
+}
+
 /* gradient box */
 .gradient-container {
     display: block;
-    width: 94vw;
+    width: 97vw;
     margin: 5px auto;
     border-bottom: 5px solid white;
-    border-radius: 16px;
+    border-radius: 8px;
     position: -webkit-sticky;
     position: sticky;
-    top: -100px;
+    top: -10vh;
     z-index: 999;
 }
 
 .gradient {
     width: 100%;
-    height: 36vh;
-    border-radius: 16px;
+    height: 34vh;
+    border-radius: 8px;
     background-repeat: repeat;
     background-size: contain;
+    position: relative;
 }
 
 .options-detail-tag {
     width: 70px;
     position: absolute;
-    right: 5px;
+    right: 0px;
     top: 5px;
 }
 
 .options-div {
     display: flex;
     flex-flow: column nowrap;
-    align-items: flex-end;
+    align-items: center;
     justify-content: space-around;
-    height: 170px;
+    height: 30vh;
 }
 
 .option {
@@ -321,13 +348,12 @@ main {
     margin: 0 auto;
     width: 100%;
     border: 2px solid #03070473;
-    border-radius: 10px;
+    border-radius: 8px;
 }
 
 /* button row below gradient starts*/
 .gradient-buttons-row {
-    margin: 0 auto;
-    width: 98%;
+    width: 100%;
     overflow: auto hidden;
     scrollbar-width: thin;
     scrollbar-color: #888888 #a5a5a586;
@@ -337,8 +363,8 @@ main {
 /* gradient color buttons div*/
 .gradient-color-buttons {
     min-width: max-content;
-    max-width: 99%;
-    height: 56px;
+    max-width: 100%;
+    height: 60px;
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
@@ -348,11 +374,9 @@ main {
 .gradient-buttons-row::-webkit-scrollbar {
     background-color: #03070473;
     height: 5px;
-    border-radius: 10px;
 }
 
 .gradient-buttons-row::-webkit-scrollbar-thumb {
-    border-radius: 10px;
     background-color: var(--theme-color);
     background-image: radial-gradient(circle at center, #A122DDFF 00%, slateblue 100%);
 }
@@ -367,10 +391,14 @@ main {
     height: 48px;
     color: transparent;
     text-align: center;
+    min-width: 80px;
+    max-width: 100px;
 }
 
 #activeColor {
-    border: none;
+    height: 54px;
+    min-width: 86px;
+    max-width: 106px;
     border: solid 2px var(--theme-color);
     padding: 2px;
     background-clip: content-box;
@@ -394,24 +422,14 @@ main {
     flex-flow: row nowrap;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
+    font-size: 1.6em;
     color: white;
-    background-color: var(--theme-color);
+    background-color: var(--active-color);
 }
 
 .empty-space-div {
-    height: 20px;
-}
-
-.preset-color-pallete,
-.color-window,
-.gradient-settings,
-.gradient-code {
-    width: 100%;
-    border-radius: 10px;
-    -moz-box-shadow: 0px 0 10px #00000066;
-    -webkit-box-shadow: 0px 0 10px #00000066;
-    box-shadow: 0px 0 10px #00000066;
+    display: block;
+    height: 14px;
 }
 
 .color-pallete {
@@ -432,10 +450,13 @@ main {
 
 
 .preset-color-pallete {
+    width: auto;
     margin: 0 auto;
     display: flex;
     flex-flow: row wrap;
     justify-content: space-evenly;
+    border: 1px solid #A4A4A5;
+    border-radius: 8px;
     border-top-left-radius: 0px;
     border-top-right-radius: 0px;
     z-index: 1;
@@ -453,18 +474,23 @@ main {
     font-size: 24px;
 }
 
-.color-box-with-setting {
+.app-settings {
+    width: 100%;
+    height: auto;
+}
+
+.color-div {
     width: 100%;
     height: 200px;
     position: relative;
 }
 
-.color-window,
+.color-settings-alpha,
 .color-settings-div {
     width: 100%;
     height: 100%;
-    background-repeat: repeat;
-    background-size: contain;
+    border: 1px solid #A4A4A5;
+    border-radius: 8px;
     position: absolute;
     top: 0;
     left: 0;
@@ -474,7 +500,7 @@ main {
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-evenly;
-    z-index: 1;
+    background-color: var(--active-color);
 }
 
 .color-value-div,
@@ -499,39 +525,57 @@ main {
     height: 26px;
 }
 
-input[type='range'] {
+.slider {
     width: 70%;
     -webkit-appearance: none;
     height: 24px;
-    border: 1px ridge #00000099;
+    border: 1px solid #00000099;
     border-radius: 16px;
     cursor: move;
 }
 
-input[type='number']:focus,
-.hex-input:focus {
-    border: solid 1px var(--theme-color);
+.alpha-slider-container {
+    width: 70%;
+    position: relative;
 }
 
-#alphaSlider {
-    background-size: contain;
+.alpha-slider-bg {
+    width: 100%;
+    height: 24px;
+    background-color: white;
+    border-radius: 16px;
+    background-image: linear-gradient(45deg, #ccc 25%, transparent 25%), linear-gradient(-45deg, #ccc 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #ccc 75%), linear-gradient(-45deg, transparent 75%, #ccc 75%);
+    background-size: 16px 16px;
+    background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+}
+
+.alpha-slider {
+    width: 100%;
+    position: absolute;
+    top: -2px;
+    left: -2px;
+}
+
+input[type='number']:focus,
+.hex-input:focus {
+    border: solid 2px var(--theme-color);
 }
 
 input[type='range']::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
+    width: 34px;
+    height: 24px;
+    border-radius: 16px;
     border: 1px solid #00000099;
     background-color: white;
 }
 
 input[type='range']::-moz-range-thumb {
     appearance: none;
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
+    width: 34px;
+    height: 24px;
+    border-radius: 16px;
     border-color: #00000099;
     background-color: white;
 }
@@ -542,7 +586,10 @@ input[type='range']::-moz-range-thumb {
 }
 
 .gradient-settings {
-    height: 120px;
+    border: 1px solid #A4A4A5;
+    border-radius: 8px;
+    width: 100%;
+    height: 128px;
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
@@ -603,7 +650,7 @@ input[type='range']::-moz-range-thumb {
     width: 100%;
     display: grid;
     grid-template-columns: repeat(8, 10%);
-    grid-template-rows: 42px;
+    grid-template-rows: 38px;
     justify-items: center;
     align-items: center;
     align-content: center;
@@ -649,6 +696,7 @@ input[type='range']::-moz-range-thumb {
 }
 
 .gradient-code {
+    width: 100%;
     height: auto;
     display: flex;
     flex-flow: column nowrap;
@@ -658,7 +706,7 @@ input[type='range']::-moz-range-thumb {
 .gradient-code-header {
     user-select: none;
     width: 100%;
-    height: 40px;
+    height: 48px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     display: flex;
@@ -685,7 +733,7 @@ input[type='range']::-moz-range-thumb {
 .switch {
     position: relative;
     display: inline-block;
-    width: 40px;
+    width: 48px;
     height: 20px;
     cursor: pointer;
 }
@@ -704,18 +752,17 @@ input[type='range']::-moz-range-thumb {
     bottom: 0;
     -webkit-transition: .2s;
     transition: .2s;
-    border-radius: 24px;
     background-color: transparent;
 }
 
 .codeToggle:before {
     position: absolute;
     content: "";
-    height: 16px;
-    width: 16px;
+    height: 18px;
+    width: 24px;
     left: 4px;
     bottom: 2px;
-    border-radius: 50%;
+    border-radius: 20px;
     background-color: white;
     -webkit-transition: .2s;
     transition: .2s;
@@ -734,9 +781,8 @@ input[type='range']::-moz-range-thumb {
 
 
 #gradientCode {
-    min-height: 60px;
-    border-bottom: 2px solid #03070473;
-    border-top: 2px solid #03070473;
+    border: 1px solid #A4A4A5;
+    min-height: 80px;
     padding: 10px 0px 16px 10px;
     font-size: 1.2em;
     line-height: 1.2em;
@@ -744,10 +790,10 @@ input[type='range']::-moz-range-thumb {
 
 #gradientCopyButton {
     width: 100%;
-    border: none;
+    border: 1px solid #A4A4A5;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
-    height: 40px;
+    height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -759,22 +805,25 @@ input[type='range']::-moz-range-thumb {
     margin: 0 8px 0 8px;
 }
 
+.user-saved-content {
+    width: 100%;
+    height: auto;
+}
+
 .user-colors,
 .user-gradients {
     width: 100%;
-    border-radius: 10px;
-    -moz-box-shadow: 0px 0 10px #00000066;
-    -webkit-box-shadow: 0px 0 10px #00000066;
-    box-shadow: 0px 0 10px #00000066;
+    border-radius: 8px;
     height: auto;
+    border: 1px solid #A4A4A5;
 }
 
 .user-color-header,
 .user-gradient-header {
     width: 100%;
     height: 40px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -829,6 +878,7 @@ input[type='range']::-moz-range-thumb {
     scrollbar-color: var(--theme-color) #a5a5a586;
 }
 
+/* start */
 .user-color-container,
 .user-grad-container {
     width: 80%;
@@ -840,23 +890,30 @@ input[type='range']::-moz-range-thumb {
     justify-content: space-around;
 }
 
-.user-color,
-.user-color-info {
-    width: 40%;
-    height: 44px;
-    background-color: coral;
-    border-radius: 10px;
-    font-size: medium;
+.user-div-bg {
+    background-image: linear-gradient(45deg, #ccc 25%, transparent 25%), linear-gradient(-45deg, #ccc 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #ccc 75%), linear-gradient(-45deg, transparent 75%, #ccc 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+    position: relative;
+    z-index: 0;
+    width: 146px;
+    height: 48px;
+    border-radius: 8px;
 }
 
 .user-color,
 .user-grad {
-    border: 1px solid #dddddd;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background-repeat: repeat;
-    background-size: cover;
+    z-index: 1;
+    border: 1px solid #dddddd;
+    border-radius: 8px;
 }
 
 .user-color button,
@@ -877,17 +934,13 @@ input[type='range']::-moz-range-thumb {
     margin-left: 10px;
 }
 
-.user-color-info {
-    min-width: 120px;
-    max-width: max-content;
-    background-color: transparent;
-}
-
-.user-grad,
+.user-color-info,
 .user-grad-copy {
-    width: 40%;
-    height: 44px;
-    border-radius: 10px;
+    min-width: 124px;
+    height: 48px;
+    border-radius: 8px;
+    font-size: medium;
+    background-color: transparent;
 }
 
 .user-grad-copy {
@@ -908,6 +961,7 @@ input[type='range']::-moz-range-thumb {
     margin-right: 5px;
 }
 
+/* end */
 footer {
     height: 24px;
 }
@@ -919,22 +973,29 @@ footer {
     }
 
     .gradient-container {
-        top: -100px;
+        top: -12vh;
     }
 
     .gradient {
-        height: 250px;
+        height: 38vh;
     }
 
     .options-div {
-        height: 220px;
+        height: 34vh;
     }
 
-    .color-settings-div,
+    .app-settings,
+    .user-saved-content {
+        display: inline-flex;
+        align-items: center;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+    }
+
+    .color-div,
     .gradient-settings {
-        width: 49%;
-        float: left;
-        height: 168px;
+        width: 48%;
+        height: 180px;
     }
 
     .radial-settings {
@@ -950,14 +1011,16 @@ footer {
         justify-content: center;
     }
 
+    .user-saved-content {
+        align-items: flex-start;
+    }
+
     .user-colors,
     .user-gradients {
         width: 49%;
-        float: left;
     }
 
-    .user-gradients,
-    .gradient-settings {
+    .user-gradients {
         margin-left: 2%;
     }
 }
@@ -990,7 +1053,6 @@ footer {
 .gradient-settings button:focus */
 
 .preset-color:hover,
-input[type='range']:focus,
 .preset-color:focus {
     box-shadow: 2px 2px 5px #00000066;
     -webkit-box-shadow: 2px 2px 5px #00000066;
@@ -1012,7 +1074,7 @@ input[type='range']:focus,
     width: 100%;
     position: fixed;
     top: 16%;
-    z-index: 2;
+    z-index: 99999;
     display: none;
     user-select: none;
 }

@@ -20,7 +20,7 @@
         <span class="title">gracy</span>
         <div class="page-nav"></div>
     </header>
-    <div class="gradient-container">
+    <div class="gradient-container transparent-img-div">
         <div class="gradient" id="gradient">
             <details class="options-detail-tag">
                 <summary>More</summary>
@@ -74,96 +74,103 @@
         </details>
         <div class="empty-space-div"></div>
         <!-- current color box -->
-        <div class="color-box-with-setting">
-            <div class="color-window" id="colorWindow">
-            </div>
-            <div class="color-settings-div">
-                <div class="color-value-div">
-                    <div class="secondary-color">
-                        <label for="redInput">R</label>
-                        <input type="number" min="0" max="255" class="rgb-input" id="redInput" placeholder="Red">
+        <div class="app-settings">
+            <div class="color-div">
+                <div class="color-settings-alpha transparent-img-div"></div>
+                <div class="color-settings-div" id="colorWindow">
+                    <div class="color-value-div">
+                        <div class="secondary-color">
+                            <label for="redInput">R</label>
+                            <input type="number" min="0" max="255" class="rgb-input" id="redInput" placeholder="Red">
+                        </div>
+                        <div class="secondary-color">
+                            <label for="greenInput">G</label>
+                            <input type="number" min="0" max="255" class="rgb-input" id="greenInput"
+                                placeholder="Green">
+                        </div>
+                        <div class="secondary-color">
+                            <label for="blueInput">B</label>
+                            <input type="number" min="0" max="255" class="rgb-input" id="blueInput" placeholder="Blue">
+                        </div>
+                        <div class="secondary-color">
+                            <label for="hexInput">#</label>
+                            <input type="text" class="hex-input" id="hexInput" placeholder="Hex">
+                        </div>
                     </div>
-                    <div class="secondary-color">
-                        <label for="greenInput">G</label>
-                        <input type="number" min="0" max="255" class="rgb-input" id="greenInput" placeholder="Green">
+                    <!-- Hue slider -->
+                    <div class="color-value-div">
+                        <input type="range" min="0" max="359" class="hsla-slider slider" id="hueSlider">
+                        <input type="number" min="0" max="359" class="hsla-input" id="hueInput" placeholder="Hue">
+                        <label for="hueInput">H</label>
                     </div>
-                    <div class="secondary-color">
-                        <label for="blueInput">B</label>
-                        <input type="number" min="0" max="255" class="rgb-input" id="blueInput" placeholder="Blue">
+                    <!-- Saturation slider -->
+                    <div class="color-value-div">
+                        <input type="range" min="0" max="100" class="hsla-slider slider" id="satSlider">
+                        <input type="number" min="0" max="100" class="hsla-input" id="satInput" placeholder="Sat">
+                        <label for="satInput">S</label>
                     </div>
-                    <div class="secondary-color">
-                        <label for="hexInput">#</label>
-                        <input type="text" class="hex-input" id="hexInput" placeholder="Hex">
+                    <!-- Lightness slider -->
+                    <div class="color-value-div">
+                        <input type="range" min="0" max="100" class="hsla-slider slider" id="lightSlider">
+                        <input type="number" min="0" max="100" class="hsla-input" id="lightInput" placeholder="Light">
+                        <label for="lightInput">L</label>
                     </div>
-                </div>
-                <!-- Hue slider -->
-                <div class="color-value-div">
-                    <input type="range" min="0" max="359" class="hsla-slider" id="hueSlider">
-                    <input type="number" min="0" max="359" class="hsla-input" id="hueInput" placeholder="Hue">
-                    <label for="hueInput">H</label>
-                </div>
-                <!-- Saturation slider -->
-                <div class="color-value-div">
-                    <input type="range" min="0" max="100" class="hsla-slider" id="satSlider">
-                    <input type="number" min="0" max="100" class="hsla-input" id="satInput" placeholder="Sat">
-                    <label for="satInput">S</label>
-                </div>
-                <!-- Lightness slider -->
-                <div class="color-value-div">
-                    <input type="range" min="0" max="100" class="hsla-slider" id="lightSlider">
-                    <input type="number" min="0" max="100" class="hsla-input" id="lightInput" placeholder="Light">
-                    <label for="lightInput">L</label>
-                </div>
-                <!-- Alpha slider -->
-                <div class="color-value-div">
-                    <input type="range" min="0" max="100" class="hsla-slider" id="alphaSlider">
-                    <input type="number" min="0" max="100" class="hsla-input" id="alphaInput" placeholder="Alpha">
-                    <label for="alphaInput">A</label>
-                </div>
-            </div>
-        </div>
-        <div class="empty-space-div"></div>
-        <div class="gradient-settings">
-            <div class="gradient-type-buttons">
-                <button class="gradientType" onclick="gradientTypeSwitch(this)" id="activeType"
-                    value="linear">Linear</button>
-                <button class="gradientType" onclick="gradientTypeSwitch(this)" value="radial">Radial</button>
-            </div>
-            <div class="linear-settings" id="linearDiv">
-                <div class="linear-value-div">
-                    <input type="range" min="0" max="359" value="90" id="linearSlider">
-                    <div>
-                        <input type="number" min="0" max="359" value="90" id="linearInput" placeholder="Deg">
-                        <label for="linearInput">&deg;</label>
+                    <!-- Alpha slider -->
+                    <div class="color-value-div">
+                        <div class="alpha-slider-container">
+                            <div class="alpha-slider-bg">
+                                <input type="range" min="0" max="100" class="alpha-slider hsla-slider slider"
+                                    id="alphaSlider">
+                            </div>
+                        </div>
+                        <input type="number" min="0" max="100" class="hsla-input" id="alphaInput" placeholder="Alpha">
+                        <label for="alphaInput">A</label>
                     </div>
-                </div>
-                <div class="linear-direction-div" id="linearDirections">
-                    <button><i class="gi gi-top"></i></button>
-                    <button><i class="gi gi-top-right"></i></button>
-                    <button id="currentDegree"><i class="gi gi-right"></i></button>
-                    <button><i class="gi gi-bottom-right"></i></button>
-                    <button><i class="gi gi-bottom"></i></button>
-                    <button><i class="gi gi-bottom-left"></i></button>
-                    <button><i class="gi gi-left"></i></button>
-                    <button><i class="gi gi-top-left"></i></button>
                 </div>
             </div>
-            <div class="radial-settings" id="radialDiv">
-                <div class="radial-shape-buttons">
-                    <button class="radialType" onclick="radialShapeSwitch(this)" id="activeShape"
-                        value="circle">Circle</button>
-                    <button class="radialType" onclick="radialShapeSwitch(this)" value="ellipse">Ellipse</button>
+            <div class="empty-space-div"></div>
+            <div class="gradient-settings">
+                <div class="gradient-type-buttons">
+                    <button class="gradientType" onclick="gradientTypeSwitch(this)" id="activeType"
+                        value="linear">Linear</button>
+                    <button class="gradientType" onclick="gradientTypeSwitch(this)" value="radial">Radial</button>
                 </div>
-                <div class="radial-direction-div" id="radialDirections">
-                    <button value="top left"><i class="gi gi-top-left"></i></button>
-                    <button value="top"><i class="gi gi-top"></i></button>
-                    <button value="top right"><i class="gi gi-top-right"></i></button>
-                    <button value="left"><i class="gi gi-left"></i></button>
-                    <button value="center" id="currentDirection"><i class="gi gi-circle"></i></button>
-                    <button value="right"><i class="gi gi-right"></i></button>
-                    <button value="bottom left"><i class="gi gi-bottom-left"></i></button>
-                    <button value="bottom"><i class="gi gi-bottom"></i></button>
-                    <button value="bottom right"><i class="gi gi-bottom-right"></i></button>
+                <div class="linear-settings" id="linearDiv">
+                    <div class="linear-value-div">
+                        <input type="range" min="0" max="359" value="90" class="slider" id="linearSlider">
+                        <div>
+                            <input type="number" min="0" max="359" value="90" id="linearInput" placeholder="Deg">
+                            <label for="linearInput">&deg;</label>
+                        </div>
+                    </div>
+                    <div class="linear-direction-div" id="linearDirections">
+                        <button><i class="gi gi-top"></i></button>
+                        <button><i class="gi gi-top-right"></i></button>
+                        <button id="currentDegree"><i class="gi gi-right"></i></button>
+                        <button><i class="gi gi-bottom-right"></i></button>
+                        <button><i class="gi gi-bottom"></i></button>
+                        <button><i class="gi gi-bottom-left"></i></button>
+                        <button><i class="gi gi-left"></i></button>
+                        <button><i class="gi gi-top-left"></i></button>
+                    </div>
+                </div>
+                <div class="radial-settings" id="radialDiv">
+                    <div class="radial-shape-buttons">
+                        <button class="radialType" onclick="radialShapeSwitch(this)" id="activeShape"
+                            value="circle">Circle</button>
+                        <button class="radialType" onclick="radialShapeSwitch(this)" value="ellipse">Ellipse</button>
+                    </div>
+                    <div class="radial-direction-div" id="radialDirections">
+                        <button value="top left"><i class="gi gi-top-left"></i></button>
+                        <button value="top"><i class="gi gi-top"></i></button>
+                        <button value="top right"><i class="gi gi-top-right"></i></button>
+                        <button value="left"><i class="gi gi-left"></i></button>
+                        <button value="center" id="currentDirection"><i class="gi gi-circle"></i></button>
+                        <button value="right"><i class="gi gi-right"></i></button>
+                        <button value="bottom left"><i class="gi gi-bottom-left"></i></button>
+                        <button value="bottom"><i class="gi gi-bottom"></i></button>
+                        <button value="bottom right"><i class="gi gi-bottom-right"></i></button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -187,26 +194,28 @@
             </button>
         </div>
         <div class="empty-space-div"></div>
-        <div class="user-colors">
-            <header class="user-color-header">
-                <span>My Colors</span>
-                <button class="save-userdata-button" id="addUserColor" title="save current color">
-                    <i class="gi gi-add"></i>
-                </button>
-            </header>
-            <div class="user-colors-list" id="userColors"></div>
+        <div class="user-saved-content">
+            <div class="user-colors">
+                <header class="user-color-header">
+                    <span>My Colors</span>
+                    <button class="save-userdata-button" id="addUserColor" title="save current color">
+                        <i class="gi gi-add"></i>
+                    </button>
+                </header>
+                <div class="user-colors-list" id="userColors"></div>
+                <div class="empty-space-div"></div>
+            </div>
             <div class="empty-space-div"></div>
-        </div>
-        <div class="empty-space-div"></div>
-        <div class="user-gradients">
-            <header class="user-gradient-header">
-                <span>My Gradients</span>
-                <button class="save-userdata-button" id="addUserGrad" title="save current gradient">
-                    <i class="gi gi-add"></i>
-                </button>
-            </header>
-            <div class="user-gradients-list" id="userGradients"> </div>
-            <div class="empty-space-div"></div>
+            <div class="user-gradients">
+                <header class="user-gradient-header">
+                    <span>My Gradients</span>
+                    <button class="save-userdata-button" id="addUserGrad" title="save current gradient">
+                        <i class="gi gi-add"></i>
+                    </button>
+                </header>
+                <div class="user-gradients-list" id="userGradients"> </div>
+                <div class="empty-space-div"></div>
+            </div>
         </div>
     </main>
     <footer>
