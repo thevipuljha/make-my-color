@@ -22,21 +22,21 @@
     </header>
     <div class="gradient-container transparent-img-div">
         <div class="gradient" id="gradient">
-            <details class="options-detail-tag">
+            <details class="more-options-detail">
                 <summary>More</summary>
-                <div class="options-div">
+                <div class="more-options">
                     <input type="checkbox" id="autosave"
                         onclick="saveGradientData(); showToast(`AutoSave : ${autosave.checked}`)">
-                    <button class=" option" id="autoSaveButton" title="Auto Save" onclick="autosave.click()">
+                    <button class="more-options" id="autoSaveButton" title="Auto Save" onclick="autosave.click()">
                         <i class="gi gi-save"></i>
                     </button>
-                    <button class="option" id="loadButton" title="Load Gradient">
+                    <button class="more-options" id="loadButton" title="Load Gradient">
                         <i class="gi gi-restore"></i>
                     </button>
-                    <button class="option" id="downloadButton" title="Download">
+                    <button class="more-options" id="downloadButton" title="Download">
                         <i class="gi gi-download"></i>
                     </button>
-                    <button class="option" id="shareButton" title="Share">
+                    <button class="more-options" id="shareButton" title="Share">
                         <i class="gi gi-share"></i>
                     </button>
                 </div>
@@ -44,24 +44,24 @@
         </div>
     </div>
     <main>
-        <!-- the color storing blocks -->
-        <div class="gradient-colors-block">
-            <div class="gradient-buttons-row" id="gradientBlock">
-                <div class="gradient-color-buttons" id="gradientColors">
+        <!-- the color storing block -->
+        <div class="gradient-color-options-div">
+            <div class="color-block-container" id="colorBlockContainer">
+                <div class="gradient-color-row" id="gradientColors">
                     <div class="color-buttons-gap"></div>
                 </div>
             </div>
-            <div class="gradient-color-arrange">
-                <button class="arrange-button" id="leftShift" title="shift left">
+            <div class="color-options-div">
+                <button class="color-option-button" id="leftShift" title="shift left">
                     <i class="gi gi-leftshift"></i>
                 </button>
-                <button class="arrange-button" id="rightShift" title="shift right">
+                <button class="color-option-button" id="rightShift" title="shift right">
                     <i class="gi gi-rightshift"></i>
                 </button>
-                <button class="arrange-button" id="deleteColor" title="delete color">
+                <button class="color-option-button" id="deleteColor" title="delete color">
                     <i class="gi gi-delete"></i>
                 </button>
-                <button class="arrange-button" id="addColorButton" title="add more colors">
+                <button class="color-option-button" id="addColorButton" title="add more colors">
                     <i class="gi gi-add"></i>
                 </button>
             </div>
@@ -69,50 +69,50 @@
         <div class="empty-space-div"></div>
         <details class="color-pallete">
             <summary>Pick a colour from pallete </summary>
-            <div class="preset-color-pallete" id="colorPallete">
+            <div class="color-pallete-container" id="colorPallete">
             </div>
         </details>
         <div class="empty-space-div"></div>
-        <!-- current color box -->
         <div class="app-settings">
+            <!-- current color box -->
             <div class="color-div">
                 <div class="color-settings-alpha transparent-img-div"></div>
                 <div class="color-settings-div" id="colorWindow">
                     <div class="color-value-div">
                         <div class="secondary-color">
                             <label for="redInput">R</label>
-                            <input type="number" min="0" max="255" class="rgb-input" id="redInput" placeholder="Red">
+                            <input type="number" min="0" max="255" class="rgb-input" id="redInput" placeholder="RED">
                         </div>
                         <div class="secondary-color">
                             <label for="greenInput">G</label>
                             <input type="number" min="0" max="255" class="rgb-input" id="greenInput"
-                                placeholder="Green">
+                                placeholder="GREEN">
                         </div>
                         <div class="secondary-color">
                             <label for="blueInput">B</label>
-                            <input type="number" min="0" max="255" class="rgb-input" id="blueInput" placeholder="Blue">
+                            <input type="number" min="0" max="255" class="rgb-input" id="blueInput" placeholder="BLUE">
                         </div>
                         <div class="secondary-color">
                             <label for="hexInput">#</label>
-                            <input type="text" class="hex-input" id="hexInput" placeholder="Hex">
+                            <input type="text" class="hex-input" id="hexInput" placeholder="HEX">
                         </div>
                     </div>
                     <!-- Hue slider -->
                     <div class="color-value-div">
                         <input type="range" min="0" max="359" class="hsla-slider slider" id="hueSlider">
-                        <input type="number" min="0" max="359" class="hsla-input" id="hueInput" placeholder="Hue">
+                        <input type="number" min="0" max="359" class="hsla-input" id="hueInput" placeholder="HUE">
                         <label for="hueInput">H</label>
                     </div>
                     <!-- Saturation slider -->
                     <div class="color-value-div">
                         <input type="range" min="0" max="100" class="hsla-slider slider" id="satSlider">
-                        <input type="number" min="0" max="100" class="hsla-input" id="satInput" placeholder="Sat">
+                        <input type="number" min="0" max="100" class="hsla-input" id="satInput" placeholder="SAT">
                         <label for="satInput">S</label>
                     </div>
                     <!-- Lightness slider -->
                     <div class="color-value-div">
                         <input type="range" min="0" max="100" class="hsla-slider slider" id="lightSlider">
-                        <input type="number" min="0" max="100" class="hsla-input" id="lightInput" placeholder="Light">
+                        <input type="number" min="0" max="100" class="hsla-input" id="lightInput" placeholder="LIGHT">
                         <label for="lightInput">L</label>
                     </div>
                     <!-- Alpha slider -->
@@ -123,17 +123,17 @@
                                     id="alphaSlider">
                             </div>
                         </div>
-                        <input type="number" min="0" max="100" class="hsla-input" id="alphaInput" placeholder="Alpha">
+                        <input type="number" min="0" max="100" class="hsla-input" id="alphaInput" placeholder="ALPHA">
                         <label for="alphaInput">A</label>
                     </div>
                 </div>
             </div>
             <div class="empty-space-div"></div>
-            <div class="gradient-settings">
-                <div class="gradient-type-buttons">
-                    <button class="gradientType" onclick="gradientTypeSwitch(this)" id="activeType"
+            <div class="gradient-style-settings">
+                <div class="gradient-type">
+                    <button class="gradientTypeButton" onclick="gradientTypeSwitch(this)" id="activeType"
                         value="linear">Linear</button>
-                    <button class="gradientType" onclick="gradientTypeSwitch(this)" value="radial">Radial</button>
+                    <button class="gradientTypeButton" onclick="gradientTypeSwitch(this)" value="radial">Radial</button>
                 </div>
                 <div class="linear-settings" id="linearDiv">
                     <div class="linear-value-div">
@@ -155,10 +155,11 @@
                     </div>
                 </div>
                 <div class="radial-settings" id="radialDiv">
-                    <div class="radial-shape-buttons">
-                        <button class="radialType" onclick="radialShapeSwitch(this)" id="activeShape"
+                    <div class="radial-type">
+                        <button class="radialTypeButton" onclick="radialShapeSwitch(this)" id="activeShape"
                             value="circle">Circle</button>
-                        <button class="radialType" onclick="radialShapeSwitch(this)" value="ellipse">Ellipse</button>
+                        <button class="radialTypeButton" onclick="radialShapeSwitch(this)"
+                            value="ellipse">Ellipse</button>
                     </div>
                     <div class="radial-direction-div" id="radialDirections">
                         <button value="top left"><i class="gi gi-top-left"></i></button>

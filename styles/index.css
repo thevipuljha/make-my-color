@@ -289,6 +289,7 @@ header {
     position: sticky;
     top: -10vh;
     z-index: 999;
+    background-color: white;
 }
 
 .gradient {
@@ -300,14 +301,14 @@ header {
     position: relative;
 }
 
-.options-detail-tag {
+.more-options-detail {
     width: 70px;
     position: absolute;
     right: 0px;
     top: 5px;
 }
 
-.options-div {
+.more-options {
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
@@ -315,7 +316,7 @@ header {
     height: 30vh;
 }
 
-.option {
+.more-options {
     width: 42px;
     height: 42px;
     border-radius: 50%;
@@ -332,7 +333,7 @@ header {
     display: none;
 }
 
-#autosave:checked+.option {
+#autosave:checked+.more-options {
     background-color: var(--theme-color);
 }
 
@@ -344,7 +345,7 @@ main {
     margin: 0 auto;
 }
 
-.gradient-colors-block {
+.gradient-color-options-div {
     margin: 0 auto;
     width: 100%;
     border: 2px solid #03070473;
@@ -352,7 +353,7 @@ main {
 }
 
 /* button row below gradient starts*/
-.gradient-buttons-row {
+.color-block-container {
     width: 100%;
     overflow: auto hidden;
     scrollbar-width: thin;
@@ -361,7 +362,7 @@ main {
 }
 
 /* gradient color buttons div*/
-.gradient-color-buttons {
+.gradient-color-row {
     min-width: max-content;
     max-width: 100%;
     height: 60px;
@@ -371,12 +372,12 @@ main {
     justify-content: space-around;
 }
 
-.gradient-buttons-row::-webkit-scrollbar {
+.color-block-container::-webkit-scrollbar {
     background-color: #03070473;
     height: 5px;
 }
 
-.gradient-buttons-row::-webkit-scrollbar-thumb {
+.color-block-container::-webkit-scrollbar-thumb {
     background-color: var(--theme-color);
     background-image: radial-gradient(circle at center, #A122DDFF 00%, slateblue 100%);
 }
@@ -404,7 +405,7 @@ main {
     background-clip: content-box;
 }
 
-.gradient-color-arrange {
+.color-options-div {
     border-top: 2px solid #03070473;
     width: 100%;
     display: flex;
@@ -413,7 +414,7 @@ main {
     justify-content: space-evenly;
 }
 
-.arrange-button {
+.color-option-button {
     margin: 5px;
     border-radius: 50%;
     width: 48px;
@@ -449,7 +450,7 @@ main {
 }
 
 
-.preset-color-pallete {
+.color-pallete-container {
     width: auto;
     margin: 0 auto;
     display: flex;
@@ -585,7 +586,7 @@ input[type='range']::-moz-range-thumb {
     background-color: var(--theme-color);
 }
 
-.gradient-settings {
+.gradient-style-settings {
     border: 1px solid #A4A4A5;
     border-radius: 8px;
     width: 100%;
@@ -595,9 +596,9 @@ input[type='range']::-moz-range-thumb {
     align-items: center;
 }
 
-.gradient-type-buttons,
+.gradient-type,
 .linear-settings,
-.radial-shape-buttons {
+.radial-type {
     width: 20%;
     height: 100%;
     display: flex;
@@ -606,7 +607,7 @@ input[type='range']::-moz-range-thumb {
     justify-content: space-around;
 }
 
-.gradient-type-buttons {
+.gradient-type {
     border-right: 1px solid #03070473;
 }
 
@@ -618,8 +619,8 @@ input[type='range']::-moz-range-thumb {
     color: white;
 }
 
-.gradient-type-buttons button,
-.radial-shape-buttons button {
+.gradient-type button,
+.radial-type button {
     height: 40px;
     width: 90%;
     font-size: 1em;
@@ -671,7 +672,7 @@ input[type='range']::-moz-range-thumb {
     display: none;
 }
 
-.radial-shape-buttons {
+.radial-type {
     width: 30%;
 }
 
@@ -874,7 +875,7 @@ input[type='range']::-moz-range-thumb {
 
 .user-colors-list:hover,
 .user-gradients-list:hover,
-.gradient-buttons-row:hover {
+.color-block-container:hover {
     scrollbar-color: var(--theme-color) #a5a5a586;
 }
 
@@ -980,7 +981,7 @@ footer {
         height: 38vh;
     }
 
-    .options-div {
+    .more-options {
         height: 34vh;
     }
 
@@ -993,7 +994,7 @@ footer {
     }
 
     .color-div,
-    .gradient-settings {
+    .gradient-style-settings {
         width: 48%;
         height: 180px;
     }
@@ -1047,10 +1048,6 @@ footer {
         background-position: 400% 0%;
     }
 }
-
-/* 
-.gradient-settings button:hover,
-.gradient-settings button:focus */
 
 .preset-color:hover,
 .preset-color:focus {
