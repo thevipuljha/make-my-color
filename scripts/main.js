@@ -1,5 +1,8 @@
 const elementById = (id) => document.getElementById(id);
 const elementsByClass = (className) => document.getElementsByClassName(className);
+const getLocalItem = (key) => localStorage.getItem(key);
+const setLocalItem = (key, value) => localStorage.setItem(key, value);
+
 const gradientColorsRow = () => elementById("gradientColors");
 const getGradientColors = () => elementsByClass("colorButton");
 const getActiveColorButton = () => elementById("activeColor");
@@ -50,6 +53,19 @@ function showToast(message) {
     setTimeout(() => elementById("toastContainer").style.display = "none", 700);
 }
 
+const createElement = (tag, classname, backColor) => {
+    const newElement = document.createElement(tag);
+    if (typeof (classname) == "object")
+        classname.forEach(currentValue => {
+            newElement.classList.add(currentValue);
+        });
+    else
+        newElement.className = classname;
+    if (typeof (backColor) != "undefined")
+        newElement.style.backgroundColor = backColor;
+    return newElement;
+};
+
 function getBackgroundColor(domElelment) {
     let color = domElelment.style.backgroundColor;
     color = String(color).split(",");
@@ -64,17 +80,20 @@ function getBackgroundColor(domElelment) {
     return [red, green, blue, alpha];
 };
 
+const getCurrentGradientObj = () => {
+    return {
+        gradientColors: elementById('gradientColors').innerHTML,
+        activeType: getActiveType().value,
+        linearDegree: getLinearDegree(),
+        radialShape: getRadialShape().value,
+        radialDirection: getCurrentRadialDirection().value
+    }
+};
+
 const saveGradientData = () => {
     if (elementById('autosave').checked) {
-        const gradientColors = elementById('gradientColors').innerHTML;
-        const gradientData = {
-            activeType: getActiveType().value,
-            linearDegree: getLinearDegree(),
-            radialShape: getRadialShape().value,
-            radialDirection: getCurrentRadialDirection().value
-        }
-        localStorage.setItem('colours', gradientColors);
-        localStorage.setItem('settings', JSON.stringify(gradientData));
+        const gradientData = getCurrentGradientObj();
+        localStorage.setItem('autoGradient', JSON.stringify(gradientData));
     }
     localStorage.setItem('autosave', elementById('autosave').checked);
 };
@@ -128,7 +147,7 @@ const changeActiveButtonColor = () => {
     getActiveColorButton().style.backgroundColor = getHslaString(hsla.hue, hsla.sat, hsla.light, hsla.alpha);
 };
 
-function updatesToActiveColor(changeSlider = true) {
+function updatesByActiveColor(changeSlider = true) {
     const rgba = getBackgroundColor(getActiveColorButton());
     const rgbInputs = getRgbInputs();
     for (let index = 0; index < rgbInputs.length; index++) {
@@ -149,22 +168,27 @@ function updatesToActiveColor(changeSlider = true) {
         }
     }
     document.documentElement.style.setProperty("--active-color", getHexString(hex));
+    // if (hsla.light <= 45 || hsla.sat <= 45) {
+    //     document.documentElement.style.setProperty("--font-color", "white");
+    // } else {
+    //     document.documentElement.style.setProperty("--font-color", "black");
+    // }
     setMainGradient();
 }
 
 function colorButtonCicked(colorButton) {
     switchActiveColor(colorButton);
-    updatesToActiveColor();
+    updatesByActiveColor();
 }
 
 function palleteColorChoosed(palleteColor) {
     getActiveColorButton().style.backgroundColor = palleteColor.style.backgroundColor;
-    updatesToActiveColor();
+    updatesByActiveColor();
 }
 
 function applySavedColor(hexColor) {
     getActiveColorButton().style.backgroundColor = hexColor;
-    updatesToActiveColor();
+    updatesByActiveColor();
     showToast(`${hexColor} Applied`);
 }
 
@@ -206,49 +230,14 @@ function deleteSavedGradient(gradientId) {
 
 function applySavedUserGradient(gradientId) {
     const userGradList = JSON.parse(localStorage.getItem("userGradList"));
-    let userGradient = {};
-    for (let index = 0; index < userGradList.length; index++) {
-        if (userGradList[index].gradientID == gradientId) {
-            userGradient = userGradList[index];
+    let userGradient;
+    userGradList.forEach(gradientObj => {
+        if (gradientObj.gradientID == gradientId) {
+            userGradient = gradientObj;
         }
-    }
-    gradientColorsRow().innerHTML = userGradient.gradientColors;
-
-    function retrieveLinearSettigs(gradientSetting) {
-        toggleActives(gradientSetting, 0, 1, "activeType");
-        elementById('linearInput').value = userGradient.linearDegree;
-        elementById('linearSlider').value = userGradient.linearDegree;
-        elementById('linearDiv').style.display = "flex"
-        elementById('radialDiv').style.display = "none"
-    }
-
-    function retrieveRadialSettigs(gradientSetting) {
-        const radialType = elementsByClass('radialType');
-        const radialDirections = getRadialDirections();
-        toggleActives(gradientSetting, 1, 0, "activeType");
-        if (userGradient.radialShape == "circle")
-            toggleActives(radialType, 0, 1, "activeShape");
-        else
-            toggleActives(radialType, 1, 0, "activeShape");
-        elementById('linearDiv').style.display = "none"
-        elementById('radialDiv').style.display = "flex"
-        for (let index = 0; index < radialDirections.length; index++) {
-            if (radialDirections[index].value == userGradient.radialDirection) {
-                radialDirections[index].id = "currentDirection";
-            } else
-                radialDirections[index].removeAttribute('id');
-        }
-    }
-
-    const gradientType = elementsByClass('gradientType');
-    if (userGradient.activeType == 'linear') {
-        retrieveLinearSettigs(gradientType);
-    } else {
-        retrieveRadialSettigs(gradientType);
-    }
-    elementById("gradient").style.background = getGradientString();
-    elementById("gradientCode").innerText = `background : ${getGradientString()};`;
-    updatesToActiveColor();
+    });
+    applySavedGradientData(userGradient);
+    updatesByActiveColor();
 }
 
 function changeLinearDegree(linearSlider, linearDegrees) {
@@ -265,7 +254,7 @@ const isHexValid = (hexValue) => {
 
 function updatesByHex(hexValue) {
     getActiveColorButton().style.backgroundColor = getHexString(hexValue);
-    updatesToActiveColor();
+    updatesByActiveColor();
 }
 
 function gradientColorsSpacing() {
@@ -328,7 +317,7 @@ const addEventListeners = () => {
             hslaInputs[index].value = hslaSliders[index].value;
             changeBoxColor();
             changeActiveButtonColor();
-            updatesToActiveColor(false);
+            updatesByActiveColor(false);
         });
 
         hslaInputs[index].addEventListener('input', () => {
@@ -340,7 +329,7 @@ const addEventListeners = () => {
             hslaSliders[index].value = hslaInputs[index].value;
             changeBoxColor();
             changeActiveButtonColor();
-            updatesToActiveColor(false);
+            updatesByActiveColor(false);
         });
         if (index != 3) {
             rgbInputs[index].addEventListener('input', () => {
@@ -350,7 +339,7 @@ const addEventListeners = () => {
                 const blue = rgbInputs[2].value;
                 const alpha = hslaSliders[3].value;
                 getActiveColorButton().style.backgroundColor = getRgbaString(red, green, blue, alpha);
-                updatesToActiveColor();
+                updatesByActiveColor();
             });
         }
     }
@@ -423,22 +412,22 @@ const addEventListeners = () => {
                 }
             gradientColors[currentIndex].id = "activeColor";
             setMainGradient();
-            updatesToActiveColor();
+            updatesByActiveColor();
             gradientColorsSpacing();
         }
     });
 
     elementById("addColorButton").addEventListener("click", () => {
-        getNewColorButton(true);
+        addNewColorButton(true);
         gradientColorsSpacing();
-        updatesToActiveColor();
-        elementById("gradientBlock").scrollLeft = elementById("gradientBlock").scrollWidth;
+        updatesByActiveColor();
+        elementById("colorBlockContainer").scrollLeft = elementById("colorBlockContainer").scrollWidth;
     });
 
     elementById("loadButton").addEventListener("click", () => {
-        if (localStorage.getItem('settings') != null) {
+        if (localStorage.getItem('autoGradient') != null) {
             applySavedGradient();
-            updatesToActiveColor();
+            updatesByActiveColor();
             showToast(`Gradient Restored`);
         } else {
             showToast(`Save some gradient`);
@@ -507,80 +496,73 @@ const addEventListeners = () => {
         }
 
     });
+
     elementById("addUserGrad").addEventListener("click", () => {
         let userGradList = localStorage.getItem("userGradList");
-        if (userGradList != null) {
+        if (userGradList != null)
             userGradList = JSON.parse(userGradList);
-        } else {
+        else
             userGradList = [];
-        }
-        const codeSwitchState = elementById("codeSwitch").checked;
-        elementById("codeSwitch").checked = "true";
+        const codeSwitch = elementById("codeSwitch");
+        const codeSwitchState = codeSwitch.checked;
+        codeSwitch.checked = "true";
         const currentGradientCode = getGradientString();
-        for (let index = 0; index < userGradList.length; index++) {
-            if (userGradList[index].gradientCode == currentGradientCode) {
-                showToast("Gradient already saved");
-                return;
-            }
-        }
         const gradientId = makeGradientId(currentGradientCode);
-        const gradientData = {
-            gradientID: gradientId,
-            gradientColors: elementById('gradientColors').innerHTML,
-            activeType: getActiveType().value,
-            linearDegree: getLinearDegree(),
-            radialShape: getRadialShape().value,
-            radialDirection: getCurrentRadialDirection().value,
-            gradientCode: currentGradientCode
-        }
-        userGradList.push(gradientData);
-        localStorage.setItem("userGradList", JSON.stringify(userGradList));
+        if (userGradList.indexOf(gradientId) != -1) {
+            showToast("Gradient already saved");
+        } else {
+            let gradientData = getCurrentGradientObj();
+            gradientData["gradientID"] = gradientId;
+            gradientData["gradientCode"] = currentGradientCode;
+            userGradList.push(gradientData);
+            localStorage.setItem("userGradList", JSON.stringify(userGradList));
 
-        let gradListContainer = elementById("userGradients");
-        if (gradListContainer.classList.contains("empty-list")) {
-            gradListContainer.innerHTML = "";
-            gradListContainer.classList.remove("empty-list");
-        }
-
-        let gradContainer = document.createElement("div");
-        gradContainer.className = "user-grad-container";
-        gradContainer.id = gradientId;
-
-        let userGradBg = document.createElement("div");
-        userGradBg.className = "user-div-bg";
-
-        let userGrad = document.createElement("div");
-        userGrad.className = "user-grad";
-        userGrad.style.background = currentGradientCode;
-
-        userGrad.addEventListener("mouseenter", () => {
-            const html = `<button class="user-grad-apply" value="${gradientId}" onclick="applySavedUserGradient(this.value)"><i class="gi gi-apply"></i></button>
-                          <button class="user-grad-delete" value="${gradientId}" onclick="deleteSavedGradient(this.value)"><i class="gi gi-remove"></i></button>`;
-            userGrad.innerHTML = html;
-        });
-        userGrad.addEventListener("mouseleave", () => {
-            userGrad.innerHTML = "";
-        });
-
-        let userGradCopy = document.createElement("button");
-        userGradCopy.className = "user-grad-copy";
-        userGradCopy.title = "Copy Gradient";
-        userGradCopy.innerHTML = `<i class="gi gi-copy"></i>Copy`;
-        userGradCopy.addEventListener("click", () => {
-            function listener(event) {
-                event.clipboardData.setData("text/plain", `background : ${currentGradientCode};`);
-                event.preventDefault();
+            let gradListContainer = elementById("userGradients");
+            if (gradListContainer.classList.contains("empty-list")) {
+                gradListContainer.innerHTML = "";
+                gradListContainer.classList.remove("empty-list");
             }
-            document.addEventListener("copy", listener);
-            document.execCommand("copy");
-            document.removeEventListener("copy", listener);
-            showToast(`Gradient Code Copied`)
-        });
-        userGradBg.appendChild(userGrad);
-        gradContainer.append(userGradBg, userGradCopy);
-        gradListContainer.appendChild(gradContainer);
-        elementById("userGradients").scrollTop = elementById("userGradients").scrollHeight;
-        elementById("codeSwitch").checked = codeSwitchState;
+
+            let gradContainer = document.createElement("div");
+            gradContainer.className = "user-grad-container";
+            gradContainer.id = gradientId;
+
+            let userGradBg = document.createElement("div");
+            userGradBg.className = "user-div-bg";
+
+            let userGrad = document.createElement("div");
+            userGrad.className = "user-grad";
+            userGrad.style.background = currentGradientCode;
+
+            userGrad.addEventListener("mouseenter", () => {
+                const html = `<button class="user-grad-apply" value="${gradientId}" onclick="applySavedUserGradient(this.value)"><i class="gi gi-apply"></i></button>
+                          <button class="user-grad-delete" value="${gradientId}" onclick="deleteSavedGradient(this.value)"><i class="gi gi-remove"></i></button>`;
+                userGrad.innerHTML = html;
+            });
+            userGrad.addEventListener("mouseleave", () => {
+                userGrad.innerHTML = "";
+            });
+
+            let userGradCopy = document.createElement("button");
+            userGradCopy.className = "user-grad-copy";
+            userGradCopy.title = "Copy Gradient";
+            userGradCopy.innerHTML = `<i class="gi gi-copy"></i>Copy`;
+            userGradCopy.addEventListener("click", () => {
+                function listener(event) {
+                    event.clipboardData.setData("text/plain", `background : ${currentGradientCode};`);
+                    event.preventDefault();
+                }
+                document.addEventListener("copy", listener);
+                document.execCommand("copy");
+                document.removeEventListener("copy", listener);
+                showToast(`Gradient Code Copied`)
+            });
+            userGradBg.appendChild(userGrad);
+            gradContainer.append(userGradBg, userGradCopy);
+            gradListContainer.appendChild(gradContainer);
+            elementById("userGradients").scrollTop = elementById("userGradients").scrollHeight;
+        }
+        codeSwitch.checked = codeSwitchState;
     });
 };
 
@@ -712,35 +694,13 @@ const setInputLimit = (element, lowerLimit, upperLimit) => {
     }
 }
 
-const setColorPallete = () => {
-    const colors = ['EB808E', 'C0C0D8', '53C6A9', 'AF3C44', '80BFFF', 'FF99BB', '17918A', '31F26E', 'E0C145', 'CC397B', 'EA9482'];
-    for (let index = 0; index < 11; index++) {
-        let newColor = document.createElement("button");
-        newColor.className = "preset-color";
-        newColor.style.backgroundColor = `#${colors[index]}FF`;
-        newColor.setAttribute("onclick", "palleteColorChoosed(this)");
-        elementById("colorPallete").appendChild(newColor);
+function applySavedGradientData(gradientData) {
+    gradientColorsRow().innerHTML = gradientData.gradientColors;
+
+    function toggleActives(gradientSetting, active, inActive, id) {
+        gradientSetting[active].id = id;
+        gradientSetting[inActive].removeAttribute('id');
     }
-    let newColor = document.createElement("button");
-    newColor.className = "preset-color gi gi-random";
-    newColor.title = "random color";
-    newColor.addEventListener('click', () => {
-        setRandomColor(getActiveColorButton());
-        updatesToActiveColor();
-    });
-    elementById("colorPallete").appendChild(newColor);
-};
-
-function toggleActives(gradientSetting, active, inActive, id) {
-    gradientSetting[active].id = id;
-    gradientSetting[inActive].removeAttribute('id');
-}
-
-const applySavedGradient = () => {
-    const gradientData = JSON.parse(localStorage.getItem('settings'));
-    if (gradientData == null) return;
-    const gradientColors = localStorage.getItem('colours');
-    gradientColorsRow().innerHTML = gradientColors;
 
     function retrieveLinearSettigs(gradientSetting) {
         toggleActives(gradientSetting, 0, 1, "activeType");
@@ -751,13 +711,13 @@ const applySavedGradient = () => {
     }
 
     function retrieveRadialSettigs(gradientSetting) {
-        const radialType = elementsByClass('radialType');
+        const radialTypeButton = elementsByClass('radialTypeButton');
         const radialDirections = getRadialDirections();
         toggleActives(gradientSetting, 1, 0, "activeType");
         if (gradientData.radialShape == "circle")
-            toggleActives(radialType, 0, 1, "activeShape");
+            toggleActives(radialTypeButton, 0, 1, "activeShape");
         else
-            toggleActives(radialType, 1, 0, "activeShape");
+            toggleActives(radialTypeButton, 1, 0, "activeShape");
         elementById('linearDiv').style.display = "none"
         elementById('radialDiv').style.display = "flex"
         for (let index = 0; index < radialDirections.length; index++) {
@@ -768,62 +728,80 @@ const applySavedGradient = () => {
         }
     }
 
-    const gradientType = elementsByClass('gradientType');
+    const gradientTypeButton = elementsByClass('gradientTypeButton');
     if (gradientData.activeType == 'linear') {
-        retrieveLinearSettigs(gradientType);
+        retrieveLinearSettigs(gradientTypeButton);
     } else {
-        retrieveRadialSettigs(gradientType);
+        retrieveRadialSettigs(gradientTypeButton);
     }
     elementById("gradient").style.background = getGradientString();
     elementById("gradientCode").innerText = `background : ${getGradientString()};`;
-};
-
-const setLocalData = () => {
-    if (localStorage.getItem('autosave') != null) {
-        if (localStorage.getItem('autosave') == 'true') {
-            applySavedGradient();
-            elementById('autosave').checked = true;
-        } else {
-            elementById('autosave').checked = false;
-        }
-    } else {
-        elementById('autosave').checked = true;
-    }
-};
-
-function getNewColorButton(switchAciveColor = false) {
-    let newColorButton = document.createElement("button");
-    newColorButton.className = "colorButton";
-    newColorButton.innerText = "gradient";
-    setRandomColor(newColorButton);
-    newColorButton.setAttribute("onclick", "colorButtonCicked(this)");
-    newColorButton.setAttribute("onfocus", "this.click()");
-    newColorButton.value = getGradientColors().length;
-    if (switchAciveColor)
-        switchActiveColor(newColorButton);
-    let newColorButtonGap = document.createElement("div");
-    newColorButtonGap.className = "color-buttons-gap";
-    gradientColorsRow().append(newColorButton, newColorButtonGap);
 }
-
-const setInitialGradientColors = () => {
-    getNewColorButton(true);
-    getNewColorButton();
-};
 
 const setSliderBackgrounds = () => {
     const sliders = getHslaSliders();
     const hsla = getSliderHslaValue();
-    sliders[0].style.backgroundImage = `linear-gradient(90deg, #F00 0%, #FF0 16.66%, #0F0 33.33%, #0FF 50%, #00F 66.66%, #F0F 83.33%, #F00 100%)`;
-    sliders[1].style.backgroundImage = `linear-gradient(90deg, ${getHslaString(hsla.hue,0,hsla.light,100)}, ${getHslaString(hsla.hue,100,hsla.light,100)})`;
-    sliders[2].style.backgroundImage = `linear-gradient(90deg, black, white)`;
+    sliders[0].style.background = `linear-gradient(90deg, #F00 0%, #FF0 16.66%, #0F0 33.33%, #0FF 50%, #00F 66.66%, #F0F 83.33%, #F00 100%)`;
+    sliders[1].style.background = `linear-gradient(90deg, ${getHslaString(hsla.hue,0,hsla.light,100)}, ${getHslaString(hsla.hue,100,hsla.light,100)})`;
+    sliders[2].style.background = `linear-gradient(90deg, black, white)`;
+};
+
+const setLocalData = () => {
+    const autosaveState = getLocalItem('autosave');
+    if (autosaveState == null) {
+        elementById('autosave').checked = true;
+        return;
+    }
+    if (autosaveState === 'false') {
+        elementById('autosave').checked = false;
+        return;
+    }
+    const gradientData = getLocalItem('autoGradient');
+    if (gradientData != null)
+        applySavedGradientData(JSON.parse(gradientData));
+    elementById('autosave').checked = true;
+};
+
+const setColorPallete = () => {
+    const pallete = elementById("colorPallete");
+    const colors = ['EB808E', 'C0C0D8', '53C6A9', 'AF3C44', '80BFFF', 'FF99BB', '17918A', '31F26E', 'E0C145', 'CC397B', 'EA9482'];
+    for (let index = 0; index < 11; index++) {
+        const newColor = createElement("button", "preset-color", `#${colors[index]}FF`);
+        newColor.setAttribute("onclick", "palleteColorChoosed(this)");
+        pallete.appendChild(newColor);
+    }
+    const newColor = createElement("button", ["preset-color", "gi", "gi-random"]);
+    newColor.title = "random color";
+    newColor.addEventListener('click', () => {
+        setRandomColor(getActiveColorButton());
+        updatesByActiveColor();
+    });
+    pallete.appendChild(newColor);
+};
+
+function addNewColorButton(activeColor = false) {
+    const colorButton = createElement("button", "colorButton");
+    colorButton.innerText = "gradient";
+    setRandomColor(colorButton);
+    colorButton.setAttribute("onclick", "colorButtonCicked(this)");
+    colorButton.setAttribute("onfocus", "this.click()");
+    colorButton.value = getGradientColors().length;
+    if (activeColor)
+        switchActiveColor(colorButton);
+    const colorButtonGap = createElement("div", "color-buttons-gap");
+    gradientColorsRow().append(colorButton, colorButtonGap);
+}
+
+const setInitialGradientColors = () => {
+    addNewColorButton(true);
+    addNewColorButton();
 };
 
 const initiate = () => {
     setInitialGradientColors();
     setColorPallete();
     setLocalData();
-    updatesToActiveColor();
+    updatesByActiveColor();
     setUserColors();
     setUserGradients();
     addEventListeners();

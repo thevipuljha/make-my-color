@@ -8,6 +8,7 @@ box shadow : #00000066*/
     --theme-color: #A122DD;
     --theme-gradient: linear-gradient(90deg, #A122DDFF, #CC397BFF, #FF374FFF);
     --active-color: #A122DD;
+    --font-color: black;
 }
 
 /* @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;600;800&display=swap'); */
@@ -22,16 +23,6 @@ box shadow : #00000066*/
         url('../fonts/work-sans-v8-latin-regular.ttf') format('truetype');
 }
 
-/* work-sans-600 - latin */
-@font-face {
-    font-family: 'Work Sans';
-    font-style: normal;
-    font-weight: 600;
-    src: local(''),
-        url('../fonts/work-sans-v8-latin-600.woff') format('woff'),
-        url('../fonts/work-sans-v8-latin-600.ttf') format('truetype');
-}
-
 /* work-sans-500 - latin */
 @font-face {
     font-family: 'Work Sans';
@@ -40,6 +31,16 @@ box shadow : #00000066*/
     src: local(''),
         url('../fonts/work-sans-v8-latin-500.woff') format('woff'),
         url('../fonts/work-sans-v8-latin-500.ttf') format('truetype');
+}
+
+/* work-sans-600 - latin */
+@font-face {
+    font-family: 'Work Sans';
+    font-style: normal;
+    font-weight: 600;
+    src: local(''),
+        url('../fonts/work-sans-v8-latin-600.woff') format('woff'),
+        url('../fonts/work-sans-v8-latin-600.ttf') format('truetype');
 }
 
 /* work-sans-700 - latin */
@@ -240,6 +241,10 @@ header {
     justify-content: space-between;
 }
 
+.color-settings-div label {
+    font-weight: 500;
+}
+
 .title {
     white-space: nowrap;
     user-select: none;
@@ -308,7 +313,7 @@ header {
     top: 5px;
 }
 
-.more-options {
+.more-options-block {
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
@@ -319,6 +324,7 @@ header {
 .more-options {
     width: 42px;
     height: 42px;
+    border: 2px solid white;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -326,7 +332,6 @@ header {
     color: white;
     font-size: 24px;
     background-color: #03070455;
-    border: 2px solid white;
 }
 
 #autosave {
@@ -424,7 +429,6 @@ main {
     align-items: center;
     justify-content: center;
     font-size: 1.6em;
-    color: white;
     background-color: var(--active-color);
 }
 
@@ -981,7 +985,7 @@ footer {
         height: 38vh;
     }
 
-    .more-options {
+    .more-options-block {
         height: 34vh;
     }
 
@@ -1116,4 +1120,16 @@ footer {
     to {
         padding-bottom: 10px;
     }
+}
+
+.color-option-button,
+.color-settings-div,
+.color-settings-div input {
+    color: var(--font-color);
+}
+
+.color-settings-div input[type="number"],
+.color-settings-div input[type="text"] {
+    background-color: transparent;
+    border-color: var(--font-color);
 }
