@@ -37,7 +37,7 @@ const getGradientString = () => {
     }
     const isHex = elementById("codeSwitch").checked;
     for (let index = 0; index < colorButtons.length; index++) {
-        const rgba = getBackgroundColor(colorButtons[index]);
+        const rgba = getBackgroundColor(colorButtons[index], "rgb");
         if (isHex) {
             gradientString += `, ${getHexString(rgbaToHex(rgba[0],rgba[1],rgba[2],rgba[3]))}`;
         } else {
@@ -53,7 +53,7 @@ function showToast(message) {
     setTimeout(() => elementById("toastContainer").style.display = "none", 700);
 }
 
-const createElement = (tag, classname, backColor) => {
+const createElement = (tag, classname, background) => {
     const newElement = document.createElement(tag);
     if (typeof (classname) == "object")
         classname.forEach(currentValue => {
@@ -61,12 +61,12 @@ const createElement = (tag, classname, backColor) => {
         });
     else
         newElement.className = classname;
-    if (typeof (backColor) != "undefined")
-        newElement.style.backgroundColor = backColor;
+    if (typeof (background) != "undefined")
+        newElement.style.background = background;
     return newElement;
 };
 
-function getBackgroundColor(domElelment) {
+function getBackgroundColor(domElelment, colorType) {
     let color = domElelment.style.backgroundColor;
     color = String(color).split(",");
     let red = +(color[0].split("(")[1]);
@@ -77,7 +77,11 @@ function getBackgroundColor(domElelment) {
         alpha = +(color[3].split(")")[0] * 100);
     else
         blue = +(color[2].split(")")[0]);
-    return [red, green, blue, alpha];
+    if (colorType == "rgb") {
+        return [red, green, blue, alpha];
+    } else if (colorType == "hex") {
+        return rgbaToHex(red, green, blue, alpha);
+    }
 };
 
 const getCurrentGradientObj = () => {
@@ -93,9 +97,9 @@ const getCurrentGradientObj = () => {
 const saveGradientData = () => {
     if (elementById('autosave').checked) {
         const gradientData = getCurrentGradientObj();
-        localStorage.setItem('autoGradient', JSON.stringify(gradientData));
+        setLocalItem('autoGradient', JSON.stringify(gradientData));
     }
-    localStorage.setItem('autosave', elementById('autosave').checked);
+    setLocalItem('autosave', elementById('autosave').checked);
 };
 
 const setMainGradient = () => {
@@ -147,13 +151,18 @@ const changeActiveButtonColor = () => {
     getActiveColorButton().style.backgroundColor = getHslaString(hsla.hue, hsla.sat, hsla.light, hsla.alpha);
 };
 
+function getForegroundColor(rgb) {
+    const sum = Math.round(((parseInt(rgb[0]) * 299) + (parseInt(rgb[1]) * 587) + (parseInt(rgb[2]) * 114)) / 1000);
+    return (sum > 128) ? '#222222' : '#dddddd';
+}
+
 function updatesByActiveColor(changeSlider = true) {
-    const rgba = getBackgroundColor(getActiveColorButton());
+    const rgba = getBackgroundColor(getActiveColorButton(), "rgb");
     const rgbInputs = getRgbInputs();
     for (let index = 0; index < rgbInputs.length; index++) {
         rgbInputs[index].value = rgba[index];
     }
-    const hex = rgbaToHex(rgba[0], rgba[1], rgba[2], rgba[3]);
+    const hex = getBackgroundColor(getActiveColorButton(), "hex");
     elementById("hexInput").value = hex;
     if (changeSlider) {
         const hsla = rgbatohsla(rgba[0], rgba[1], rgba[2], rgba[3]);
@@ -168,11 +177,8 @@ function updatesByActiveColor(changeSlider = true) {
         }
     }
     document.documentElement.style.setProperty("--active-color", getHexString(hex));
-    // if (hsla.light <= 45 || hsla.sat <= 45) {
-    //     document.documentElement.style.setProperty("--font-color", "white");
-    // } else {
-    //     document.documentElement.style.setProperty("--font-color", "black");
-    // }
+    const fontColor = getForegroundColor(rgba);
+    document.documentElement.style.setProperty("--font-color", fontColor);
     setMainGradient();
 }
 
@@ -193,7 +199,7 @@ function applySavedColor(hexColor) {
 }
 
 function deleteSavedColor(colorID) {
-    let userColorList = localStorage.getItem("userColorList").split(",");
+    let userColorList = JSON.parse(getLocalItem("userColorList"));
     elementById(colorID).remove();
     if (userColorList.length == 1) {
         localStorage.removeItem("userColorList");
@@ -203,13 +209,13 @@ function deleteSavedColor(colorID) {
     } else {
         const indexToDelete = userColorList.indexOf(colorID);
         userColorList.splice(indexToDelete, 1);
-        localStorage.setItem("userColorList", userColorList);
+        setLocalItem("userColorList", JSON.stringify(userColorList));
     }
     showToast(`${colorID} Deleted`);
 }
 
 function deleteSavedGradient(gradientId) {
-    let userGradList = JSON.parse(localStorage.getItem("userGradList"));
+    let userGradList = JSON.parse(getLocalItem("userGradList"));
     elementById(gradientId).remove();
     showToast(`Gradient Deleted`);
     if (userGradList.length == 1) {
@@ -221,7 +227,7 @@ function deleteSavedGradient(gradientId) {
         for (let index = 0; index < userGradList.length; index++) {
             if (userGradList[index].gradientID == gradientId) {
                 userGradList.splice(index, 1);
-                localStorage.setItem("userGradList", JSON.stringify(userGradList));
+                setLocalItem("userGradList", JSON.stringify(userGradList));
                 return;
             }
         }
@@ -229,7 +235,7 @@ function deleteSavedGradient(gradientId) {
 }
 
 function applySavedUserGradient(gradientId) {
-    const userGradList = JSON.parse(localStorage.getItem("userGradList"));
+    const userGradList = JSON.parse(getLocalItem("userGradList"));
     let userGradient;
     userGradList.forEach(gradientObj => {
         if (gradientObj.gradientID == gradientId) {
@@ -238,6 +244,83 @@ function applySavedUserGradient(gradientId) {
     });
     applySavedGradientData(userGradient);
     updatesByActiveColor();
+}
+
+const getUserColorContainer = (hexColor) => {
+    const colorContainer = createElement("div", "user-color-container");
+    colorContainer.id = hexColor;
+    const userColorBg = createElement("div", "user-div-bg");
+
+    const userColor = createElement("div", "user-color", hexColor);
+    userColor.addEventListener("mouseenter", () => {
+        const html = `<button class="user-color-apply" value="${hexColor}" onclick="applySavedColor(this.value)"><i class="gi gi-apply"></i></button>
+                      <button class="user-color-delete" value="${hexColor}" onclick="deleteSavedColor(this.value)"><i class="gi gi-remove"></i></button>`;
+        userColor.innerHTML = html;
+    });
+    userColor.addEventListener("mouseleave", () => {
+        userColor.innerHTML = "";
+    });
+
+    const userColorInfo = createElement("button", "user-color-info");
+    userColorInfo.title = "Copy Hex";
+    userColorInfo.innerText = hexColor;
+    userColorInfo.style.border = `3px solid ${hexColor}`;
+    userColorInfo.addEventListener("click", () => {
+        function listener(event) {
+            event.clipboardData.setData("text/plain", hexColor);
+            event.preventDefault();
+        }
+        document.addEventListener("copy", listener);
+        document.execCommand("copy");
+        document.removeEventListener("copy", listener);
+        showToast(`${hexColor} Copied`)
+    });
+    userColorBg.append(userColor);
+    colorContainer.append(userColorBg, userColorInfo);
+    return colorContainer;
+};
+
+const getUserGradContainer = (gradientId, gradientCode) => {
+    let gradContainer = createElement("div", "user-grad-container");
+    gradContainer.id = gradientId;
+    let userGradBg = createElement("div", "user-div-bg");
+
+    let userGrad = createElement("div", "user-grad", gradientCode);
+
+    userGrad.addEventListener("mouseenter", () => {
+        const html = `<button class="user-grad-apply" value="${gradientId}" onclick="applySavedUserGradient(this.value)"><i class="gi gi-apply"></i></button>
+                  <button class="user-grad-delete" value="${gradientId}" onclick="deleteSavedGradient(this.value)"><i class="gi gi-remove"></i></button>`;
+        userGrad.innerHTML = html;
+    });
+    userGrad.addEventListener("mouseleave", () => {
+        userGrad.innerHTML = "";
+    });
+
+    let userGradCopy = createElement("button", "user-grad-copy");
+    userGradCopy.title = "Copy Gradient";
+    userGradCopy.innerHTML = `<i class="gi gi-copy"></i>Copy`;
+    userGradCopy.addEventListener("click", () => {
+        function listener(event) {
+            event.clipboardData.setData("text/plain", `background : ${gradientCode};`);
+            event.preventDefault();
+        }
+        document.addEventListener("copy", listener);
+        document.execCommand("copy");
+        document.removeEventListener("copy", listener);
+        showToast(`Gradient Code Copied`)
+    });
+    userGradBg.appendChild(userGrad);
+    gradContainer.append(userGradBg, userGradCopy);
+    return gradContainer;
+};
+
+function isUserGradExists(userGradList, gradientId) {
+    let matchResult = false;
+    userGradList.forEach(gradient => {
+        if (gradient.gradientID == gradientId)
+            matchResult = true;
+    });
+    return matchResult;
 }
 
 function changeLinearDegree(linearSlider, linearDegrees) {
@@ -297,8 +380,7 @@ const addEventListeners = () => {
     hexInput.addEventListener('change', () => {
         let hex = hexInput.value;
         if (!isHexValid(hex)) {
-            const rgba = getBackgroundColor(getActiveColorButton());
-            hex = rgbaToHex(rgba[0], rgba[1], rgba[2], rgba[3]);
+            hex = getBackgroundColor(getActiveColorButton(), "hex");
         } else if (hex.length == 3)
             hex = `${hex[0]}${hex[0]}${hex[1]}${hex[1]}${hex[2]}${hex[2]}FF`;
         hexInput.value = hex;
@@ -425,140 +507,68 @@ const addEventListeners = () => {
     });
 
     elementById("loadButton").addEventListener("click", () => {
-        if (localStorage.getItem('autoGradient') != null) {
-            applySavedGradient();
-            updatesByActiveColor();
-            showToast(`Gradient Restored`);
-        } else {
+        const gradientData = getLocalItem('autoGradient');
+        if (gradientData == null) {
             showToast(`Save some gradient`);
+            return;
         }
+        applySavedGradientData(JSON.parse(gradientData))
+        updatesByActiveColor();
+        showToast(`Gradient Restored`);
     });
 
     elementById("addUserColor").addEventListener("click", () => {
-        const rgba = getBackgroundColor(getActiveColorButton());
-        const hex = getHexString(rgbaToHex(rgba[0], rgba[1], rgba[2], rgba[3]));
-        let userColorList = localStorage.getItem("userColorList");
-        if (userColorList != null) {
-            userColorList = userColorList.split(",");
+        const hex = `#${getBackgroundColor(getActiveColorButton(), "hex")}`;
+        let userColorList = getLocalItem("userColorList");
+        if (userColorList == null) {
+            userColorList = new Array();
         } else {
-            userColorList = [];
+            userColorList = JSON.parse(userColorList);
         }
-        if (userColorList.indexOf(hex) === -1) {
-            userColorList.push(hex);
-            localStorage.setItem("userColorList", userColorList);
-            let colorListContainer = elementById("userColors");
-            if (colorListContainer.classList.contains("empty-list")) {
-                colorListContainer.innerHTML = "";
-                colorListContainer.classList.remove("empty-list");
-            }
-
-            let colorContainer = document.createElement("div");
-            colorContainer.className = "user-color-container";
-            colorContainer.id = hex;
-
-            let userColorBg = document.createElement("div");
-            userColorBg.className = "user-div-bg";
-
-            let userColor = document.createElement("div");
-            userColor.className = "user-color";
-            userColor.style.backgroundColor = hex;
-
-            userColor.addEventListener("mouseenter", () => {
-                const html = `<button class="user-color-apply" value="${hex}" onclick="applySavedColor(this.value)"><i class="gi gi-apply"></i></button>
-                              <button class="user-color-delete" value="${hex}" onclick="deleteSavedColor(this.value)"><i class="gi gi-remove"></i></button>`;
-                userColor.innerHTML = html;
-            });
-            userColor.addEventListener("mouseleave", () => {
-                userColor.innerHTML = "";
-            });
-
-            let userColorInfo = document.createElement("button");
-            userColorInfo.className = "user-color-info";
-            userColorInfo.title = "Copy Hex";
-            userColorInfo.innerText = hex;
-            userColorInfo.style.border = `3px solid ${hex}`;
-            userColorInfo.addEventListener("click", () => {
-                function listener(event) {
-                    event.clipboardData.setData("text/plain", hex);
-                    event.preventDefault();
-                }
-                document.addEventListener("copy", listener);
-                document.execCommand("copy");
-                document.removeEventListener("copy", listener);
-                showToast(`${hex} Copied`)
-            });
-            userColorBg.append(userColor);
-            colorContainer.append(userColorBg, userColorInfo);
-            colorListContainer.appendChild(colorContainer);
-            elementById("userColors").scrollTop = elementById("userColors").scrollHeight;
-        } else {
+        if (userColorList.indexOf(hex) != -1) {
             showToast("Color already saved");
+            return;
         }
+        userColorList.push(hex);
+        setLocalItem("userColorList", JSON.stringify(userColorList));
 
+        let colorListContainer = elementById("userColors");
+        if (colorListContainer.classList.contains("empty-list")) {
+            colorListContainer.classList.remove("empty-list");
+            colorListContainer.innerHTML = "";
+        }
+        const colorContainer = getUserColorContainer(hex);
+        colorListContainer.appendChild(colorContainer);
+        elementById("userColors").scrollTop = elementById("userColors").scrollHeight;
     });
 
     elementById("addUserGrad").addEventListener("click", () => {
-        let userGradList = localStorage.getItem("userGradList");
-        if (userGradList != null)
+        let userGradList = getLocalItem("userGradList");
+        if (userGradList == null) {
+            userGradList = new Array();
+        } else {
             userGradList = JSON.parse(userGradList);
-        else
-            userGradList = [];
+        }
         const codeSwitch = elementById("codeSwitch");
         const codeSwitchState = codeSwitch.checked;
         codeSwitch.checked = "true";
         const currentGradientCode = getGradientString();
         const gradientId = makeGradientId(currentGradientCode);
-        if (userGradList.indexOf(gradientId) != -1) {
+        if (isUserGradExists(userGradList, gradientId)) {
             showToast("Gradient already saved");
         } else {
             let gradientData = getCurrentGradientObj();
             gradientData["gradientID"] = gradientId;
             gradientData["gradientCode"] = currentGradientCode;
             userGradList.push(gradientData);
-            localStorage.setItem("userGradList", JSON.stringify(userGradList));
+            setLocalItem("userGradList", JSON.stringify(userGradList));
 
             let gradListContainer = elementById("userGradients");
             if (gradListContainer.classList.contains("empty-list")) {
                 gradListContainer.innerHTML = "";
                 gradListContainer.classList.remove("empty-list");
             }
-
-            let gradContainer = document.createElement("div");
-            gradContainer.className = "user-grad-container";
-            gradContainer.id = gradientId;
-
-            let userGradBg = document.createElement("div");
-            userGradBg.className = "user-div-bg";
-
-            let userGrad = document.createElement("div");
-            userGrad.className = "user-grad";
-            userGrad.style.background = currentGradientCode;
-
-            userGrad.addEventListener("mouseenter", () => {
-                const html = `<button class="user-grad-apply" value="${gradientId}" onclick="applySavedUserGradient(this.value)"><i class="gi gi-apply"></i></button>
-                          <button class="user-grad-delete" value="${gradientId}" onclick="deleteSavedGradient(this.value)"><i class="gi gi-remove"></i></button>`;
-                userGrad.innerHTML = html;
-            });
-            userGrad.addEventListener("mouseleave", () => {
-                userGrad.innerHTML = "";
-            });
-
-            let userGradCopy = document.createElement("button");
-            userGradCopy.className = "user-grad-copy";
-            userGradCopy.title = "Copy Gradient";
-            userGradCopy.innerHTML = `<i class="gi gi-copy"></i>Copy`;
-            userGradCopy.addEventListener("click", () => {
-                function listener(event) {
-                    event.clipboardData.setData("text/plain", `background : ${currentGradientCode};`);
-                    event.preventDefault();
-                }
-                document.addEventListener("copy", listener);
-                document.execCommand("copy");
-                document.removeEventListener("copy", listener);
-                showToast(`Gradient Code Copied`)
-            });
-            userGradBg.appendChild(userGrad);
-            gradContainer.append(userGradBg, userGradCopy);
+            const gradContainer = getUserGradContainer(gradientId, currentGradientCode);
             gradListContainer.appendChild(gradContainer);
             elementById("userGradients").scrollTop = elementById("userGradients").scrollHeight;
         }
@@ -567,50 +577,14 @@ const addEventListeners = () => {
 };
 
 function setUserGradients() {
-    let userGradList = localStorage.getItem("userGradList");
+    let userGradList = getLocalItem("userGradList");
     let gradListContainer = elementById("userGradients");
     if (userGradList != null) {
         userGradList = JSON.parse(userGradList);
         for (let index = 0; index < userGradList.length; index++) {
             const currentGradientCode = userGradList[index].gradientCode;
             const gradientId = makeGradientId(currentGradientCode);
-            let gradContainer = document.createElement("div");
-            gradContainer.className = "user-grad-container";
-            gradContainer.id = gradientId;
-
-            let userGradBg = document.createElement("div");
-            userGradBg.className = "user-div-bg";
-
-            let userGrad = document.createElement("div");
-            userGrad.className = "user-grad";
-            userGrad.style.background = currentGradientCode;
-
-            userGrad.addEventListener("mouseenter", () => {
-                const html = `<button class="user-grad-apply" value="${gradientId}" onclick="applySavedUserGradient(this.value)"><i class="gi gi-apply"></i></button>
-                          <button class="user-grad-delete" value="${gradientId}" onclick="deleteSavedGradient(this.value)"><i class="gi gi-remove"></i></button>`;
-                userGrad.innerHTML = html;
-            });
-
-            userGrad.addEventListener("mouseleave", () => {
-                userGrad.innerHTML = "";
-            });
-
-            let userGradCopy = document.createElement("button");
-            userGradCopy.className = "user-grad-copy";
-            userGradCopy.title = "Copy Gradient";
-            userGradCopy.innerHTML = `<i class="gi gi-copy"></i>Copy`;
-            userGradCopy.addEventListener("click", () => {
-                function listener(event) {
-                    event.clipboardData.setData("text/plain", `background : ${currentGradientCode};`);
-                    event.preventDefault();
-                }
-                document.addEventListener("copy", listener);
-                document.execCommand("copy");
-                document.removeEventListener("copy", listener);
-                showToast(`Gradient Code Copied`)
-            });
-            userGradBg.appendChild(userGrad);
-            gradContainer.append(userGradBg, userGradCopy);
+            const gradContainer = getUserGradContainer(gradientId, currentGradientCode);
             gradListContainer.appendChild(gradContainer);
         }
     } else {
@@ -620,54 +594,20 @@ function setUserGradients() {
 }
 
 function setUserColors() {
-    let userColorList = localStorage.getItem("userColorList");
+    let userColorList = getLocalItem("userColorList");
     let colorListContainer = elementById("userColors");
-    if (userColorList != null) {
-        userColorList = userColorList.split(",");
-        for (let index = 0; index < userColorList.length; index++) {
-            const hex = userColorList[index];
-            let colorContainer = document.createElement("div");
-            colorContainer.className = "user-color-container";
-            colorContainer.id = hex;
-
-            let userColorBg = document.createElement("div");
-            userColorBg.className = "user-div-bg";
-
-            let userColor = document.createElement("div");
-            userColor.className = "user-color";
-            userColor.style.backgroundColor = hex;
-            userColor.addEventListener("mouseenter", () => {
-                const html = `<button class="user-color-apply" value="${hex}" onclick="applySavedColor(this.value)"><i class="gi gi-apply"></i></button>
-                              <button class="user-color-delete" value="${hex}" onclick="deleteSavedColor(this.value)"><i class="gi gi-remove"></i></button>`;
-                userColor.innerHTML = html;
-            });
-            userColor.addEventListener("mouseleave", () => {
-                userColor.innerHTML = "";
-            });
-
-            let userColorInfo = document.createElement("button");
-            userColorInfo.className = "user-color-info";
-            userColorInfo.title = "Copy Hex";
-            userColorInfo.innerText = hex;
-            userColorInfo.style.border = `3px solid ${hex}`;
-            userColorInfo.addEventListener("click", () => {
-                function listener(event) {
-                    event.clipboardData.setData("text/plain", hex);
-                    event.preventDefault();
-                }
-                document.addEventListener("copy", listener);
-                document.execCommand("copy");
-                document.removeEventListener("copy", listener);
-                showToast(`${hex} Copied`)
-            });
-            userColorBg.append(userColor);
-            colorContainer.append(userColorBg, userColorInfo);
-            colorListContainer.appendChild(colorContainer);
-        }
-    } else {
+    if (userColorList == null) {
         colorListContainer.classList.add("empty-list");
         colorListContainer.innerHTML = "Save Some Colors";
+        return;
     }
+    userColorList = JSON.parse(userColorList);
+    for (let index = 0; index < userColorList.length; index++) {
+        const hex = userColorList[index];
+        const colorContainer = getUserColorContainer(hex)
+        colorListContainer.appendChild(colorContainer);
+    }
+
 }
 
 const swapColors = (shiftDirection) => {
