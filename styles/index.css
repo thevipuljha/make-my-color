@@ -9,6 +9,10 @@ box shadow : #00000066*/
     --theme-gradient: linear-gradient(90deg, #A122DDFF, #CC397BFF, #FF374FFF);
     --active-color: #A122DD;
     --font-color: #222222;
+    --fb-hex: #3B5998;
+    --twitter-hex: #1DA1F2;
+    --linkedin-hex: #007BB5;
+    --whatsapp-hex: #25D366;
 }
 
 /* @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;600;800&display=swap'); */
@@ -68,8 +72,8 @@ box shadow : #00000066*/
     font-family: 'Gracycon';
     font-style: normal;
     font-weight: normal;
-    src: url('../fonts/gracy-icons.woff?19260748') format('woff'),
-        url('../fonts/gracy-icons.ttf?19260748') format('truetype');
+    src: url('../fonts/gracy-icons.woff?28672275') format('woff'),
+        url('../fonts/gracy-icons.ttf?28672275') format('truetype');
 }
 
 /* gi class for gracy font icons */
@@ -174,6 +178,22 @@ box shadow : #00000066*/
 
 .gi-code:before {
     content: '\f121';
+}
+
+.gi-fb:before {
+    content: '\e817';
+}
+
+.gi-linkedin:before {
+    content: '\e818';
+}
+
+.gi-twitter:before {
+    content: '\e819';
+}
+
+.gi-whatsapp:before {
+    content: '\f232';
 }
 
 button,
@@ -1052,6 +1072,74 @@ footer {
     background-color: white;
     border-radius: 14px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.urlRow,
+.socialRow {
+    width: 90%;
+    height: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.urlTextDiv {
+    width: 75%;
+    border: 1px solid var(--theme-color);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.urlText {
+    word-wrap: break-word;
+    text-align: center;
+    line-height: 1.4em;
+}
+
+.urlCopy {
+    width: 15%;
+    height: 42px;
+    font-size: 24px;
+    border: 1px solid var(--theme-color);
+    border-radius: 10px;
+}
+
+.socialIcon {
+    width: 48px;
+    height: 48px;
+    font-size: 24px;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    color: white;
+    background-color: #454545DD;
+}
+
+.socialIcon:hover {
+    background-color: white;
+}
+
+.gi-fb:hover {
+    color: var(--fb-hex);
+    border-color: var(--fb-hex);
+}
+
+.gi-twitter:hover {
+    color: var(--twitter-hex);
+    border-color: var(--twitter-hex);
+}
+
+.gi-linkedin:hover {
+    color: var(--linkedin-hex);
+    border-color: var(--linkedin-hex);
+}
+
+.gi-whatsapp:hover {
+    color: var(--whatsapp-hex);
+    border-color: var(--whatsapp-hex);
 }
 
 .go-to-top {

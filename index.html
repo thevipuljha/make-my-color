@@ -4,21 +4,21 @@
 <head>
     <meta charset="utf-8">
     <title>Gracy</title>
-    <link rel="shortcut icon" href="images/favicon.svg">
+    <link rel="shortcut icon" onclick="openShareWindow('')" href="images/favicon.svg">
     <meta name="keywords" content="gracy,gradient,creator,maker,vipul1142" />
-    <meta name="description" content="CSS Gradient Creator." />
+    <meta name="description" content="A Powerful and easy CSS Gradient Creator." />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="url" content="https://vipul1142.github.io/make-my-color/index.html" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://vipul1142.github.io/make-my-color/index.html">
-    <meta name="twitter:creator" content="@vip1142" />
+    <meta name="twitter:creator" content="@Vipul1142" />
     <meta property="og:url" content="https://vipul1142.github.io/make-my-color/index.html" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Gracy" />
     <meta property="og:description" content="GRAdient Creator for You." />
     <meta property="og:image" content="https://vipul1142.github.io/make-my-color/images/thumb.png" />
-    <meta property="og:image:width" content="630">
-    <meta property="og:image:height" content="478">
+    <meta property="og:image:width" content="660">
+    <meta property="og:image:height" content="190">
     <link rel="stylesheet" href="styles/index.css">
     <script src="scripts/colorCodes.js"></script>
     <script src="scripts/main.js"></script>
@@ -240,7 +240,18 @@
         </button>
         <div class="popup-container" id="modalPopup">
             <div class="share-popup">
-                <button onclick="shareOpen()">share whatsapp</button>
+                <div class="urlRow">
+                    <div class="urlTextDiv">
+                        <span class="urlText">https://vipul1142.github.io/make-my-color/index.html</span>
+                    </div>
+                    <button class="urlCopy gi gi-copy"></button>
+                </div>
+                <div class="socialRow">
+                    <button class="gi gi-fb socialIcon" onclick="openShareWindow('fb')"></button>
+                    <button class="gi gi-twitter socialIcon" onclick="openShareWindow('tw')"></button>
+                    <button class="gi gi-linkedin socialIcon" onclick="openShareWindow('li')"></button>
+                    <button class="gi gi-whatsapp socialIcon" onclick="openShareWindow('wa')"></button>
+                </div>
             </div>
         </div>
 

@@ -622,7 +622,6 @@ function setUserColors() {
         const colorContainer = getUserColorContainer(hex)
         colorListContainer.appendChild(colorContainer);
     }
-
 }
 
 const swapColors = (shiftDirection) => {
@@ -640,9 +639,24 @@ const swapColors = (shiftDirection) => {
     setMainGradient();
 };
 
-function shareOpen() {
-    window.open("https://api.whatsapp.com/send?text=https%3A%2F%2Fvipul1142.github.io%2Fmake-my-color%2Findex.html", "", "toolbar=0, status=0, width=" + 900 + ", height=" + 600 + "");
-    // window.open('https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fvipul1142.github.io%2Fmake-my-color%2F&t=Gracy', "", "toolbar=0, status=0, width=" + 900 + ", height=" + 600 + "");
+function openShareWindow(media) {
+    const siteURL = "https%3A%2F%2Fvipul1142.github.io%2Fmake-my-color%2Findex.html";
+    const siteDesc = "Gracy%20-%20A%20Powerful%20and%20easy%20CSS%20Gradient%20Creator";
+    const windowDetails = "toolbar=0, status=0, width=900 , height=600";
+    switch (media) {
+        case "fb":
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${siteURL}`, "", `${windowDetails}`);
+            break;
+        case "tw":
+            window.open(`https://twitter.com/intent/tweet?url=${siteURL}&text=${siteDesc}&via=Vipul1142`, "", `${windowDetails}`);
+            break;
+        case "li":
+            window.open(`http://www.linkedin.com/shareArticle?mini=true&url=${siteURL}&title=Gracy&summary=${siteDesc}`, "", `${windowDetails}`);
+            break;
+        case "wa":
+            window.open(`https://api.whatsapp.com/send?text=${siteURL}`, "", `${windowDetails}`);
+            break;
+    }
 }
 
 const setInputLimit = (element, lowerLimit, upperLimit) => {
