@@ -517,6 +517,21 @@ const addEventListeners = () => {
         showToast(`Gradient Restored`);
     });
 
+    elementById("shareButton").addEventListener("click", () => {
+        elementById("modalPopup").classList.toggle("show-popup");
+    });
+
+    window.onclick = function (event) {
+        if (event.target == elementById("modalPopup")) {
+            elementById("modalPopup").classList.toggle("show-popup");
+        }
+    }
+    window.onkeyup = function (event) {
+        if (event.key === "Escape") {
+            elementById("modalPopup").classList.remove("show-popup");
+        }
+    }
+
     elementById("addUserColor").addEventListener("click", () => {
         const hex = `#${getBackgroundColor(getActiveColorButton(), "hex")}`;
         let userColorList = getLocalItem("userColorList");
@@ -624,6 +639,11 @@ const swapColors = (shiftDirection) => {
     colorToSwap.id = "activeColor";
     setMainGradient();
 };
+
+function shareOpen() {
+    window.open("https://api.whatsapp.com/send?text=https%3A%2F%2Fvipul1142.github.io%2Fmake-my-color%2Findex.html", "", "toolbar=0, status=0, width=" + 900 + ", height=" + 600 + "");
+    // window.open('https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fvipul1142.github.io%2Fmake-my-color%2F&t=Gracy', "", "toolbar=0, status=0, width=" + 900 + ", height=" + 600 + "");
+}
 
 const setInputLimit = (element, lowerLimit, upperLimit) => {
     if (element.value >= upperLimit) {

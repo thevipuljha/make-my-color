@@ -8,7 +8,7 @@ box shadow : #00000066*/
     --theme-color: #A122DD;
     --theme-gradient: linear-gradient(90deg, #A122DDFF, #CC397BFF, #FF374FFF);
     --active-color: #A122DD;
-    --font-color: black;
+    --font-color: #222222;
 }
 
 /* @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;600;800&display=swap'); */
@@ -561,10 +561,6 @@ main {
     left: -2px;
 }
 
-input[type='number']:focus,
-.hex-input:focus {
-    border: solid 2px var(--theme-color);
-}
 
 input[type='range']::-webkit-slider-thumb {
     -webkit-appearance: none;
@@ -971,6 +967,142 @@ footer {
     height: 24px;
 }
 
+/* hover focus */
+.title:hover,
+#gradientCopyButton:hover,
+#gradientCopyButton:focus {
+    background-image: linear-gradient(90deg, #A122DD, #CC397B, #FF374F, #A122DD);
+    background-size: 400% auto;
+    animation: animate 6s ease infinite;
+    color: white;
+}
+
+@keyframes animate {
+    to {
+        background-position: 400% 0%;
+    }
+}
+
+.preset-color:hover,
+.preset-color:focus {
+    box-shadow: 2px 2px 5px #00000066;
+    -webkit-box-shadow: 2px 2px 5px #00000066;
+    -moz-box-shadow: 2px 2px 5px #00000066;
+}
+
+.summary:hover,
+.summary:focus {
+    padding-left: 8px;
+}
+
+.toast {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+    height: max-content;
+    white-space: nowrap;
+    width: 100%;
+    position: fixed;
+    top: 16%;
+    z-index: 999999;
+    display: none;
+    user-select: none;
+}
+
+.toast span {
+    background: var(--theme-gradient);
+    width: max-content;
+    height: max-content;
+    padding: 5px 10px;
+    color: white;
+    font-weight: 500;
+    border-radius: 20px;
+}
+
+.popup-container {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 9999;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(1.1);
+    transition: visibility 0s ease 0.25s, opacity 0.25s 0s, transform 0.25s;
+}
+
+.show-popup {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1.0);
+    transition: visibility 0s ease 0s, opacity 0.25s 0s, transform 0.25s;
+}
+
+.share-popup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80vw;
+    height: 40vh;
+    background-color: white;
+    border-radius: 14px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+}
+
+.go-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 40px;
+    border: 3px solid var(--theme-color);
+    border-radius: 50%;
+    background-color: white;
+    width: 44px;
+    height: 44px;
+    font-size: x-large;
+    display: grid;
+    place-content: center;
+    opacity: 0.8;
+    display: none;
+    z-index: 99;
+    cursor: pointer;
+}
+
+.go-to-top:hover {
+    border: 3px solid var(--theme-color);
+    background-color: var(--theme-color);
+    opacity: 1;
+    color: white;
+    animation: topIt 1s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+
+@keyframes topIt {
+    to {
+        padding-bottom: 10px;
+    }
+}
+
+.color-option-button,
+.color-settings-div,
+.color-settings-div input {
+    color: var(--font-color);
+}
+
+.color-settings-div input[type="number"],
+.color-settings-div input[type="text"] {
+    background-color: transparent;
+    border-color: var(--font-color);
+}
+
+input[type='number']:focus,
+.hex-input:focus {
+    border: solid 2px var(--theme-color);
+}
+
 @media screen and (min-width:768px) {
     main {
         width: 95%;
@@ -1028,6 +1160,11 @@ footer {
     .user-gradients {
         margin-left: 2%;
     }
+
+    .share-popup {
+        width: 60vw;
+        height: 60vh;
+    }
 }
 
 @media screen and (min-width:1012px) {
@@ -1035,101 +1172,4 @@ footer {
         width: 14.65%;
         margin: 10px 1%;
     }
-}
-
-/* hover focus */
-.title:hover,
-#gradientCopyButton:hover,
-#gradientCopyButton:focus {
-    background-image: linear-gradient(90deg, #A122DD, #CC397B, #FF374F, #A122DD);
-    background-size: 400% auto;
-    animation: animate 6s ease infinite;
-    color: white;
-}
-
-@keyframes animate {
-    to {
-        background-position: 400% 0%;
-    }
-}
-
-.preset-color:hover,
-.preset-color:focus {
-    box-shadow: 2px 2px 5px #00000066;
-    -webkit-box-shadow: 2px 2px 5px #00000066;
-    -moz-box-shadow: 2px 2px 5px #00000066;
-}
-
-.summary:hover,
-.summary:focus {
-    padding-left: 8px;
-}
-
-.toast {
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    justify-content: center;
-    height: max-content;
-    white-space: nowrap;
-    width: 100%;
-    position: fixed;
-    top: 16%;
-    z-index: 99999;
-    display: none;
-    user-select: none;
-}
-
-.toast span {
-    background: var(--theme-gradient);
-    width: max-content;
-    height: max-content;
-    padding: 5px 10px;
-    color: white;
-    font-weight: 500;
-    border-radius: 20px;
-}
-
-.go-to-top {
-    position: fixed;
-    bottom: 30px;
-    right: 40px;
-    border: 3px solid var(--theme-color);
-    border-radius: 50%;
-    background-color: white;
-    width: 44px;
-    height: 44px;
-    font-size: x-large;
-    display: grid;
-    place-content: center;
-    opacity: 0.8;
-    display: none;
-    z-index: 99;
-    cursor: pointer;
-}
-
-.go-to-top:hover {
-    border: 3px solid var(--theme-color);
-    background-color: var(--theme-color);
-    opacity: 1;
-    color: white;
-    animation: topIt 1s cubic-bezier(0.19, 1, 0.22, 1) forwards;
-}
-
-@keyframes topIt {
-    to {
-        padding-bottom: 10px;
-    }
-}
-
-.color-option-button,
-.color-settings-div,
-.color-settings-div input {
-    color: var(--font-color);
-}
-
-.color-settings-div input[type="number"],
-.color-settings-div input[type="text"] {
-    background-color: transparent;
-    border-color: var(--font-color);
 }
