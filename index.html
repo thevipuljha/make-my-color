@@ -8,11 +8,11 @@
     <meta name="keywords" content="gracy,gradient,creator,maker,vipul1142" />
     <meta name="description" content="A Powerful and easy CSS Gradient Creator." />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="url" content="https://vipul1142.github.io/make-my-color/index.html" />
+    <meta name="url" content="cmyk(123%,123%,123%,123%)" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="https://vipul1142.github.io/make-my-color/index.html">
+    <meta name="twitter:url" content="cmyk(123%,123%,123%,123%)">
     <meta name="twitter:creator" content="@Vipul1142" />
-    <meta property="og:url" content="https://vipul1142.github.io/make-my-color/index.html" />
+    <meta property="og:url" content="cmyk(123%,123%,123%,123%)" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Gracy" />
     <meta property="og:description" content="GRAdient Creator for You." />
@@ -91,6 +91,9 @@
                 <div class="color-settings-alpha transparent-img-div"></div>
                 <div class="color-settings-div" id="colorWindow">
                     <div class="color-value-div">
+                        <div class="color-codes-parent">
+                            <span class="color-code-copy" id="colorCodeCopy"><i class="gi gi-copy"></i></span>
+                        </div>
                         <div class="secondary-color">
                             <label for="redInput">R</label>
                             <input type="number" min="0" max="255" class="rgb-input" id="redInput" placeholder="RED">
@@ -238,19 +241,39 @@
         <button class="go-to-top" id="toTop" onclick="topFunction()" title="Go to top">
             <i class="gi gi-top"></i>
         </button>
-        <div class="popup-container" id="modalPopup">
+        <div class="popup-container">
             <div class="share-popup">
                 <div class="urlRow">
                     <div class="urlTextDiv">
-                        <span class="urlText">https://vipul1142.github.io/make-my-color/index.html</span>
+                        <span class="urlText" id="urlText">https://vipul1142.github.io/make-my-color/index.html</span>
                     </div>
-                    <button class="urlCopy gi gi-copy"></button>
+                    <button class="urlCopy gi gi-copy" id="urlShareCopy"></button>
                 </div>
                 <div class="socialRow">
                     <button class="gi gi-fb socialIcon" onclick="openShareWindow('fb')"></button>
                     <button class="gi gi-twitter socialIcon" onclick="openShareWindow('tw')"></button>
                     <button class="gi gi-linkedin socialIcon" onclick="openShareWindow('li')"></button>
                     <button class="gi gi-whatsapp socialIcon" onclick="openShareWindow('wa')"></button>
+                </div>
+            </div>
+        </div>
+        <div class="popup-container">
+            <div class="copy-popup">
+                <div class="colorCodeRow">
+                    <span class="colorCode"></span>
+                    <button class="codeCopy gi gi-copy"></button>
+                </div>
+                <div class="colorCodeRow">
+                    <span class="colorCode"></span>
+                    <button class="codeCopy gi gi-copy"></button>
+                </div>
+                <div class="colorCodeRow">
+                    <span class="colorCode"></span>
+                    <button class="codeCopy gi gi-copy"></button>
+                </div>
+                <div class="colorCodeRow">
+                    <span class="colorCode"></span>
+                    <button class="codeCopy gi gi-copy"></button>
                 </div>
             </div>
         </div>

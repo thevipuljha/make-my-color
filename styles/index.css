@@ -241,6 +241,9 @@ input[type=number] {
 
 html {
     scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: auto;
+    text-rendering: optimizeLegibility;
 }
 
 body {
@@ -535,6 +538,47 @@ main {
     flex-flow: row nowrap;
     align-items: center;
     justify-content: space-evenly;
+}
+
+.color-codes-parent {
+    width: max-content;
+    height: max-content;
+    display: grid;
+    place-items: center;
+}
+
+.color-code-copy {
+    border: none;
+    background: none;
+    font-size: 24px;
+}
+
+.colorCodeRow {
+    height: max-content;
+    width: 75%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.colorCode {
+    width: 100%;
+    border: 1px solid var(--theme-color);
+    border-radius: 10px;
+    padding: 8px;
+    text-align: center;
+    line-height: 1.2em;
+    white-space: nowrap;
+}
+
+.codeCopy {
+    width: 32px;
+    height: 32px;
+    border: none;
+    margin-left: 10px;
+    display: grid;
+    place-content: center;
+    font-size: 24px;
 }
 
 .rgb-input,
@@ -1062,7 +1106,8 @@ footer {
     transition: visibility 0s ease 0s, opacity 0.25s 0s, transform 0.25s;
 }
 
-.share-popup {
+.share-popup,
+.copy-popup {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -1250,8 +1295,13 @@ input[type='number']:focus,
     }
 
     .share-popup {
-        width: 60vw;
-        height: 60vh;
+        width: 50vw;
+        height: 40vh;
+    }
+
+    .copy-popup {
+        width: 40vw;
+        height: 40vh;
     }
 }
 

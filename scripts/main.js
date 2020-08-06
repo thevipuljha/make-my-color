@@ -1,5 +1,6 @@
 const elementById = (id) => document.getElementById(id);
 const elementsByClass = (className) => document.getElementsByClassName(className);
+const siteURL = "https%3A%2F%2Fvipul1142.github.io%2Fmake-my-color%2Findex.html";
 const getLocalItem = (key) => localStorage.getItem(key);
 const setLocalItem = (key, value) => localStorage.setItem(key, value);
 
@@ -7,6 +8,8 @@ const gradientColorsRow = () => elementById("gradientColors");
 const getGradientColors = () => elementsByClass("colorButton");
 const getActiveColorButton = () => elementById("activeColor");
 
+const getColorCodes = () => elementsByClass("colorCode");
+const getCodeCopyButton = () => elementsByClass("codeCopy");
 const getHslaSliders = () => elementsByClass("hsla-slider");
 const getHslaInputs = () => elementsByClass("hsla-input");
 const getRgbInputs = () => elementsByClass("rgb-input");
@@ -46,6 +49,17 @@ const getGradientString = () => {
     }
     return gradientString + ')';
 };
+
+function copyToClipboard(data, message) {
+    function listener(event) {
+        event.clipboardData.setData("text/plain", data);
+        event.preventDefault();
+    }
+    document.addEventListener("copy", listener);
+    document.execCommand("copy");
+    document.removeEventListener("copy", listener);
+    showToast(message);
+}
 
 function showToast(message) {
     elementById("toastContainer").style.display = "flex";
@@ -164,8 +178,8 @@ function updatesByActiveColor(changeSlider = true) {
     }
     const hex = getBackgroundColor(getActiveColorButton(), "hex");
     elementById("hexInput").value = hex;
+    const hsla = rgbatohsla(rgba[0], rgba[1], rgba[2], rgba[3]);
     if (changeSlider) {
-        const hsla = rgbatohsla(rgba[0], rgba[1], rgba[2], rgba[3]);
         const hslaSliders = getHslaSliders();
         hslaSliders[0].value = hsla.hue;
         hslaSliders[1].value = hsla.sat;
@@ -176,6 +190,12 @@ function updatesByActiveColor(changeSlider = true) {
             hslaInputs[index].value = hslaSliders[index].value;
         }
     }
+    const cmyk = rgbToCmyk(rgba[0], rgba[1], rgba[2]);
+    const colorCodes = getColorCodes();
+    colorCodes[0].innerText = getRgbaString(rgba[0], rgba[1], rgba[2], rgba[3]);
+    colorCodes[1].innerText = getHexString(hex);
+    colorCodes[2].innerText = getHslaString(hsla.hue, hsla.sat, hsla.light, hsla.alpha);;
+    colorCodes[3].innerText = getCmykString(cmyk.cyan, cmyk.magenta, cmyk.yellow, cmyk.konsant);
     document.documentElement.style.setProperty("--active-color", getHexString(hex));
     const fontColor = getForegroundColor(rgba);
     document.documentElement.style.setProperty("--font-color", fontColor);
@@ -266,14 +286,7 @@ const getUserColorContainer = (hexColor) => {
     userColorInfo.innerText = hexColor;
     userColorInfo.style.border = `3px solid ${hexColor}`;
     userColorInfo.addEventListener("click", () => {
-        function listener(event) {
-            event.clipboardData.setData("text/plain", hexColor);
-            event.preventDefault();
-        }
-        document.addEventListener("copy", listener);
-        document.execCommand("copy");
-        document.removeEventListener("copy", listener);
-        showToast(`${hexColor} Copied`)
+        copyToClipboard(hexColor, `${hexColor} Copied`);
     });
     userColorBg.append(userColor);
     colorContainer.append(userColorBg, userColorInfo);
@@ -300,14 +313,7 @@ const getUserGradContainer = (gradientId, gradientCode) => {
     userGradCopy.title = "Copy Gradient";
     userGradCopy.innerHTML = `<i class="gi gi-copy"></i>Copy`;
     userGradCopy.addEventListener("click", () => {
-        function listener(event) {
-            event.clipboardData.setData("text/plain", `background : ${gradientCode};`);
-            event.preventDefault();
-        }
-        document.addEventListener("copy", listener);
-        document.execCommand("copy");
-        document.removeEventListener("copy", listener);
-        showToast(`Gradient Code Copied`)
+        copyToClipboard(`background : ${gradientCode};`, `Gradient Code Copied`);
     });
     userGradBg.appendChild(userGrad);
     gradContainer.append(userGradBg, userGradCopy);
@@ -460,14 +466,7 @@ const addEventListeners = () => {
     }
 
     elementById("gradientCopyButton").addEventListener('click', () => {
-        function listener(event) {
-            event.clipboardData.setData("text/plain", elementById('gradientCode').innerText);
-            event.preventDefault();
-        }
-        document.addEventListener("copy", listener);
-        document.execCommand("copy");
-        document.removeEventListener("copy", listener);
-        showToast('Copied')
+        copyToClipboard(elementById('gradientCode').innerText, 'Gradient Code Copied');
     });
 
     elementById("leftShift").addEventListener("click", () => {
@@ -517,19 +516,36 @@ const addEventListeners = () => {
         showToast(`Gradient Restored`);
     });
 
+    const popupBg = elementsByClass("popup-container");
     elementById("shareButton").addEventListener("click", () => {
-        elementById("modalPopup").classList.toggle("show-popup");
+        popupBg[0].classList.add("show-popup");
     });
-
+    elementById("colorCodeCopy").addEventListener("click", () => {
+        popupBg[1].classList.add("show-popup");
+    });
     window.onclick = function (event) {
-        if (event.target == elementById("modalPopup")) {
-            elementById("modalPopup").classList.toggle("show-popup");
-        }
+        if (event.target == popupBg[0])
+            popupBg[0].classList.remove("show-popup");
+        if (event.target == popupBg[1])
+            popupBg[1].classList.remove("show-popup");
     }
     window.onkeyup = function (event) {
         if (event.key === "Escape") {
-            elementById("modalPopup").classList.remove("show-popup");
+            popupBg[0].classList.remove("show-popup");
+            popupBg[1].classList.remove("show-popup");
         }
+    }
+
+    elementById("urlShareCopy").addEventListener("click", () => {
+        copyToClipboard(siteURL, `Spread the word now`);
+    });
+
+    const colorCodes = getColorCodes();
+    const copyButton = getCodeCopyButton();
+    for (let index = 0; index < colorCodes.length; index++) {
+        copyButton[index].addEventListener("click", () => {
+            copyToClipboard(colorCodes[index].innerText, `Color Code Copied`);
+        });
     }
 
     elementById("addUserColor").addEventListener("click", () => {
@@ -640,7 +656,6 @@ const swapColors = (shiftDirection) => {
 };
 
 function openShareWindow(media) {
-    const siteURL = "https%3A%2F%2Fvipul1142.github.io%2Fmake-my-color%2Findex.html";
     const siteDesc = "Gracy%20-%20A%20Powerful%20and%20easy%20CSS%20Gradient%20Creator";
     const windowDetails = "toolbar=0, status=0, width=900 , height=600";
     switch (media) {
