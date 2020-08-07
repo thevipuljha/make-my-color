@@ -387,6 +387,7 @@ main {
     scrollbar-width: thin;
     scrollbar-color: #888888 #a5a5a586;
     scroll-behavior: smooth;
+    padding-bottom: 5px;
 }
 
 /* gradient color buttons div*/
@@ -433,8 +434,25 @@ main {
     background-clip: content-box;
 }
 
-.color-options-div {
+.stop-slider-div {
     border-top: 2px solid #03070473;
+    padding-top: 8px;
+    white-space: nowrap;
+}
+
+.stop-slider {
+    flex: 1 1 70%;
+}
+
+.stop-slider::-webkit-slider-thumb {
+    background-color: var(--active-color) !important;
+}
+
+.stop-slider::-moz-range-thumb {
+    background-color: var(--active-color) !important;
+}
+
+.color-options-div {
     width: 100%;
     display: flex;
     flex-flow: row nowrap;
@@ -531,6 +549,7 @@ main {
     background-color: var(--active-color);
 }
 
+.stop-slider-div,
 .color-value-div,
 .linear-value-div {
     width: 100%;

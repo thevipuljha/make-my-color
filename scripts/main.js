@@ -3,13 +3,17 @@ const elementsByClass = (className) => document.getElementsByClassName(className
 const siteURL = "https%3A%2F%2Fvipul1142.github.io%2Fmake-my-color%2Findex.html";
 const getLocalItem = (key) => localStorage.getItem(key);
 const setLocalItem = (key, value) => localStorage.setItem(key, value);
+var colorStopValues = [0, 100];
 
 const gradientColorsRow = () => elementById("gradientColors");
 const getGradientColors = () => elementsByClass("colorButton");
 const getActiveColorButton = () => elementById("activeColor");
+const activeColorIndex = () => Number(getActiveColorButton().value);
 
 const getColorCodes = () => elementsByClass("colorCode");
 const getCodeCopyButton = () => elementsByClass("codeCopy");
+const getStopSlider = () => elementById("stopSlider");
+const getStopInput = () => elementById("stopInput");
 const getHslaSliders = () => elementsByClass("hsla-slider");
 const getHslaInputs = () => elementsByClass("hsla-input");
 const getRgbInputs = () => elementsByClass("rgb-input");
@@ -30,6 +34,7 @@ function switchActiveColor(currentActiveColor) {
 
 const getGradientString = () => {
     const colorButtons = getGradientColors();
+    const stopValues = colorStopValues;
     const type = getActiveType().value;
     let gradientString = type + "-gradient(";
     if (type == "linear") {
@@ -46,6 +51,8 @@ const getGradientString = () => {
         } else {
             gradientString += `, ${getRgbaString(rgba[0],rgba[1],rgba[2],rgba[3])}`;
         }
+
+        gradientString += ` ${stopValues[index]}%`;
     }
     return gradientString + ')';
 };
@@ -101,6 +108,7 @@ function getBackgroundColor(domElelment, colorType) {
 const getCurrentGradientObj = () => {
     return {
         gradientColors: elementById('gradientColors').innerHTML,
+        colorStopData: colorStopValues,
         activeType: getActiveType().value,
         linearDegree: getLinearDegree(),
         radialShape: getRadialShape().value,
@@ -130,6 +138,11 @@ const getSliderHslaValue = () => {
         light: hslaSliders[2].value,
         alpha: hslaSliders[3].value / 100
     }
+}
+
+function setColorStopValues(value) {
+    getStopSlider().value = value;
+    getStopInput().value = value;
 }
 
 const gradientTypeSwitch = (activeButton) => {
@@ -203,6 +216,7 @@ function updatesByActiveColor(changeSlider = true) {
 }
 
 function colorButtonCicked(colorButton) {
+    setColorStopValues(colorStopValues[activeColorIndex()]);
     switchActiveColor(colorButton);
     updatesByActiveColor();
 }
@@ -365,7 +379,7 @@ function makeGradientId(gradientCode) {
     for (let index = 1; index < tempArray.length; index++) {
         gradientID = gradientID + tempArray[index];
     }
-    return gradientID.replace(RegExp(`[ #)]`, 'g'), "");
+    return gradientID.replace(RegExp(`[ #)%]`, 'g'), "");
 }
 
 const addEventListeners = () => {
@@ -374,6 +388,34 @@ const addEventListeners = () => {
     const rgbInputs = getRgbInputs();
     const hexInput = elementById("hexInput");
     const toTopButton = document.getElementById("toTop");
+
+    const stopSlider = getStopSlider();
+    const stopInput = getStopInput();
+
+    stopSlider.addEventListener('input', () => {
+        if (activeColorIndex() == 0) {
+            setInputLimit(stopSlider, 0, colorStopValues[1]);
+        } else if (activeColorIndex() == colorStopValues.length - 1) {
+            setInputLimit(stopSlider, colorStopValues[activeColorIndex() - 1], 100);
+        } else {
+            setInputLimit(stopSlider, colorStopValues[activeColorIndex() - 1], colorStopValues[activeColorIndex() + 1]);
+        }
+        stopInput.value = stopSlider.value;
+        colorStopValues[activeColorIndex()] = Number(stopSlider.value);
+        setMainGradient();
+    });
+    stopInput.addEventListener('input', () => {
+        if (activeColorIndex() == 0) {
+            setInputLimit(stopInput, 0, colorStopValues[1]);
+        } else if (activeColorIndex() == colorStopValues.length - 1) {
+            setInputLimit(stopInput, colorStopValues[activeColorIndex() - 1], 100);
+        } else {
+            setInputLimit(stopInput, colorStopValues[activeColorIndex() - 1], colorStopValues[activeColorIndex() + 1]);
+        }
+        stopSlider.value = stopInput.value;
+        colorStopValues[activeColorIndex()] = Number(stopSlider.value);
+        setMainGradient();
+    });
 
     window.onscroll = function () {
         if (document.body.scrollTop > 120 || document.documentElement.scrollTop > 120) {
@@ -400,7 +442,13 @@ const addEventListeners = () => {
         hexInput.value = hex;
     });
 
+    const colorCodes = getColorCodes();
+    const copyButton = getCodeCopyButton();
     for (let index = 0; index < 4; index++) {
+        copyButton[index].addEventListener("click", () => {
+            copyToClipboard(colorCodes[index].innerText, `Color Code Copied`);
+        });
+
         hslaSliders[index].addEventListener('input', () => {
             hslaInputs[index].value = hslaSliders[index].value;
             changeBoxColor();
@@ -470,19 +518,20 @@ const addEventListeners = () => {
     });
 
     elementById("leftShift").addEventListener("click", () => {
-        if (getActiveColorButton().value > 0)
+        if (activeColorIndex() > 0)
             swapColors("left");
     });
 
     elementById("rightShift").addEventListener("click", () => {
-        if (getActiveColorButton().value < getGradientColors().length - 1)
+        if (activeColorIndex() < getGradientColors().length - 1)
             swapColors("right");
     });
 
     elementById("deleteColor").addEventListener("click", () => {
         const gradientColors = getGradientColors();
         if (gradientColors.length > 2) {
-            let currentIndex = Number(getActiveColorButton().value);
+            let currentIndex = activeColorIndex();
+            colorStopValues.splice(currentIndex, 1);
             gradientColors[currentIndex].remove();
             elementsByClass("color-buttons-gap")[currentIndex + 1].remove();
             if (currentIndex === gradientColors.length) {
@@ -501,6 +550,12 @@ const addEventListeners = () => {
     elementById("addColorButton").addEventListener("click", () => {
         addNewColorButton(true);
         gradientColorsSpacing();
+        const lastIndex = colorStopValues.length - 1;
+        if (colorStopValues[lastIndex] === 100) {
+            colorStopValues[lastIndex] = Math.round(colorStopValues[lastIndex - 1] / 2 + 50);
+        }
+        colorStopValues.push(Number(100));
+        setColorStopValues(100);
         updatesByActiveColor();
         elementById("colorBlockContainer").scrollLeft = elementById("colorBlockContainer").scrollWidth;
     });
@@ -539,14 +594,6 @@ const addEventListeners = () => {
     elementById("urlShareCopy").addEventListener("click", () => {
         copyToClipboard(siteURL, `Spread the word now`);
     });
-
-    const colorCodes = getColorCodes();
-    const copyButton = getCodeCopyButton();
-    for (let index = 0; index < colorCodes.length; index++) {
-        copyButton[index].addEventListener("click", () => {
-            copyToClipboard(colorCodes[index].innerText, `Color Code Copied`);
-        });
-    }
 
     elementById("addUserColor").addEventListener("click", () => {
         const hex = `#${getBackgroundColor(getActiveColorButton(), "hex")}`;
@@ -642,7 +689,7 @@ function setUserColors() {
 
 const swapColors = (shiftDirection) => {
     let colorList = getGradientColors();
-    const currentIndex = Number(getActiveColorButton().value);
+    const currentIndex = activeColorIndex();
     const temp = colorList[currentIndex].style.backgroundColor;
     let colorToSwap = colorList[currentIndex + 1];
     if (shiftDirection === "left") {
@@ -663,7 +710,7 @@ function openShareWindow(media) {
             window.open(`https://www.facebook.com/sharer/sharer.php?u=${siteURL}`, "", `${windowDetails}`);
             break;
         case "tw":
-            window.open(`https://twitter.com/intent/tweet?url=${siteURL}&text=${siteDesc}&via=Vipul1142`, "", `${windowDetails}`);
+            window.open(`https://twitter.com/intent/tweet?url=${siteURL}&text=${siteDesc},%20by%20@Vipul1142`, "", `${windowDetails}`);
             break;
         case "li":
             window.open(`http://www.linkedin.com/shareArticle?mini=true&url=${siteURL}&title=Gracy&summary=${siteDesc}`, "", `${windowDetails}`);
@@ -690,6 +737,9 @@ function applySavedGradientData(gradientData) {
         gradientSetting[active].id = id;
         gradientSetting[inActive].removeAttribute('id');
     }
+    colorStopValues = gradientData.colorStopData;
+    getStopSlider().value = colorStopValues[activeColorIndex()];
+    getStopInput().value = colorStopValues[activeColorIndex()];
 
     function retrieveLinearSettigs(gradientSetting) {
         toggleActives(gradientSetting, 0, 1, "activeType");
@@ -737,6 +787,7 @@ const setSliderBackgrounds = () => {
 
 const setLocalData = () => {
     const autosaveState = getLocalItem('autosave');
+    setColorStopValues(100)
     if (autosaveState == null) {
         elementById('autosave').checked = true;
         return;

@@ -45,8 +45,8 @@
                     <button class="more-options" id="loadButton" title="Load Gradient">
                         <i class="gi gi-restore"></i>
                     </button>
-                    <button class="more-options" id="downloadButton" title="Download">
-                        <i class="gi gi-download"></i>
+                    <button class="more-options" id="helpButton" title="Help">
+                        help
                     </button>
                     <button class="more-options" id="shareButton" title="Share">
                         <i class="gi gi-share"></i>
@@ -61,6 +61,14 @@
             <div class="color-block-container" id="colorBlockContainer">
                 <div class="gradient-color-row" id="gradientColors">
                     <div class="color-buttons-gap"></div>
+                </div>
+            </div>
+            <div class="stop-slider-div">
+                <input type="range" min="0" max="100" value="100" class="stop-slider slider" id="stopSlider">
+                <div>
+                    <input type="number" min="0" max="100" value="100" class="stop-input" id="stopInput"
+                        placeholder="STOP">
+                    <label for="stopInput">STOP</label>
                 </div>
             </div>
             <div class="color-options-div">
